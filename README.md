@@ -1,17 +1,17 @@
-<img src="https://raw.githubusercontent.com/bitpay/copay/master/resources/copay/android/icon/drawable-xxxhdpi-icon.png" alt="Copay" width="79">
+<img src="https://raw.githubusercontent.com/yoyae/copay-monoeci/master/resources/copay/android/icon/drawable-xxxhdpi-icon.png" alt="Copay" width="79">
 
-[![CircleCI](https://img.shields.io/circleci/project/github/bitpay/copay.svg)](https://circleci.com/gh/bitpay/copay/)
-[![Codecov](https://img.shields.io/codecov/c/github/bitpay/copay.svg)](https://codecov.io/gh/bitpay/copay/)
+[![Build Status](https://secure.travis-ci.org/yoyae/copay-monoeci.svg)](http://travis-ci.org/yoyae/copay-monoeci)
 [![Crowdin](https://d322cqt584bo4o.cloudfront.net/copay/localized.png)](https://crowdin.com/project/copay)
 
-Copay is a secure bitcoin wallet platform for both desktop and mobile devices. Copay uses [Bitcore Wallet Service](https://github.com/bitpay/bitcore-wallet-service) (BWS) for peer synchronization and network interfacing.
+Copay is a secure Bitcoin and Bitcoin Cash wallet platform for both desktop and mobile devices. Copay uses [Bitcore Wallet Service](https://github.com/bitpay/bitcore-wallet-service) (BWS) for peer synchronization and network interfacing.
 
-Binary versions of Copay are available for download at [Copay.io](https://copay.io/#download). Copay Binaries are signed with the key `copay@bitpay.com` – See the section [`How to Verify Copay Signatures`](https://github.com/bitpay/copay#how-to-verify-copay-signatures) for details.
+Binary versions of Copay are available for download at [Copay.io](https://copay.io/#download). Copay Binaries are signed with the key `copay@bitpay.com` – See the section [`How to Verify Copay Signatures`](https://github.com/yoyae/copay-monoeci#how-to-verify-copay-signatures) for details.
 
-For a list of frequently asked questions please visit the [Copay FAQ](https://github.com/bitpay/copay/wiki/COPAY---FAQ).
+For a list of frequently asked questions please visit the [Copay FAQ](https://github.com/yoyae/copay-monoeci/wiki/COPAY---FAQ).
 
 ## Main Features
 
+- Supports Bitcoin (BTC) and Bitcoin Cash (BCH) wallets
 - Multiple wallet creation and management in-app
 - Intuitive, multisignature security for personal or shared wallets
 - Easy spending proposal flow for shared wallets and group payments
@@ -28,16 +28,17 @@ For a list of frequently asked questions please visit the [Copay FAQ](https://gi
 - Push notifications (only available for ios and android versions)
 - Customizable wallet naming and background colors
 - Multiple languages supported
-- Available for [iOS](https://itunes.apple.com/us/app/copay/id951330296), [Android](https://play.google.com/store/apps/details?id=com.bitpay.copay&hl=en), [Windows Phone](http://www.windowsphone.com/en-us/store/app/copay-wallet/4372479b-a064-4d18-8bd3-74a3bdb81c3a), [Chrome App](https://chrome.google.com/webstore/detail/copay/cnidaodnidkbaplmghlelgikaiejfhja?hl=en), [Linux](https://github.com/bitpay/copay/releases/latest), [Windows](https://github.com/bitpay/copay/releases/latest) and [OS X](https://github.com/bitpay/copay/releases/latest) devices
+- Available for [iOS](https://itunes.apple.com/us/app/copay/id951330296), [Android](https://play.google.com/store/apps/details?id=com.bitpay.copay&hl=en), [Windows Phone](https://www.microsoft.com/en-us/store/p/copay-secure-bitcoin-wallet/9nm8z2b0387b),
+ [Chrome App](https://chrome.google.com/webstore/detail/copay/cnidaodnidkbaplmghlelgikaiejfhja?hl=en), [Linux](https://github.com/yoyae/copay-monoeci/releases/latest), [Windows](https://github.com/yoyae/copay-monoeci/releases/latest) and [OS X](https://github.com/yoyae/copay-monoeci/releases/latest) devices
 
 ## Testing in a Browser
 
-> **Note:** This method should only be used for development purposes. When running Copay in a normal browser environment, browser extensions and other malicious code might have access to internal data and private keys. For production use, see the latest official [releases](https://github.com/bitpay/copay/releases/).
+> **Note:** This method should only be used for development purposes. When running Copay in a normal browser environment, browser extensions and other malicious code might have access to internal data and private keys. For production use, see the latest official [releases](https://github.com/yoyae/copay-monoeci/releases/).
 
 Clone the repo and open the directory:
 
 ```sh
-git clone https://github.com/bitpay/copay.git
+git clone https://github.com/yoyae/copay-monoeci.git
 cd copay
 ```
 
@@ -56,10 +57,6 @@ A watch task is also available to rebuild components of the app as changes are m
 npm run watch
 ```
 
-## Unit Tests (Karma and Jasmine)
-
-To run the tests, run npm run test.
-
 ## Testing on Real Devices
 
 It's recommended that all final testing be done on a real device – both to assess performance and to enable features that are unavailable to the emulator (e.g. a device camera).
@@ -77,7 +74,7 @@ npm run start:android
 
 ### iOS
 
-Follow the [Cordova iOS Platform Guide](https://cordova.apache.org/docs/en/latest/guide/platforms/android/) to set up your development environment.
+Follow the [Cordova iOS Platform Guide](https://cordova.apache.org/docs/en/latest/guide/platforms/ios/) to set up your development environment.
 
 When your developement enviroment is ready, run the `start:ios` npm package script.
 
@@ -85,6 +82,28 @@ When your developement enviroment is ready, run the `start:ios` npm package scri
 npm run apply:copay
 npm run start:ios
 ```
+
+### Windows Phone
+
+Follow the [Cordova Windows Phone Platform Guide](https://cordova.apache.org/docs/en/latest/guide/platforms/win8/index.html) to set up your development environment.
+
+When your developement enviroment is ready, follow this instructions:
+
+- Go to app-template folder, search for config-template.xml and then remove this line:
+```sh
+<plugin name="cordova-plugin-qrscanner" spec="~2.5.0" />
+```
+and then enable this one:
+```sh
+<plugin name="phonegap-plugin-barcodescanner" spec="https://github.com/phonegap/phonegap-plugin-barcodescanner.git" />
+```
+- Run:
+```sh
+npm run clean-all
+npm run apply:copay
+npm run start:windows
+```
+- Then open the project file with VS inside cordova/platform/windows/
 
 ### Desktop (Linux, macOS, and Windows)
 
@@ -121,8 +140,22 @@ npm run final:ios
 
 ### Windows Phone
 
-- Install Visual Studio 2013 (or newer)
-- Run `make wp8-prod`
+- Install Visual Studio 2015 (or newer)
+- Go to app-template folder, search for config-template.xml and then remove this line:
+```sh
+<plugin name="cordova-plugin-qrscanner" spec="~2.5.0" />
+```
+and then enable this one:
+```sh
+<plugin name="phonegap-plugin-barcodescanner" spec="https://github.com/phonegap/phonegap-plugin-barcodescanner.git" />
+```
+- Run:
+```sh
+npm run clean-all
+npm run apply:copay
+npm run final:windows
+```
+- Then open the project file with VS inside cordova/platform/windows/
 
 ### Desktop (Linux, macOS, and Windows)
 
@@ -172,11 +205,11 @@ For more information regarding how addresses are generated using this procedure,
 
 Since v1.2 Copay uses BIP39 mnemonics for backing up wallets.  The BIP44 standard is used for wallet address derivation. Multisig wallets use P2SH addresses, while non-multisig wallets use P2PKH.
 
-Information about backup and recovery procedures is available at: https://github.com/bitpay/copay/blob/master/backupRecovery.md
+Information about backup and recovery procedures is available at: https://github.com/yoyae/copay-monoeci/blob/master/backupRecovery.md
 
 Previous versions of Copay used files as backups. See the following section.
 
-It is possible to recover funds from a Copay Wallet without using Copay or the Wallet Service, check the [Copay Recovery Tool](https://github.com/bitpay/copay-recovery).
+It is possible to recover funds from a Copay Wallet without using Copay or the Wallet Service, check the [Copay Recovery Tool](https://github.com/yoyae/copay-monoeci-recovery).
 
 
 ## Wallet Export Format
@@ -230,7 +263,7 @@ When creating or joining a wallet, Copay will ask for two public keys for the de
 
 Every time you need to sign a transaction, the device will be needed to perform the signature. Follow the on screen instructions after clicking the `send` or `accept` buttons.
 
-Finally, in case you lose the device and you have the 24 word seed for the device, you can recover access to your funds using Copay, see: https://github.com/bitpay/copay/blob/master/backupRecovery.md#hardware-wallets
+Finally, in case you lose the device and you have the 24 word seed for the device, you can recover access to your funds using Copay, see: https://github.com/yoyae/copay-monoeci/blob/master/backupRecovery.md#hardware-wallets
 
 
 ## Translations
@@ -337,4 +370,4 @@ review the [guidelines for contributing](CONTRIBUTING.md).
 
 ## License
 
-Copay is released under the MIT License.  Please refer to the [LICENSE](https://github.com/bitpay/copay/blob/master/LICENSE) file that accompanies this project for more information including complete terms and conditions.
+Copay is released under the MIT License.  Please refer to the [LICENSE](https://github.com/yoyae/copay-monoeci/blob/master/LICENSE) file that accompanies this project for more information including complete terms and conditions.
