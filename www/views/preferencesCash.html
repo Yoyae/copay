@@ -29,12 +29,8 @@
       <i class="icon big-icon-svg" ng-include="'views/includes/walletIcon.html'"></i>
       <div class="wallet-content">
         <div>{{wallet.name || wallet.id}}</div>
-        <div class="balanced">{{wallet.bchBalance  || ('Checking...' | translate)}} </div>
+        <div class="balanced">{{wallet.btcBalance  || ('Checking...' | translate)}} </div>
         <div class="tab-home__wallet__multisig-number" ng-if="wallet.n > 1" translate>{{wallet.m}}-of-{{wallet.n}}</div>
-      </div>
-
-      <div class="duplicate-button">
-        <button ng-click="duplicate(wallet)" class="button button-small button-outline button-primary" translate>Duplicate for BCH</button>
       </div>
     </div>
   </div>
