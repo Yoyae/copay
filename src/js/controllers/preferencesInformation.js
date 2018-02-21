@@ -35,6 +35,7 @@ angular.module('copayApp.controllers').controller('preferencesInformation',
       var basePath = c.getBaseAddressDerivationPath();
 
       $scope.wallet = wallet;
+	  $scope.wallet.coin = $scope.wallet.coin.replace('btc','XMCC');
       $scope.walletName = c.walletName;
       $scope.walletId = c.walletId;
       $scope.network = c.network;
