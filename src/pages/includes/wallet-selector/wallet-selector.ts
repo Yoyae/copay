@@ -1,0 +1,61 @@
+import { Component } from '@angular/core';
+import { Events } from 'ionic-angular';
+
+@Component({
+  selector: 'wallet-selector',
+  templateUrl: 'wallet-selector.html',
+})
+export class WalletSelectorPage {
+
+  public showWalletsSelector: boolean;
+  public wallets: any[];
+  public walletsXmcc: any[];
+  public showSlideEffect: boolean;
+  public title: string;
+  public selectedWalletId: string;
+
+  constructor(
+    private events: Events
+  ) {
+    this.showWalletsSelector = false;
+    this.showSlideEffect = false;
+    this.wallets = [];
+    this.events.subscribe('showWalletsSelectorEvent', (wallets: any[], selectedWalletId: string, title?: string) => {
+      this.title = title ? title : null;
+      this.showWalletsSelector = true;
+      this.selectedWalletId = selectedWalletId;
+      setTimeout(() => {
+        this.showSlideEffect = true;
+      }, 50);
+      this.wallets = wallets;
+      this.separeWallets();
+    });
+  }
+
+  public selectWallet(wallet: any): void {
+    this.events.publish('selectWalletEvent', wallet);
+    this.showSlideEffect = false;
+    setTimeout(() => {
+      this.showWalletsSelector = false;
+    }, 150);
+  }
+
+  private separeWallets(): void {
+    this.walletsXmcc = [];
+    if (this.wallets.length == 0) return;
+    for (var i = 0; i <= this.wallets.length; i++) {
+      if (this.wallets[i]) {
+        this.walletsXmcc.push(this.wallets[i]);
+      }
+    }
+  }
+
+  public backdropDismiss(): void {
+    this.events.publish('selectWalletEvent');
+    this.showSlideEffect = false;
+    setTimeout(() => {
+      this.showWalletsSelector = false;
+    }, 150);
+  }
+
+}

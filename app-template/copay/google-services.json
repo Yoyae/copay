@@ -1,6 +1,6 @@
 {
   "project_info": {
-    "project_number": "726858118397",
+    "project_number": "149194066736",
     "firebase_url": "https://monoeci-copay.firebaseio.com/",
     "project_id": "monoeci-copay",
     "storage_bucket": "monoeci-copay.appspot.com"
@@ -8,7 +8,7 @@
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:726858118397:android:1ff8d546a6fba706",
+        "mobilesdk_app_id": "1:149194066736:android:6de8942b48fea047",
         "android_client_info": {
           "package_name": "com.monoeci.copay"
         }

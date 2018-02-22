@@ -1,5 +1,5 @@
 
-# Contributing to Copay
+# Contributing to Copay-Monoeci
 
 Please take a moment to review this document in order to make the contribution
 process easy and effective for everyone involved.
@@ -73,7 +73,7 @@ provide as much detail and context as possible.
 <a name="support"></a>
 ## Support requests
 
-If you are having particular problem with your Copay instalation, please first [search older 
+If you are having particular problem with your Copay-Monoeci instalation, please first [search older 
 issues](https://github.com/yoyae/copay-monoeci/issues) in order to learn if the issue is already reported. It could be fixed already. 
 
 Please also check our [FAQ](https://github.com/yoyae/copay-monoeci/wiki/COPAY---FAQ).
