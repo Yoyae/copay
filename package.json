@@ -22,7 +22,7 @@
     "url": "https://github.com/yoyae/copay-monoeci/issues"
   },
   "scripts": {
-    "postinstall": "sed -i  -e \"s/.*require(...\\/...);//g\" node_modules/asn1.js-rfc5280/index.js && npm run e2e:update",
+    "postinstall": "sed -i  -e \"s/.*require(...\\/...);//g\" node_modules/asn1.js/lib/asn1.js && npm run e2e:update",
     "start": "ionic serve --no-open",
     "clean": "rm -rf platforms && rm -rf plugins && rm -f config.xml",
     "prepare:copay": "npm run clean && npm run apply:copay && cordova prepare && npm run fix:fcm",
