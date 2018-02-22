@@ -1,4 +1,4 @@
-<img src="https://raw.githubusercontent.com/yoyae/copay-monoeci/master/resources/copay/android/icon/drawable-xxxhdpi-icon.png" alt="Copay-Monoeci" width="79">
+<img src="https://raw.githubusercontent.com/yoyae/copay-monoeci/master/resources/monoeci/android/icon/drawable-xxxhdpi-icon.png" alt="Copay-Monoeci" width="79">
 
 [![CircleCI](https://img.shields.io/circleci/project/github/yoyae/copay-monoeci.svg)](https://circleci.com/gh/yoyae/copay-monoeci/)
 [![Codecov](https://img.shields.io/codecov/c/github/yoyae/copay-monoeci.svg)](https://codecov.io/gh/yoyae/copay-monoeci/)

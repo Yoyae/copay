@@ -2,7 +2,7 @@
   "packageName": "monoeci",
   "packageDescription": "Copay Monoeci Wallet",
   "packageNameId": "com.monoeci.copay",
-  "statusBarColor": "#192c3a",
+  "themeColor": "#192c3a",
   "userVisibleName": "Monoeci",
   "purposeLine": "Monoeci Wallet",
   "bundleName": "copay",

@@ -2,7 +2,7 @@
   "packageName": "monoeci",
   "packageDescription": "Secure Bitcoin Wallet",
   "packageNameId": "com.monoeci.wallet",
-  "statusBarColor": "#1e3186",
+  "themeColor": "#1e3186",
   "userVisibleName": "Monoeci",
   "purposeLine": "Secure Bitcoin Wallet",
   "bundleName": "wallet",
