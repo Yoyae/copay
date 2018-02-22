@@ -18,7 +18,7 @@
   "url": "https://monoeci.io",
   "appDescription": "Copay Monoeci Wallet",
   "winAppName": "MonoeciWallet",
-  "WindowsStoreIdentityName": "18C7659D.Monoeci-SecureBitcoinWallet",
+  "WindowsStoreIdentityName": "18C7659D.CopayMonoeci-SecureMonoeciWallet",
   "WindowsStoreDisplayName": "Copay - Secure Monoeci Wallet",
   "windowsAppId": "804636ee-b017-4cad-8719-e58ac97ffa5c",
   "pushSenderId": "1036948132229",
