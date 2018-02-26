@@ -9,6 +9,7 @@ angular.module('copayApp.controllers').controller('buyandsellController', functi
     //   $ionicHistory.goBack();
 
     $scope.services = [
+
       {
         url : 'https://www.cryptopia.co.nz/Exchange/?market=XMCC_BTC',
         caption : 'Cryptopia'

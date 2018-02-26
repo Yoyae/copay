@@ -70,7 +70,7 @@ angular.module('copayApp.services').service('configService', function(storageSer
     },
 
     rates: {
-      url: 'https://insight.monoeci.io/insight-api-monoeci/currency',
+      url: 'https://insight.monoeci.io/api/rates',
     },
 
     release: {

@@ -1,7 +1,6 @@
-<img src="https://raw.githubusercontent.com/yoyae/copay/master/resources/copay/android/icon/drawable-xxxhdpi-icon.png" alt="Copay" width="79">
+<img src="https://raw.githubusercontent.com/yoyae/copay-monoeci/master/resources/monoeci/android/icon/drawable-xxxhdpi-icon.png" alt="Copay" width="79">
 
-[![CircleCI](https://img.shields.io/circleci/project/github/yoyae/copay-monoeci.svg)](https://circleci.com/gh/yoyae/copay-monoeci/)
-[![Codecov](https://img.shields.io/codecov/c/github/yoyae/copay-monoeci.svg)](https://codecov.io/gh/yoyae/copay-monoeci/)
+[![Build Status](https://secure.travis-ci.org/yoyae/copay-monoeci.svg)](http://travis-ci.org/yoyae/copay-monoeci)
 [![Crowdin](https://d322cqt584bo4o.cloudfront.net/copay/localized.png)](https://crowdin.com/project/copay)
 
 Copay is a secure Bitcoin and Bitcoin Cash wallet platform for both desktop and mobile devices. Copay uses [Bitcore Wallet Service](https://github.com/yoyae/bitcore-wallet-service-monoeci) (BWS) for peer synchronization and network interfacing.
@@ -57,10 +56,6 @@ A watch task is also available to rebuild components of the app as changes are m
 ```
 npm run watch
 ```
-
-## Unit Tests (Karma and Jasmine)
-
-To run the tests, run npm run test.
 
 ## Testing on Real Devices
 

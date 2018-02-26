@@ -1,7 +1,0 @@
-package.json
-package-lock.json
-.sourcemaps/
-coverage/
-platforms/
-plugins/
-www/
