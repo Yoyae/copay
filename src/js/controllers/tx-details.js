@@ -23,7 +23,8 @@ angular.module('copayApp.controllers').controller('txDetailsController', functio
         blockexplorerUrl = 'blockdozer.com/insight';
       }
     } else {
-      blockexplorerUrl = 'insight.monoeci.io/insight';
+      // blockexplorerUrl = 'insight.bitpay.com';
+      blockexplorerUrl = 'insight.monoeci.io';
     }
 
     txConfirmNotification.checkIfEnabled(txId, function(res) {
@@ -52,7 +53,7 @@ angular.module('copayApp.controllers').controller('txDetailsController', functio
   });
 
   $scope.readMore = function() {
-    var url = 'https://github.com/yoyae/copay-monoeci/wiki/COPAY---FAQ#amount-too-low-to-spend';
+    var url = 'https://github.com/bitpay/copay/wiki/COPAY---FAQ#amount-too-low-to-spend';
     var optIn = true;
     var title = null;
     var message = gettextCatalog.getString('Read more in our Wiki');
@@ -137,10 +138,10 @@ angular.module('copayApp.controllers').controller('txDetailsController', functio
         if ($scope.btx.action == 'moved') $scope.title = gettextCatalog.getString('Moved Funds');
       }
 
-        $scope.btx.amountStr = $scope.btx.amountStr.replace('btc','XMCC');
+        $scope.btx.amountStr = $scope.btx.amountStr.replace('btc','monoeci');
         $scope.btx.amountValueStr = $scope.btx.amountStr.split(" ")[0];
         $scope.btx.amountUnitStr = $scope.btx.amountStr.split(" ")[1];
-        $scope.btx.feeStr = $scope.btx.feeStr.replace('btc','XMCC');
+        $scope.btx.feeStr = $scope.btx.feeStr.replace('btc','monoeci');
 
       updateMemo();
       initActionList();
@@ -196,7 +197,7 @@ angular.module('copayApp.controllers').controller('txDetailsController', functio
 
   $scope.viewOnBlockchain = function() {
     var btx = $scope.btx;
-    var url = 'http://' + ($scope.getShortNetworkName() == 'test' ? 'test-' : '') + blockexplorerUrl + '/tx/' + btx.txid;
+    var url = 'https://' + ($scope.getShortNetworkName() == 'test' ? 'test-' : '') + blockexplorerUrl + '/tx/' + btx.txid;
     var optIn = true;
     var title = null;
     var message = gettextCatalog.getString('View Transaction on Insight');

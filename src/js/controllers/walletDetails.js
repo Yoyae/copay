@@ -81,27 +81,27 @@ angular.module('copayApp.controllers').controller('walletDetailsController', fun
         if($scope.status) {
           // Available Balance
           if($scope.status.availableBalanceStr) {
-            $scope.status.availableBalanceStr = $scope.status.availableBalanceStr.replace('btc','XMCC');
+            $scope.status.availableBalanceStr = $scope.status.availableBalanceStr.replace('btc','monoeci');
           }
 
           // Total Balance
           if($scope.status.totalBalanceStr) {
-            $scope.status.totalBalanceStr = $scope.status.totalBalanceStr.replace('btc','XMCC');
+            $scope.status.totalBalanceStr = $scope.status.totalBalanceStr.replace('btc','monoeci');
           }
 
           // Locked Balance
           if($scope.status.lockedBalanceStr) {
-            $scope.status.lockedBalanceStr = $scope.status.lockedBalanceStr.replace('btc','XMCC');
+            $scope.status.lockedBalanceStr = $scope.status.lockedBalanceStr.replace('btc','monoeci');
           }
 
           // Pending Balance
           if($scope.status.pendingBalanceStr) {
-            $scope.status.pendingBalanceStr = $scope.status.pendingBalanceStr.replace('btc','XMCC');
+            $scope.status.pendingBalanceStr = $scope.status.pendingBalanceStr.replace('btc','monoeci');
           }
 
           // Spendable Balance
           if($scope.status.spendableBalanceStr) {
-            $scope.status.spendableBalanceStr = $scope.status.spendableBalanceStr.replace('btc','XMCC');
+            $scope.status.spendableBalanceStr = $scope.status.spendableBalanceStr.replace('btc','monoeci');
           }
         }
       }
@@ -220,7 +220,7 @@ angular.module('copayApp.controllers').controller('walletDetailsController', fun
       $scope.txHistory = $scope.completeTxHistory.slice(0, (currentTxHistoryPage + 1) * HISTORY_SHOW_LIMIT);
       $scope.txHistoryShowMore = $scope.completeTxHistory.length > $scope.txHistory.length;
       for(var i = 0 ; i < $scope.txHistory.length; i++) {
-        $scope.txHistory[i].amountStr = $scope.txHistory[i].amountStr.replace('btc','XMCC');
+        $scope.txHistory[i].amountStr = $scope.txHistory[i].amountStr.replace('btc','monoeci');
       }
     }
   };
@@ -389,7 +389,7 @@ angular.module('copayApp.controllers').controller('walletDetailsController', fun
       $scope.status = null;
     } else {
       $scope.status = $scope.wallet.cachedStatus;
-      $scope.status.totalBalanceStr = $scope.status.totalBalanceStr.replace('btc','XMCC');
+      $scope.status.totalBalanceStr = $scope.status.totalBalanceStr.replace('btc','monoeci');
 
       if ($scope.wallet.completeHistory) {
         $scope.completeTxHistory = $scope.wallet.completeHistory;

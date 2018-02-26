@@ -5,7 +5,7 @@ angular.module('copayApp.services').service('txFormatService', function($filter,
   var xmcc_to_usd;
   var xmcc_to_btc;
   
-  $http.get('https://api.coinmarketcap.com/v1/ticker/Monacocoin/').then(function (response) {
+  $http.get('https://api.coinmarketcap.com/v1/ticker/monacocoin/').then(function (response) {
     var value_object = response.data[0];
     xmcc_to_usd = parseFloat(value_object.price_usd);
     xmcc_to_btc = parseFloat(value_object.price_btc);

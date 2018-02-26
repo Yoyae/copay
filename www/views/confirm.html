@@ -16,7 +16,7 @@
           <span translate ng-if="tx.sendMax">Sending maximum amount</span>
         </div>
         <div class="amount-label">
-          <div class="amount">{{tx.amountValueStr || '...'}} <span class="unit">{{tx.amountUnitStr.replace('btc','XMCC')}}</span></div>
+          <div class="amount">{{tx.amountValueStr || '...'}} <span class="unit">{{tx.amountUnitStr.replace('btc','monoeci')}}</span></div>
           <div class="alternative">{{tx.alternativeAmountStr || '...'}}</div>
         </div>
       </div>
@@ -24,7 +24,7 @@
       <div class="info">
         <div class="item item-icon-right" ng-if="wallet" ng-click="chooseFeeLevel(tx, wallet)">
           <span class="label">{{'Monoeci miner fee:' | translate}} {{tx.feeLevelName | translate}}</span>
-            <span class="m10l">{{tx.txp[wallet.id].feeStr.replace('btc', 'XMCC') || '...'}}</span>
+            <span class="m10l">{{tx.txp[wallet.id].feeStr.replace('btc', 'monoeci') || '...'}}</span>
             <span class="item-note m10l">
               <span>{{tx.txp[wallet.id].alternativeFeeStr || '...'}}&nbsp;
               <span class="fee-rate" ng-if="tx.txp[wallet.id].feeRatePerStr"> &middot;

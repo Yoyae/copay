@@ -70,11 +70,11 @@ angular.module('copayApp.services').service('configService', function(storageSer
     },
 
     rates: {
-      url: 'http://insight.monoeci.io/insight-api-monoeci/currency',
+      url: 'https://insight.monoeci.io/insight-api-monoeci/currency',
     },
 
     release: {
-      url: 'https://api.github.com/repos/yoyae/copay-monoeci/releases/latest'
+      url: 'https://api.github.com/repos/bitpay/copay/releases/latest'
     },
 
     pushNotificationsEnabled: true,

@@ -68,7 +68,7 @@
         </span>
         <p>
         <!-- <span ng-if="!wallet.balanceHidden"> {{wallet.status.totalBalanceStr}} </span> -->
-        <span ng-if="!wallet.balanceHidden"> {{wallet.status.totalBalanceStr.replace('btc','XMCC') ? wallet.status.totalBalanceStr.replace('btc','XMCC') : wallet.cachedBalance.replace('btc','XMCC') }} </span>
+        <span ng-if="!wallet.balanceHidden"> {{wallet.status.totalBalanceStr.replace('btc','monoeci') ? wallet.status.totalBalanceStr.replace('btc','monoeci') : wallet.cachedBalance.replace('btc','monoeci') }} </span>
 
         <span ng-if="wallet.balanceHidden" translate>[Balance Hidden]</span>
         <span class="tab-home__wallet__multisig-number" ng-if="wallet.n > 1">

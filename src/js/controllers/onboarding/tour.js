@@ -32,11 +32,11 @@ angular.module('copayApp.controllers').controller('tourController',
         // $scope.localCurrencySymbol = '$';
         // $scope.localCurrencyPerBtc = $filter('formatFiatAmount')(parseFloat(rate.toFixed(2), 10));
 
-        $http.get('https://api.coinmarketcap.com/v1/ticker/Monacocoin/').then(function (response) {
+        $http.get('https://api.coinmarketcap.com/v1/ticker/monacocoin/').then(function (response) {
           var value_object = response.data[0];
 
           $scope.localCurrencySymbol = '$';
-          $scope.localCurrencyPerMonoeci = $filter('formatFiatAmount')(parseFloat(parseFloat(value_object['price_usd']).toFixed(4), 10));
+          $scope.localCurrencyPerXmcc = $filter('formatFiatAmount')(parseFloat(parseFloat(value_object['price_usd']).toFixed(4), 10));
         },function (err) {
           conosle.log(err);
         });
