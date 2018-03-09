@@ -10,7 +10,7 @@ angular.module('copayApp.services').service('emailService', function($log, confi
     var wallets = profileService.getWallets();
 
     configService.set({
-      emailFor: null, // Backward compatibility
+      emailForm: null, // Backward compatibility
       emailNotifications: {
         enabled: opts.enabled,
         email: opts.enabled ? opts.email : null
@@ -31,10 +31,10 @@ angular.module('copayApp.services').service('emailService', function($log, confi
         return config.emailNotifications.email;
     }
     
-    if (lodash.isEmpty(config.emailFor)) return;
+    if (lodash.isEmpty(config.emailForm)) return;
     
     // Backward compatibility
-    var emails = lodash.values(config.emailFor);
+    var emails = lodash.values(config.emailForm);
     for(var i = 0; i < emails.length; i++) {
       if (emails[i] !== null && typeof emails[i] !== 'undefined') {
         return emails[i];

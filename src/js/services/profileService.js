@@ -34,7 +34,7 @@ angular.module('copayApp.services')
         wallet.usingCustomBWS = config.bwsFor && config.bwsFor[wallet.id] && (config.bwsFor[wallet.id] != defaults.bws.url);
         wallet.name = (config.aliasFor && config.aliasFor[wallet.id]) || wallet.credentials.walletName;
         wallet.color = (config.colorFor && config.colorFor[wallet.id]);
-        wallet.email = config.emailFor && config.emailFor[wallet.id];
+        wallet.email = config.emailForm && config.emailForm[wallet.id];
       });
     }
 

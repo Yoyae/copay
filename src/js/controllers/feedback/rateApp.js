@@ -10,7 +10,7 @@ angular.module('copayApp.controllers').controller('rateAppController', function(
 
   $scope.skip = function() {
     var dataSrc = {
-      "Email": lodash.values(config.emailFor)[0] || ' ',
+      "Email": lodash.values(config.emailForm)[0] || ' ',
       "Feedback": ' ',
       "Score": $stateParams.score,
       "AppVersion": $window.version,

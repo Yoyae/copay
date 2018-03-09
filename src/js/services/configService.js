@@ -154,7 +154,7 @@ angular.module('copayApp.services').service('configService', function(storageSer
       configCache.bwsFor = configCache.bwsFor || {};
       configCache.colorFor = configCache.colorFor || {};
       configCache.aliasFor = configCache.aliasFor || {};
-      configCache.emailFor = configCache.emailFor || {};
+      configCache.emailForm = configCache.emailForm || {};
 
       $log.debug('Preferences read:', configCache)
 
