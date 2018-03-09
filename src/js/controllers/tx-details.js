@@ -18,13 +18,13 @@ angular.module('copayApp.controllers').controller('txDetailsController', functio
 
     if ($scope.wallet.coin == 'bch') {
       if (walletService.useLegacyAddress($scope.wallet)) {
-        blockexplorerUrl = 'bch-insight.bitpay.com';
+        blockexplorerUrl = 'insight.monoeci.io/insight';
       } else {
-        blockexplorerUrl = 'blockdozer.com/insight';
+        blockexplorerUrl = 'insight.monoeci.io/insight';
       }
     } else {
       // blockexplorerUrl = 'insight.bitpay.com';
-      blockexplorerUrl = 'insight.monoeci.io';
+      blockexplorerUrl = 'insight.monoeci.io/insight';
     }
 
     txConfirmNotification.checkIfEnabled(txId, function(res) {
@@ -53,7 +53,7 @@ angular.module('copayApp.controllers').controller('txDetailsController', functio
   });
 
   $scope.readMore = function() {
-    var url = 'https://github.com/bitpay/copay/wiki/COPAY---FAQ#amount-too-low-to-spend';
+    var url = 'https://github.com/yoyae/copay-monoeci/wiki/COPAY---FAQ#amount-too-low-to-spend';
     var optIn = true;
     var title = null;
     var message = gettextCatalog.getString('Read more in our Wiki');
@@ -138,10 +138,10 @@ angular.module('copayApp.controllers').controller('txDetailsController', functio
         if ($scope.btx.action == 'moved') $scope.title = gettextCatalog.getString('Moved Funds');
       }
 
-        $scope.btx.amountStr = $scope.btx.amountStr.replace('btc','monoeci');
+        $scope.btx.amountStr = $scope.btx.amountStr.replace('btc','XMCC');
         $scope.btx.amountValueStr = $scope.btx.amountStr.split(" ")[0];
         $scope.btx.amountUnitStr = $scope.btx.amountStr.split(" ")[1];
-        $scope.btx.feeStr = $scope.btx.feeStr.replace('btc','monoeci');
+        $scope.btx.feeStr = $scope.btx.feeStr.replace('btc','XMCC');
 
       updateMemo();
       initActionList();

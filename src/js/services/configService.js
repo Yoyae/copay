@@ -18,11 +18,8 @@ angular.module('copayApp.services').service('configService', function(storageSer
     },
 
     download: {
-      bitpay: {
-        url: 'https://bitpay.com/wallet'
-      },
-      copay: {
-        url: 'https://copay.io/#download'
+      monoeci: {
+        url: 'https://github.com/Yoyae/copay-monoeci/releases/latest'
       }
     },
 
@@ -70,11 +67,11 @@ angular.module('copayApp.services').service('configService', function(storageSer
     },
 
     rates: {
-      url: 'https://insight.monoeci.io/api/rates',
+      url: 'https://insight.monoeci.io/insight-api-monoeci/currency',
     },
 
     release: {
-      url: 'https://api.github.com/repos/bitpay/copay/releases/latest'
+      url: 'https://api.github.com/repos/yoyae/copay-monoeci/releases/latest'
     },
 
     pushNotificationsEnabled: true,
@@ -84,7 +81,7 @@ angular.module('copayApp.services').service('configService', function(storageSer
     },
 
     emailNotifications: {
-      enabled: false,
+      enabled: true,
     },
 
     log: {

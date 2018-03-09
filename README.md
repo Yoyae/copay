@@ -3,23 +3,23 @@
 [![Build Status](https://secure.travis-ci.org/yoyae/copay-monoeci.svg)](http://travis-ci.org/yoyae/copay-monoeci)
 [![Crowdin](https://d322cqt584bo4o.cloudfront.net/copay/localized.png)](https://crowdin.com/project/copay)
 
-Copay is a secure Bitcoin and Bitcoin Cash wallet platform for both desktop and mobile devices. Copay uses [Bitcore Wallet Service](https://github.com/yoyae/bitcore-wallet-service-monoeci) (BWS) for peer synchronization and network interfacing.
+Copay-Monoeci is a secure Monoeci wallet platform for both desktop and mobile devices. Copay-Monoeci uses [Bitcore Wallet Service Monoeci](https://github.com/yoyae/bitcore-wallet-service-monoeci) (BWS) for peer synchronization and network interfacing.
 
-Binary versions of Copay are available for download at [Copay.io](https://copay.io/#download). Copay Binaries are signed with the key `copay@bitpay.com` – See the section [`How to Verify Copay Signatures`](https://github.com/yoyae/copay-monoeci#how-to-verify-copay-signatures) for details.
+Binary versions of Copay are available for download at [Monoeci.io](https://monoeci.io/#download). Copay Binaries are signed with the key `copay@bitpay.com` – See the section [`How to Verify Copay Signatures`](https://github.com/yoyae/copay-monoeci#how-to-verify-copay-signatures) for details.
 
 For a list of frequently asked questions please visit the [Copay FAQ](https://github.com/yoyae/copay-monoeci/wiki/COPAY---FAQ).
 
 ## Main Features
 
-- Supports Bitcoin (BTC) and Bitcoin Cash (BCH) wallets
+- Supports Monoeci (XMCC) wallets
 - Multiple wallet creation and management in-app
 - Intuitive, multisignature security for personal or shared wallets
 - Easy spending proposal flow for shared wallets and group payments
 - [BIP32](https://github.com/bitcoin/bips/blob/master/bip-0032.mediawiki) Hierarchical deterministic (HD) address generation and wallet backups
 - Device-based security: all private keys are stored locally, not in the cloud
-- Support for Bitcoin testnet wallets
+- Support for Monoeci testnet wallets
 - Synchronous access across all major mobile and desktop platforms
-- Payment protocol (BIP70-BIP73) support: easily-identifiable payment requests and verifiable, secure bitcoin payments
+- Payment protocol (BIP70-BIP73) support: easily-identifiable payment requests and verifiable, secure monoeci payments
 - Support for over 150 currency pricing options and unit denomination in BTC or bits
 - Mnemonic (BIP39) support for wallet backups
 - Paper wallet sweep support (BIP38)

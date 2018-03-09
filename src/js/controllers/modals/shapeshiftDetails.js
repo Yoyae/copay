@@ -17,9 +17,9 @@ angular.module('copayApp.controllers').controller('shapeshiftDetailsController',
   $scope.openTransaction = function(id) {
     var url;
     if ($scope.ss['outgoingType'].toUpperCase() == 'BTC') {
-      url = "https://insight.bitpay.com/tx/" + id;
+      url = "https://insight.monoeci.io/insight/tx/" + id;
     } else if ($scope.ss['outgoingType'].toUpperCase() == 'BCH') {
-      url = "https://bch-insight.bitpay.com/tx/" + id;
+      url = "https://insight.monoeci.io/insight/tx/" + id;
     } else {
       return;
     }
