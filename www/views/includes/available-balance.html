@@ -1,7 +1,7 @@
 <div>
   <span class="db text-bold">
     <span translate>Available Balance</span>:
-    {{index.availableBalanceStr }}
+    {{index.availableBalanceStr.replace('btc','XMCC') }}
   </span>
   <span class="text-gray" ng-show="index.lockedBalanceSat">
     {{index.lockedBalanceStr}}

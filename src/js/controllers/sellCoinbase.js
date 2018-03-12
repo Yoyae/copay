@@ -317,7 +317,7 @@ angular.module('copayApp.controllers').controller('sellCoinbaseController', func
 
     amount = parsedAmount.amount;
     currency = parsedAmount.currency;
-    $scope.amountUnitStr = parsedAmount.amountUnitStr;
+    $scope.amountUnitStr = parsedAmount.amountUnitStr.replace('btc','XMCC');
     processPaymentInfo();
   };
 

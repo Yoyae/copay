@@ -225,7 +225,7 @@ angular.module('copayApp.controllers').controller('buyAmazonController', functio
     var email = emailService.getEmailIfEnabled();
     var parsedAmount = txFormatService.parseAmount(coin, amount, currency);
     $scope.currencyIsoCode = parsedAmount.currency;
-    $scope.amountUnitStr = parsedAmount.amountUnitStr;
+    $scope.amountUnitStr = parsedAmount.amountUnitStr.replace('btc','XMCC');
     var dataSrc = {
       amount: parsedAmount.amount,
       currency: parsedAmount.currency,

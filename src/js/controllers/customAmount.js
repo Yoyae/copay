@@ -38,7 +38,7 @@ angular.module('copayApp.controllers').controller('customAmountController', func
       // Amount in USD or BTC
       var amount = parsedAmount.amount;
       var currency = parsedAmount.currency;
-      $scope.amountUnitStr = parsedAmount.amountUnitStr;
+      $scope.amountUnitStr = parsedAmount.amountUnitStr.replace('btc','XMCC');
 
       if (currency != 'BTC' && currency != 'BCH') {
         // Convert to BTC or BCH
@@ -55,7 +55,7 @@ angular.module('copayApp.controllers').controller('customAmountController', func
           var btcParsedAmount = txFormatService.parseAmount($scope.coin, amountUnit, 'XMCC');
 
           $scope.amountBtc = btcParsedAmount.amount;
-          $scope.altAmountStr = btcParsedAmount.amountUnitStr;
+          $scope.altAmountStr = btcParsedAmount.amountUnitStr.replace('btc','XMCC');
 
         },function (err) {
           conosle.log(err);

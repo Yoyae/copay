@@ -211,7 +211,7 @@ angular.module('copayApp.controllers').controller('topUpController', function($s
   }
 
   var initializeTopUp = function(wallet, parsedAmount) {
-    $scope.amountUnitStr = parsedAmount.amountUnitStr;
+    $scope.amountUnitStr = parsedAmount.amountUnitStr.replace('btc','XMCC');
     var dataSrc = {
       amount: parsedAmount.amount,
       currency: parsedAmount.currency
