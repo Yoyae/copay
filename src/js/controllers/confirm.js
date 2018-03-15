@@ -130,7 +130,7 @@ angular.module('copayApp.controllers').controller('confirmController', function(
     try {
       networkName = (new B.Address(data.stateParams.toAddress)).network.name;
     } catch (e) {
-      var message = gettextCatalog.getString('Copay only supports Bitcoin Cash using new version numbers addresses');
+      var message = gettextCatalog.getString('Copay only supports Monoeci using new version numbers addresses');
       var backText = gettextCatalog.getString('Go back');
       var learnText = gettextCatalog.getString('Learn more');
       popupService.showConfirm(null, message, backText, learnText, function(back) {
@@ -415,20 +415,20 @@ angular.module('copayApp.controllers').controller('confirmController', function(
       var warningMsg = [];
       if (sendMaxInfo.utxosBelowFee > 0) {
         warningMsg.push(gettextCatalog.getString("A total of {{amountBelowFeeStr}} were excluded. These funds come from UTXOs smaller than the network fee provided.", {
-          amountBelowFeeStr: txFormatService.formatAmountStr(wallet.coin, sendMaxInfo.amountBelowFee)
+          amountBelowFeeStr: txFormatService.formatAmountStr(wallet.coin, sendMaxInfo.amountBelowFee).replace('btc','XMCC')
         }));
       }
 
       if (sendMaxInfo.utxosAboveMaxSize > 0) {
         warningMsg.push(gettextCatalog.getString("A total of {{amountAboveMaxSizeStr}} were excluded. The maximum size allowed for a transaction was exceeded.", {
-          amountAboveMaxSizeStr: txFormatService.formatAmountStr(wallet.coin, sendMaxInfo.amountAboveMaxSize)
+          amountAboveMaxSizeStr: txFormatService.formatAmountStr(wallet.coin, sendMaxInfo.amountAboveMaxSize).replace('btc','XMCC')
         }));
       }
       return warningMsg.join('\n');
     };
 
-    var msg = gettextCatalog.getString("{{fee}} will be deducted for bitcoin networking fees.", {
-      fee: txFormatService.formatAmountStr(wallet.coin, sendMaxInfo.fee)
+    var msg = gettextCatalog.getString("{{fee}} will be deducted for monoeci networking fees.", {
+      fee: txFormatService.formatAmountStr(wallet.coin, sendMaxInfo.fee).replace('btc','XMCC')
     });
     var warningMsg = verifyExcludedUtxos();
 
@@ -565,7 +565,7 @@ angular.module('copayApp.controllers').controller('confirmController', function(
           return cb();
 
         var message = gettextCatalog.getString('Sending {{amountStr}} from your {{name}} wallet', {
-          amountStr: tx.amountStr,
+          amountStr: tx.amountStr.replace('btc','XMCC'),
           name: wallet.name
         });
         var okText = gettextCatalog.getString('Confirm');

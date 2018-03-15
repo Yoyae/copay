@@ -360,8 +360,8 @@ msgstr "Dirección Monoeci"
 #: www/views/includes/walletSelector.html:42
 #: www/views/tab-home.html:112
 #: www/views/tab-settings.html:108
-msgid "Monoeci Cash Wallets"
-msgstr "Billeteras Monoeci Cash"
+msgid "Monoeci Wallets"
+msgstr "Billeteras Monoeci"
 
 #: www/views/modals/chooseFeeLevel.html:4
 #: www/views/preferencesFee.html:4
@@ -376,8 +376,8 @@ msgid "Monoeci Wallets"
 msgstr "Billeteras Monoeci"
 
 #: src/js/services/incomingData.js:151
-msgid "Monoeci cash Payment"
-msgstr "Pago en Monoeci cash"
+msgid "Monoeci Payment"
+msgstr "Pago en Monoeci"
 
 #: www/views/onboarding/tour.html:31
 msgid "Monoeci is a currency."
@@ -621,8 +621,8 @@ msgid "Contribute Translations"
 msgstr "Contribuir"
 
 #: src/js/controllers/confirm.js:130
-msgid "Copay only supports Monoeci Cash using new version numbers addresses"
-msgstr "Copay sólo soporta Monoeci Cash utilizando la nueva versión de direcciones"
+msgid "Copay only supports Monoeci using new version numbers addresses"
+msgstr "Copay sólo soporta Monoeci utilizando la nueva versión de direcciones"
 
 #: src/js/services/bwcError.js:62
 msgid "Copayer already in this wallet"
@@ -1394,8 +1394,8 @@ msgstr "Billetera física"
 
 #: src/js/controllers/create.js:178
 #: src/js/controllers/join.js:144
-msgid "Hardware wallets are not yet supported with Monoeci Cash"
-msgstr "Billeteras en hardware no son compatibles con Monoeci Cash todavía"
+msgid "Hardware wallets are not yet supported with Monoeci"
+msgstr "Billeteras en hardware no son compatibles con Monoeci todavía"
 
 #: www/views/modals/mercadolibre-card-details.html:69
 #: www/views/tab-settings.html:20
@@ -1907,8 +1907,8 @@ msgid "No wallets available to receive funds"
 msgstr "No hay billeteras disponibles para recibir fondos"
 
 #: www/views/preferencesCash.html:15
-msgid "No wallets eligible for Monoeci Cash support"
-msgstr "No hay billeteras elegibles para soporte a Monoeci Cash"
+msgid "No wallets eligible for Monoeci support"
+msgstr "No hay billeteras elegibles para soporte a Monoeci"
 
 #: src/js/controllers/preferencesCash.js:58
 msgid "Non BIP44 wallet"
@@ -2153,8 +2153,8 @@ msgid "Payment accepted. It will be broadcasted by Glidera. In case there is a p
 msgstr "Pago aceptado. Se transmitirá por Glidera. En caso de que haya un problema, puedes eliminar la transacción 6 horas después de fue creada."
 
 #: src/js/services/incomingData.js:152
-msgid "Payment address was translated to new Monoeci Cash address format:"
-msgstr "La dirección de pago fue traducida al nuevo formato de Monoeci Cash:"
+msgid "Payment address was translated to new Monoeci address format:"
+msgstr "La dirección de pago fue traducida al nuevo formato de Monoeci:"
 
 #: www/views/modals/txp-details.html:107
 msgid "Payment details"
@@ -2740,8 +2740,8 @@ msgid "Slide to send"
 msgstr "Deslizar para enviar"
 
 #: www/views/preferencesCash.html:56
-msgid "Some of your wallets are not eligible for Monoeci Cash support. You can try to access BCH funds from these wallets using the"
-msgstr "Algunas de sus billeteras no pueden ser seleccionadas para darle soporte Monoeci Cash. Pruebe acceder a sus fondos BCH utilizando la"
+msgid "Some of your wallets are not eligible for Monoeci support. You can try to access BCH funds from these wallets using the"
+msgstr "Algunas de sus billeteras no pueden ser seleccionadas para darle soporte Monoeci. Pruebe acceder a sus fondos BCH utilizando la"
 
 #: src/js/controllers/create.js:86
 #: src/js/controllers/join.js:70

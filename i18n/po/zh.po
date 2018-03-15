@@ -360,7 +360,7 @@ msgstr "比特币地址"
 #: www/views/includes/walletSelector.html:42
 #: www/views/tab-home.html:112
 #: www/views/tab-settings.html:108
-msgid "Monoeci Cash Wallets"
+msgid "Monoeci Wallets"
 msgstr "比特币现金钱包"
 
 #: www/views/modals/chooseFeeLevel.html:4
@@ -376,7 +376,7 @@ msgid "Monoeci Wallets"
 msgstr "比特币钱包"
 
 #: src/js/services/incomingData.js:151
-msgid "Monoeci cash Payment"
+msgid "Monoeci Payment"
 msgstr "比特币现金支付"
 
 #: www/views/onboarding/tour.html:31
@@ -621,7 +621,7 @@ msgid "Contribute Translations"
 msgstr "参与翻译"
 
 #: src/js/controllers/confirm.js:130
-msgid "Copay only supports Monoeci Cash using new version numbers addresses"
+msgid "Copay only supports Monoeci using new version numbers addresses"
 msgstr "Copay只支持新版本的比特币现金地址"
 
 #: src/js/services/bwcError.js:62
@@ -1394,7 +1394,7 @@ msgstr "硬件钱包"
 
 #: src/js/controllers/create.js:178
 #: src/js/controllers/join.js:144
-msgid "Hardware wallets are not yet supported with Monoeci Cash"
+msgid "Hardware wallets are not yet supported with Monoeci"
 msgstr "比特币现金钱包暂时不支持硬件钱包"
 
 #: www/views/modals/mercadolibre-card-details.html:69
@@ -1907,7 +1907,7 @@ msgid "No wallets available to receive funds"
 msgstr "没有可用于接收资金的钱包"
 
 #: www/views/preferencesCash.html:15
-msgid "No wallets eligible for Monoeci Cash support"
+msgid "No wallets eligible for Monoeci support"
 msgstr "没有錢包合乎支持小比特幣資格"
 
 #: src/js/controllers/preferencesCash.js:58
@@ -2153,7 +2153,7 @@ msgid "Payment accepted. It will be broadcasted by Glidera. In case there is a p
 msgstr "支付以被接受。它将由 Glidera 广播。如果出现问题，它可以在创建后的 6 个小时内删除。"
 
 #: src/js/services/incomingData.js:152
-msgid "Payment address was translated to new Monoeci Cash address format:"
+msgid "Payment address was translated to new Monoeci address format:"
 msgstr "付款地址转化为新的小比特幣地址格式"
 
 #: www/views/modals/txp-details.html:107
@@ -2740,7 +2740,7 @@ msgid "Slide to send"
 msgstr "在此點擊滑動以發送"
 
 #: www/views/preferencesCash.html:56
-msgid "Some of your wallets are not eligible for Monoeci Cash support. You can try to access BCH funds from these wallets using the"
+msgid "Some of your wallets are not eligible for Monoeci support. You can try to access BCH funds from these wallets using the"
 msgstr "你有些錢包不合資格得到小比特幣的支持可嘗試連結這些錢包至BCH基金"
 
 #: src/js/controllers/create.js:86

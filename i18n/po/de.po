@@ -360,7 +360,7 @@ msgstr "Monoeci-Adresse"
 #: www/views/includes/walletSelector.html:42
 #: www/views/tab-home.html:112
 #: www/views/tab-settings.html:108
-msgid "Monoeci Cash Wallets"
+msgid "Monoeci Wallets"
 msgstr ""
 
 #: www/views/modals/chooseFeeLevel.html:4
@@ -376,7 +376,7 @@ msgid "Monoeci Wallets"
 msgstr ""
 
 #: src/js/services/incomingData.js:151
-msgid "Monoeci cash Payment"
+msgid "Monoeci Payment"
 msgstr ""
 
 #: www/views/onboarding/tour.html:31
@@ -621,7 +621,7 @@ msgid "Contribute Translations"
 msgstr "Übersetzungen beitragen"
 
 #: src/js/controllers/confirm.js:130
-msgid "Copay only supports Monoeci Cash using new version numbers addresses"
+msgid "Copay only supports Monoeci using new version numbers addresses"
 msgstr ""
 
 #: src/js/services/bwcError.js:62
@@ -1394,7 +1394,7 @@ msgstr "Hardware-Wallet"
 
 #: src/js/controllers/create.js:178
 #: src/js/controllers/join.js:144
-msgid "Hardware wallets are not yet supported with Monoeci Cash"
+msgid "Hardware wallets are not yet supported with Monoeci"
 msgstr ""
 
 #: www/views/modals/mercadolibre-card-details.html:69
@@ -1907,7 +1907,7 @@ msgid "No wallets available to receive funds"
 msgstr "Keine Wallet verfügbar um Guthaben zu erhalten"
 
 #: www/views/preferencesCash.html:15
-msgid "No wallets eligible for Monoeci Cash support"
+msgid "No wallets eligible for Monoeci support"
 msgstr ""
 
 #: src/js/controllers/preferencesCash.js:58
@@ -2153,7 +2153,7 @@ msgid "Payment accepted. It will be broadcasted by Glidera. In case there is a p
 msgstr "Zahlung akzeptiert. Sie wird durch Glidera übermittelt. Falls ein Problem auftritt, kann sie nach einer Wartezeit von 6 Stunden gelöscht werden."
 
 #: src/js/services/incomingData.js:152
-msgid "Payment address was translated to new Monoeci Cash address format:"
+msgid "Payment address was translated to new Monoeci address format:"
 msgstr ""
 
 #: www/views/modals/txp-details.html:107
@@ -2740,7 +2740,7 @@ msgid "Slide to send"
 msgstr ""
 
 #: www/views/preferencesCash.html:56
-msgid "Some of your wallets are not eligible for Monoeci Cash support. You can try to access BCH funds from these wallets using the"
+msgid "Some of your wallets are not eligible for Monoeci support. You can try to access BCH funds from these wallets using the"
 msgstr ""
 
 #: src/js/controllers/create.js:86

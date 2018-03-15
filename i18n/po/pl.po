@@ -360,8 +360,8 @@ msgstr "Adres monoeci"
 #: www/views/includes/walletSelector.html:42
 #: www/views/tab-home.html:112
 #: www/views/tab-settings.html:108
-msgid "Monoeci Cash Wallets"
-msgstr "Płatność Monoeci Cash"
+msgid "Monoeci Wallets"
+msgstr "Płatność Monoeci"
 
 #: www/views/modals/chooseFeeLevel.html:4
 #: www/views/preferencesFee.html:4
@@ -376,8 +376,8 @@ msgid "Monoeci Wallets"
 msgstr "Portfele Monoeci"
 
 #: src/js/services/incomingData.js:151
-msgid "Monoeci cash Payment"
-msgstr "Płatność Monoeci Cash"
+msgid "Monoeci Payment"
+msgstr "Płatność Monoeci"
 
 #: www/views/onboarding/tour.html:31
 msgid "Monoeci is a currency."
@@ -621,7 +621,7 @@ msgid "Contribute Translations"
 msgstr "Wkład do tłumaczenia"
 
 #: src/js/controllers/confirm.js:130
-msgid "Copay only supports Monoeci Cash using new version numbers addresses"
+msgid "Copay only supports Monoeci using new version numbers addresses"
 msgstr "Copay obsługuje tylko Monoeci gotówki za pomocą nowej wersji numery adresy"
 
 #: src/js/services/bwcError.js:62
@@ -1394,7 +1394,7 @@ msgstr "Portfel sprzętowy"
 
 #: src/js/controllers/create.js:178
 #: src/js/controllers/join.js:144
-msgid "Hardware wallets are not yet supported with Monoeci Cash"
+msgid "Hardware wallets are not yet supported with Monoeci"
 msgstr "Portfele sprzętowe nie są jeszcze obsługiwane z Monoeci gotówki"
 
 #: www/views/modals/mercadolibre-card-details.html:69
@@ -1907,8 +1907,8 @@ msgid "No wallets available to receive funds"
 msgstr "Brak portfeli do otrzymania środków"
 
 #: www/views/preferencesCash.html:15
-msgid "No wallets eligible for Monoeci Cash support"
-msgstr "Brak portfeli wspierających Monoeci Cash"
+msgid "No wallets eligible for Monoeci support"
+msgstr "Brak portfeli wspierających Monoeci"
 
 #: src/js/controllers/preferencesCash.js:58
 msgid "Non BIP44 wallet"
@@ -2153,8 +2153,8 @@ msgid "Payment accepted. It will be broadcasted by Glidera. In case there is a p
 msgstr "Wypłata zaakceptowana. Będzie nadana przez Glidera. W przypadku wystąpienia problemu, może być usunięta 6 godzin po utworzeniu."
 
 #: src/js/services/incomingData.js:152
-msgid "Payment address was translated to new Monoeci Cash address format:"
-msgstr "Adres płatności został przetłumaczony na nowy format adresów Monoeci Cash:"
+msgid "Payment address was translated to new Monoeci address format:"
+msgstr "Adres płatności został przetłumaczony na nowy format adresów Monoeci:"
 
 #: www/views/modals/txp-details.html:107
 msgid "Payment details"
@@ -2740,7 +2740,7 @@ msgid "Slide to send"
 msgstr "Przesuń, aby wysłać"
 
 #: www/views/preferencesCash.html:56
-msgid "Some of your wallets are not eligible for Monoeci Cash support. You can try to access BCH funds from these wallets using the"
+msgid "Some of your wallets are not eligible for Monoeci support. You can try to access BCH funds from these wallets using the"
 msgstr ""
 
 #: src/js/controllers/create.js:86
