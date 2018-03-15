@@ -6,7 +6,7 @@ angular.module('copayApp.controllers').controller('txDetailsController', functio
   var listeners = [];
   var config = configService.getSync();
   var blockexplorerUrl;
-
+ 
   $scope.$on("$ionicView.beforeEnter", function(event, data) {
     txId = data.stateParams.txid;
     $scope.title = gettextCatalog.getString('Transaction');
@@ -220,12 +220,19 @@ angular.module('copayApp.controllers').controller('txDetailsController', functio
       ts: $scope.btx.time * 1000
     }, function(err, res) {
       if (err) {
-        $log.debug('Could not get historic rate');
+        $log.debug('Could not get historic BTC rate');
         return;
       }
       if (res && res.rate) {
         $scope.rateDate = res.fetchedOn;
         $scope.rate = res.rate;
+		$http.get('https://api.coinmarketcap.com/v1/ticker/monacocoin/').then(function (response) {
+		  var value_object = response.data[0];
+		  $scope.rateXMCC = parseFloat(value_object.price_btc) * res.rate;
+		},function (err) {
+		  $log.debug('Could not get historic XMCC rate');
+		  conosle.log(err);
+		});
       }
     });
   };
