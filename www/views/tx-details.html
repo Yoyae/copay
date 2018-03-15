@@ -30,8 +30,7 @@
             <span ng-if="showRate">
               <span ng-if="!rate">...</span>
               <span ng-if="rate">
-				{{rate| currency:'':2}} {{alternativeIsoCode}}/BTC - {{rateXMCC| currency:'':2}} BTC/XMCC ({{rateDate | amDateFormat:'MM/DD/YYYY HH:mm a'}})
-
+				{{rateXMCC| currency:'':2}} XMCC/{{alternativeIsoCode}} - {{rate| currency:'':2}} {{alternativeIsoCode}}/BTC ({{rateDate | amDateFormat:'MM/DD/YYYY HH:mm a'}})
               </span>
             </span>
           </div>
