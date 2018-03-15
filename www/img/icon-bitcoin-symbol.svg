@@ -1,13 +1,63 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!-- Generator: Adobe Illustrator 20.1.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
-<svg version="1.1" id="Bitcoin_Symbol" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px"
-	 y="0px" viewBox="0 0 12 16" style="enable-background:new 0 0 12 16;" xml:space="preserve">
-<style type="text/css">
-	.st0{fill:#5D5D5D;}
-</style>
-<path class="st0" d="M7.4,2.5l0-2.4L6,0.2l0,2.3c-0.4,0-0.8,0-1.2,0l0-2.3l-1.5,0l0,2.4c-0.3,0-0.6,0-0.9,0l-2,0l0,1.5
-	c0,0,1.1,0,1,0c0.6,0,0.8,0.3,0.8,0.6l0,6.5c0,0.2-0.2,0.5-0.6,0.5c0,0-1.1,0-1.1,0l-0.3,1.7l1.9,0c0.4,0,0.7,0,1,0l0,2.4l1.5,0
-	l0-2.4c0.4,0,0.8,0,1.2,0l0,2.3l1.5,0l0-2.4c2.5-0.1,4.2-0.7,4.4-3c0.2-1.8-0.7-2.6-2.1-3C10.5,7,11,6.2,10.9,5
-	C10.7,3.3,9.3,2.7,7.4,2.5z M8.8,10.1c0,1.8-3.1,1.6-4.1,1.6l0-3.2C5.7,8.5,8.8,8.2,8.8,10.1L8.8,10.1z M8.2,5.6
-	c0,1.6-2.6,1.4-3.4,1.4l0-2.9C5.6,4.2,8.2,3.9,8.2,5.6L8.2,5.6z"/>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="12"
+   height="16"
+   viewBox="0 0 12 16"
+   id="svg3381"
+   version="1.1"
+   inkscape:version="0.92.2 (5c3e80d, 2017-08-06)"
+   sodipodi:docname="logo_500x500.svg">
+  <defs
+     id="defs3383" />
+  <sodipodi:namedview
+     id="base"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageopacity="0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="7.9195959"
+     inkscape:cx="20.218764"
+     inkscape:cy="10.078244"
+     inkscape:document-units="px"
+     inkscape:current-layer="layer1"
+     showgrid="false"
+     units="px"
+     inkscape:window-width="948"
+     inkscape:window-height="405"
+     inkscape:window-x="-36"
+     inkscape:window-y="668"
+     inkscape:window-maximized="0" />
+  <metadata
+     id="metadata3386">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title></dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     inkscape:label="Calque 1"
+     inkscape:groupmode="layer"
+     id="layer1"
+     transform="translate(0,-1036.3622)">
+    <path
+       d="m 4.4441882,1044.4685 -1.4210883,-2.4615 0.3759586,-0.6511 h 1.416531 l 0.7128826,1.2345 z m 5.0727558,-3.1126 -0.087327,-0.1503 -0.3677745,-0.6371 -0.9266901,-2e-4 H 7.6291583 6.6964558 l -0.4552684,0.7886 -0.2464955,0.4268 -0.246376,-0.4268 -0.4552684,-0.7886 H 4.3602495 3.8542552 l -0.926833,2e-4 -0.3676552,0.6371 -0.087327,0.1503 -0.3833312,0.6637 -0.6885215,1.1928 -0.9005873,1.56 0.6133155,1.0624 0.6885217,1.1924 0.084941,0.1479 0.4975479,0.8618 0.4662916,0.808 0.5037515,-0.8728 0.2467578,-0.4274 0.8427988,-1.4597 1.0844031,1.8779 0.011929,0.025 0.4546956,0.7876 0.4547913,-0.7876 0.011929,-0.025 1.0842837,-1.8779 1.1401634,1.9747 0.4632376,0.8025 0.4664105,-0.8078 0.497453,-0.8617 0.08494,-0.1479 0.688521,-1.1925 0.613316,-1.0625 -0.910656,-1.5774 -0.688521,-1.1924 z m -2.3430063,0 h 1.4165549 l 0.3759585,0.6511 -1.4210167,2.4615 -1.0842598,-1.8781 z m 0.8377882,3.9204 1.4211123,-2.4614 0.3825198,0.6626 0.757643,1.3123 -0.460302,0.7971 -0.9608097,1.6642 z m -5.4550369,-2.4614 1.4211122,2.4614 -1.1300945,1.9575 -0.9607855,-1.6642 -0.4603267,-0.7972 0.4603267,-0.7974 z m 3.4380746,4.3393 -1.0842837,-1.8779 1.0842837,-1.878 0.4826833,0.836 0.6016003,1.042 z"
+       style="fill:#e5063e;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:0.02199874"
+       id="path3370"
+       inkscape:connector-curvature="0" />
+  </g>
 </svg>
