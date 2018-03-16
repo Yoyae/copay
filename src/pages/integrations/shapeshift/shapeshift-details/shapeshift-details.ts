@@ -31,7 +31,7 @@ export class ShapeshiftDetailsPage {
   public remove() {
     this.shapeshiftProvider.saveShapeshift(this.ssData, {
       remove: true
-    }, function (err) {
+    }, (err) => {
       this.close();
     });
   }
@@ -42,8 +42,10 @@ export class ShapeshiftDetailsPage {
 
   public openTransaction(id: string) {
     var url;
-    if (this.ssData.outgoingType.toUpperCase() == 'XMCC') {
-      url = "http://insight.monoeci.io/tx/" + id;
+    if (this.ssData.outgoingType.toUpperCase() == 'BTC') {
+      url = "https://insight.bitpay.com/tx/" + id;
+    } else if (this.ssData.outgoingType.toUpperCase() == 'BCH') {
+      url = "https://bch-insight.bitpay.com/tx/" + id;
     } else {
       return;
     }

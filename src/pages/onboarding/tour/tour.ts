@@ -7,6 +7,7 @@ import { CollectEmailPage } from '../collect-email/collect-email';
 
 // providers
 import { OnGoingProcessProvider } from '../../../providers/on-going-process/on-going-process';
+import { PersistenceProvider } from '../../../providers/persistence/persistence';
 import { ProfileProvider } from '../../../providers/profile/profile';
 import { RateProvider } from '../../../providers/rate/rate';
 import { TxFormatProvider } from '../../../providers/tx-format/tx-format';
@@ -20,7 +21,7 @@ export class TourPage {
   @ViewChild(Navbar) navBar: Navbar;
 
   public localCurrencySymbol: string;
-  public localCurrencyPerXmcc: string;
+  public localCurrencyPerBtc: string;
   public currentIndex: number;
 
   constructor(
@@ -30,13 +31,14 @@ export class TourPage {
     private profileProvider: ProfileProvider,
     private rateProvider: RateProvider,
     private txFormatProvider: TxFormatProvider,
-    private onGoingProcessProvider: OnGoingProcessProvider
+    private onGoingProcessProvider: OnGoingProcessProvider,
+    private persistenceProvider: PersistenceProvider
   ) {
     this.currentIndex = 0;
     this.rateProvider.whenRatesAvailable().then(() => {
-      let xmccAmount = 1;
+      let btcAmount = 1;
       this.localCurrencySymbol = '$'
-      this.localCurrencyPerXmcc = this.txFormatProvider.formatAlternativeStr('xmcc', xmccAmount * 1e8);
+      this.localCurrencyPerBtc = this.txFormatProvider.formatAlternativeStr('btc', btcAmount * 1e8);
     });
   }
 
@@ -66,9 +68,10 @@ export class TourPage {
   }
 
   public createDefaultWallet(): void {
-    this.onGoingProcessProvider.set('creatingWallet', true);
+    this.onGoingProcessProvider.set('creatingWallet');
     this.profileProvider.createDefaultWallet().then((wallet) => {
-      this.onGoingProcessProvider.set('creatingWallet', false);
+      this.onGoingProcessProvider.clear();
+      this.persistenceProvider.setOnboardingCompleted();
       this.navCtrl.push(CollectEmailPage, { walletId: wallet.id });
     })
   }

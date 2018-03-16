@@ -2,7 +2,7 @@
 
   <ion-navbar>
     <ion-buttons end>
-      <button ion-button color="primary" (click)="createDefaultWallet()" *ngIf="currentIndex == 0" translate>
+      <button ion-button class="primary-color" (click)="createDefaultWallet()" *ngIf="currentIndex == 0" translate>
         Skip
       </button>
     </ion-buttons>
@@ -13,39 +13,39 @@
 <ion-content no-bounce>
   <ion-slides pager="true" (ionSlideDidChange)="slideChanged()">
     <ion-slide>
-      <h1 translate>Monoeci is secure,
-        <br/>digital money.</h1>
-      <p translate>You can spend monoeci at millions of websites and stores worldwide.</p>
+      <h3 class="title" translate>Bitcoin is secure,
+        <br/>digital money.</h3>
+      <p translate class="top-description">You can spend bitcoin at millions of websites and stores worldwide.</p>
       <img src='assets/img/app/onboarding/tour-phone.svg' />
       <div class="bottom-absolute">
-        <p translate>Just scan the code to pay.</p>
-        <button ion-button block (click)="slideNext()" translate>Got it</button>
+        <p translate class="bottom-description">Just scan the code to pay.</p>
+        <button ion-button clear class="button-standard btn-transparent primary-color" (click)="slideNext()" translate>Got it</button>
       </div>
     </ion-slide>
 
     <ion-slide>
-      <h1 translate>Monoeci is a currency.</h1>
-      <p translate>You can trade it for other currencies like US Dollars, Euros, or Pounds.</p>
+      <h3 class="title" translate>Bitcoin is a currency.</h3>
+      <p translate class="top-description">You can trade it for other currencies like US Dollars, Euros, or Pounds.</p>
       <div class="ticker-container">
-        <div class="ticker">1 XMCC = {{localCurrencySymbol}}{{localCurrencyPerXmcc}}</div>
+        <div class="ticker primary-color">1 BTC = {{localCurrencySymbol}}{{localCurrencyPerBtc}}</div>
       </div>
       <img src='assets/img/app/onboarding/tour-currency.svg' />
       <div class="bottom-absolute">
-        <p translate>The exchange rate changes with the market.</p>
-        <button ion-button block (click)="slideNext()" translate>
+        <p translate class="bottom-description">The exchange rate changes with the market.</p>
+        <button ion-button clear class="button-standard btn-transparent primary-color" (click)="slideNext()" translate>
           Makes sense
         </button>
       </div>
     </ion-slide>
 
     <ion-slide>
-      <h1 translate>You control your monoeci.</h1>
-      <p translate>This app stores your monoeci with cutting-edge security.</p>
+      <h3 class="title" translate>You control your bitcoin.</h3>
+      <p translate class="top-description">This app stores your bitcoin with cutting-edge security.</p>
       <img src='assets/img/app/onboarding/tour-control.svg' />
       <div class="bottom-absolute">
-        <p translate>Not even BitPay can access it.</p>
-        <button ion-button block (click)="createDefaultWallet()" translate>
-          Create monoeci wallet
+        <p translate class="bottom-description">Not even BitPay can access it.</p>
+        <button ion-button class="button-standard" (click)="createDefaultWallet()" translate>
+          Create bitcoin wallet
         </button>
       </div>
     </ion-slide>

@@ -1,4 +1,5 @@
 import { Component, ViewChild } from '@angular/core';
+import { TranslateService } from '@ngx-translate/core';
 import { AlertController, Navbar, NavController, NavParams, Slides } from 'ionic-angular';
 import * as _ from 'lodash';
 import { Logger } from '../../../providers/logger/logger';
@@ -9,6 +10,7 @@ import { DisclaimerPage } from '../../onboarding/disclaimer/disclaimer';
 // providers
 import { BwcProvider } from '../../../providers/bwc/bwc';
 import { OnGoingProcessProvider } from '../../../providers/on-going-process/on-going-process';
+import { PopupProvider } from '../../../providers/popup/popup';
 import { ProfileProvider } from '../../../providers/profile/profile';
 import { WalletProvider } from '../../../providers/wallet/wallet';
 
@@ -46,7 +48,9 @@ export class BackupGamePage {
     private profileProvider: ProfileProvider,
     private walletProvider: WalletProvider,
     private bwcProvider: BwcProvider,
-    private onGoingProcessProvider: OnGoingProcessProvider
+    private onGoingProcessProvider: OnGoingProcessProvider,
+    private popupProvider: PopupProvider,
+    private translate: TranslateService
   ) {
     this.walletId = this.navParams.get('walletId');
     this.fromOnboarding = this.navParams.get('fromOnboarding');
@@ -117,39 +121,6 @@ export class BackupGamePage {
       this.customWords.length === this.shuffledMnemonicWords.length
         ? true
         : false;
-  };
-
-  private showBackupResult(): void {
-    if (this.error) {
-      let alert = this.alertCtrl.create({
-        title: "Uh oh...",
-        subTitle: "It's important that you write your backup phrase down correctly. If something happens to your wallet, you'll need this backup to recover your money. Please review your backup and try again.",
-        buttons: [{
-          text: 'Ok',
-          role: 'cancel',
-          handler: () => {
-            this.setFlow();
-          }
-        }]
-      });
-      alert.present();
-    } else {
-      let opts = {
-        title: 'Your monoeci wallet is backed up!',
-        message: 'Be sure to store your recovery phrase in a secure place. If this app is deleted, your money cannot be recovered without it.',
-        buttons: [{
-          text: 'Got it',
-          handler: () => {
-            if (this.fromOnboarding) {
-              this.navCtrl.push(DisclaimerPage);
-            } else {
-              this.navCtrl.popToRoot({ animate: false });
-            }
-          }
-        }],
-      }
-      this.alertCtrl.create(opts).present();
-    }
   };
 
   private isDeletedSeed(): boolean {
@@ -246,27 +217,28 @@ export class BackupGamePage {
   };
 
   private finalStep(): void {
-    this.onGoingProcessProvider.set('validatingWords', true);
+    this.onGoingProcessProvider.set('validatingWords');
     this.confirm().then(() => {
-      this.onGoingProcessProvider.set('validatingWords', false);
-      this.showBackupResult();
-    }).catch((err) => {
-      this.onGoingProcessProvider.set('validatingWords', false);
-      this.logger.error('Failed to verify backup: ', err);
-      this.error = true;
-      let showError = this.alertCtrl.create({
-        title: "Failed to verify backup",
-        subTitle: err,
-        buttons: [{
-          text: 'Try again',
-          role: 'cancel',
-          handler: () => {
-            this.setFlow();
-          }
-        }]
+      this.onGoingProcessProvider.clear();
+      let title = this.translate.instant('Your bitcoin wallet is backed up!');
+      let message = this.translate.instant("Be sure to store your recovery phrase in a secure place. If this app is deleted, your money cannot be recovered without it.");
+      let okText = this.translate.instant("Got it");
+      this.popupProvider.ionicAlert(title, message, okText).then(() => {
+        if (this.fromOnboarding) {
+          this.navCtrl.push(DisclaimerPage);
+        } else {
+          this.navCtrl.popToRoot({ animate: false });
+        }
       });
-      showError.present();
+    }).catch((err) => {
+      this.onGoingProcessProvider.clear();
+      this.logger.warn('Failed to verify backup: ', err);
+      this.error = true;
+      let title = this.translate.instant('Uh oh...');
+      let message = this.translate.instant("It's important that you write your backup phrase down correctly. If something happens to your wallet, you'll need this backup to recover your money. Please review your backup and try again.");
+      this.popupProvider.ionicAlert(title, message).then(() => {
+        this.setFlow();
+      });
     });
-  };
-
+  }
 }

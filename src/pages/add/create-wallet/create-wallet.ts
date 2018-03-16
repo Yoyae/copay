@@ -154,8 +154,8 @@ export class CreateWalletPage implements OnInit {
       m: this.createForm.value.requiredCopayers,
       n: this.createForm.value.totalCopayers,
       myName: this.createForm.value.totalCopayers > 1 ? this.createForm.value.myName : null,
-      networkName: this.createForm.value.testnetEnabled ? 'testnet' : 'livenet',
-      bwsurl: this.createForm.value.bwsurl,
+      networkName: this.createForm.value.testnetEnabled && this.createForm.value.coin != 'bch' ? 'testnet' : 'livenet',
+      bwsurl: this.createForm.value.bwsURL,
       singleAddress: this.createForm.value.singleAddress,
       coin: this.createForm.value.coin
     };
@@ -194,10 +194,10 @@ export class CreateWalletPage implements OnInit {
   }
 
   private create(opts: any): void {
-    this.onGoingProcessProvider.set('creatingWallet', true);
+    this.onGoingProcessProvider.set('creatingWallet');
 
     this.profileProvider.createWallet(opts).then((wallet: any) => {
-      this.onGoingProcessProvider.set('creatingWallet', false);
+      this.onGoingProcessProvider.clear();
       this.events.publish('status:updated');
       this.walletProvider.updateRemotePreferences(wallet);
       this.pushNotificationsProvider.updateSubscription(wallet);
@@ -213,7 +213,7 @@ export class CreateWalletPage implements OnInit {
         this.navCtrl.popToRoot();
       }
     }).catch((err: any) => {
-      this.onGoingProcessProvider.set('creatingWallet', false);
+      this.onGoingProcessProvider.clear();
       this.logger.warn(err);
       let title = this.translate.instant('Error');
       this.popupProvider.ionicAlert(title, err);

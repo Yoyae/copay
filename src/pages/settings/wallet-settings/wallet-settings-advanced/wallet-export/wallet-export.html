@@ -20,12 +20,12 @@
       <div *ngIf="!backupWalletPlainText">
         <form [formGroup]="exportWalletForm">
           <ion-item>
-            <ion-label stacked translate>Set up a password</ion-label>
-            <ion-input type="password" formControlName="password" placeholder="{{'Your password'|translate}}" required></ion-input>
+            <ion-label stacked>{{'Set up a password' | translate}}</ion-label>
+            <ion-input type="password" formControlName="password" required></ion-input>
           </ion-item>
           <ion-item>
-            <ion-label stacked translate>Repeat the password</ion-label>
-            <ion-input type="password" formControlName="confirmPassword" placeholder="{{'Repeat password'|translate}}" required></ion-input>
+            <ion-label stacked>{{'Repeat the password' | translate}}</ion-label>
+            <ion-input type="password" formControlName="confirmPassword" required></ion-input>
           </ion-item>
           <ion-item class='form-text error' *ngIf="exportWalletForm.controls.confirmPassword.touched && exportWalletForm.hasError('mismatchedPasswords') && exportWalletForm.controls.password.valid">
             <div translate>Passwords do not match</div>
@@ -42,14 +42,16 @@
             </ion-item>
           </div>
           <ion-item-divider *ngIf="!canSign || exportWalletForm.value.noSignEnabled" text-wrap>
-            <div *ngIf="!canSign">
+            <div class="warning" *ngIf="!canSign">
+              <ion-icon name="ios-warning-outline"></ion-icon>
               <span translate>
                 WARNING: The private key of this wallet is not available. The export allows to check the wallet balance, transaction history,
                 and create spend proposals from the export. However, does not allow to approve (sign) proposals, so
                 <b>funds will not be accessible from the export</b>.
               </span>
             </div>
-            <div *ngIf="exportWalletForm.value.noSignEnabled">
+            <div class="warning" *ngIf="exportWalletForm.value.noSignEnabled">
+              <ion-icon name="ios-warning-outline"></ion-icon>
               <span translate>
                 WARNING: Not including the private key allows to check the wallet balance, transaction history, and create spend proposals
                 from the export. However, does not allow to approve (sign) proposals, so
@@ -57,11 +59,12 @@
               </span>
             </div>
           </ion-item-divider>
-          <button *ngIf="!isSafari && !isCordova" ion-button block clear type="submit" (click)="downloadWalletBackup()" [disabled]="(!exportWalletForm.value.password || exportWalletForm.value.password != exportWalletForm.value.confirmPassword) || !exportWalletForm.valid ">Download</button>
-          <button *ngIf="isSafari && !isCordova" ion-button block clear type="submit" (click)="viewWalletBackup()" [disabled]="(!exportWalletForm.value.password || exportWalletForm.value.password != exportWalletForm.value.confirmPassword) || !exportWalletForm.valid ">View</button>
+          <button *ngIf="!isSafari && !isCordova" class="button-standard" ion-button type="submit" (click)="downloadWalletBackup()"
+            [disabled]="(!exportWalletForm.value.password || exportWalletForm.value.password != exportWalletForm.value.confirmPassword) || !exportWalletForm.valid ">{{'Download' | translate}}</button>
+          <button *ngIf="isSafari && !isCordova" class="button-standard" ion-button type="submit" (click)="viewWalletBackup()" [disabled]="(!exportWalletForm.value.password || exportWalletForm.value.password != exportWalletForm.value.confirmPassword) || !exportWalletForm.valid ">{{'View' | translate}}</button>
           <div *ngIf="isCordova">
-            <button ion-button block clear type="submit" (click)="copyWalletBackup()" [disabled]="(!exportWalletForm.value.password || exportWalletForm.value.password != exportWalletForm.value.confirmPassword) || !exportWalletForm.valid ">Copy to clipboard</button>
-            <button ion-button block clear type="submit" (click)="sendWalletBackup()" [disabled]="(!exportWalletForm.value.password || exportWalletForm.value.password != exportWalletForm.value.confirmPassword) || !exportWalletForm.valid ">Send by email</button>
+            <button class="button-standard" ion-button type="submit" (click)="copyWalletBackup()" [disabled]="(!exportWalletForm.value.password || exportWalletForm.value.password != exportWalletForm.value.confirmPassword) || !exportWalletForm.valid ">{{'Copy to clipboard' | translate}}</button>
+            <button class="button-standard" ion-button type="submit" (click)="sendWalletBackup()" [disabled]="(!exportWalletForm.value.password || exportWalletForm.value.password != exportWalletForm.value.confirmPassword) || !exportWalletForm.valid ">{{'Send by email' | translate}}</button>
           </div>
         </form>
       </div>
@@ -74,11 +77,13 @@
     <ion-list *ngSwitchCase="'qrCode'">
       <div class="qrCode" *ngIf="supported">
         <ngx-qrcode qrc-value="{{exportWalletInfo}}" qrc-class="aclass" qrc-errorCorrectionLevel="M"></ngx-qrcode>
-        <div translate>From the destination device, go to Add wallet &gt; Import wallet and scan this QR code</div>
+        <ion-item-divider text-wrap>
+          <span translate>From the destination device, go to Add wallet &gt; Import wallet and scan this QR code</span>
+        </ion-item-divider>
       </div>
-      <ion-card class="not-supported-message" *ngIf="!supported">
-        <ion-card-content>Exporting via QR not supported for this wallet</ion-card-content>
-      </ion-card>
+      <div class="not-supported-message" *ngIf="!supported">
+        <span translate>Exporting via QR not supported for this wallet</span>
+      </div>
     </ion-list>
   </div>
 </ion-content>

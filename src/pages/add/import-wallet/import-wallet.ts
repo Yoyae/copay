@@ -81,7 +81,7 @@ export class ImportWalletPage {
       derivationPath: [this.derivationPathByDefault, Validators.required],
       testnet: [false],
       bwsURL: [this.defaults.bws.url],
-      coin: [this.navParams.data.coin ? this.navParams.data.coin : 'xmcc']
+      coin: [this.navParams.data.coin ? this.navParams.data.coin : 'btc']
     });
   }
 
@@ -184,16 +184,16 @@ export class ImportWalletPage {
       return;
     }
 
-    this.onGoingProcessProvider.set('importingWallet', true);
+    this.onGoingProcessProvider.set('importingWallet');
     opts.compressed = null;
     opts.password = null;
 
     setTimeout(() => {
       this.profileProvider.importWallet(str2, opts).then((wallet: any) => {
-        this.onGoingProcessProvider.set('importingWallet', false);
+        this.onGoingProcessProvider.clear();
         this.finish(wallet);
       }).catch((err: any) => {
-        this.onGoingProcessProvider.set('importingWallet', false);
+        this.onGoingProcessProvider.clear();
         let title = this.translate.instant('Error');
         this.popupProvider.ionicAlert(title, err);
         return;
@@ -206,9 +206,14 @@ export class ImportWalletPage {
       this.profileProvider.setBackupFlag(wallet.credentials.walletId);
       this.events.publish('status:updated');
       if (this.fromOnboarding) {
-        this.profileProvider.setDisclaimerAccepted().catch((err: any) => {
+        this.profileProvider.setOnboardingCompleted().then(() => {
+          this.profileProvider.setDisclaimerAccepted().catch((err: any) => {
+            this.logger.error(err);
+          });
+        }).catch((err: any) => {
           this.logger.error(err);
         });
+
         this.navCtrl.setRoot(TabsPage);
         this.navCtrl.popToRoot();
       }
@@ -223,10 +228,10 @@ export class ImportWalletPage {
   }
 
   private importExtendedPrivateKey(xPrivKey, opts) {
-    this.onGoingProcessProvider.set('importingWallet', true);
+    this.onGoingProcessProvider.set('importingWallet');
     setTimeout(() => {
       this.profileProvider.importExtendedPrivateKey(xPrivKey, opts).then((wallet: any) => {
-        this.onGoingProcessProvider.set('importingWallet', false);
+        this.onGoingProcessProvider.clear();
         this.finish(wallet);
       }).catch((err: any) => {
         if (err instanceof this.errors.NOT_AUTHORIZED) {
@@ -235,17 +240,17 @@ export class ImportWalletPage {
           let title = this.translate.instant('Error');
           this.popupProvider.ionicAlert(title, err);
         }
-        this.onGoingProcessProvider.set('importingWallet', false);
+        this.onGoingProcessProvider.clear();
         return;
       });
     }, 100);
   }
 
   private importMnemonic(words: string, opts: any): void {
-    this.onGoingProcessProvider.set('importingWallet', true);
+    this.onGoingProcessProvider.set('importingWallet');
     setTimeout(() => {
       this.profileProvider.importMnemonic(words, opts).then((wallet: any) => {
-        this.onGoingProcessProvider.set('importingWallet', false);
+        this.onGoingProcessProvider.clear();
         this.finish(wallet);
       }).catch((err: any) => {
         if (err instanceof this.errors.NOT_AUTHORIZED) {
@@ -254,7 +259,7 @@ export class ImportWalletPage {
           let title = this.translate.instant('Error');
           this.popupProvider.ionicAlert(title, err);
         }
-        this.onGoingProcessProvider.set('importingWallet', false);
+        this.onGoingProcessProvider.clear();
         return;
       });
     }, 100);
@@ -291,7 +296,7 @@ export class ImportWalletPage {
       this.reader.readAsBinaryString(backupFile);
     } else {
       let opts: any = {};
-      opts.bwsurl = this.importForm.value.bwsurl;
+      opts.bwsurl = this.importForm.value.bwsURL;
       opts.coin = this.importForm.value.coin;
       this.importBlob(backupText, opts);
     }
@@ -307,8 +312,8 @@ export class ImportWalletPage {
 
     let opts: any = {};
 
-    if (this.importForm.value.bwsurl)
-      opts.bwsurl = this.importForm.value.bwsurl;
+    if (this.importForm.value.bwsURL)
+      opts.bwsurl = this.importForm.value.bwsURL;
 
     let pathData: any = this.derivationPathHelperProvider.parse(this.importForm.value.derivationPath);
 
@@ -363,7 +368,7 @@ export class ImportWalletPage {
     this.reader.onloadend = (evt: any) => {
       if (evt.target.readyState == 2) { // DONE == 2
         let opts: any = {};
-        opts.bwsurl = this.importForm.value.bwsurl;
+        opts.bwsurl = this.importForm.value.bwsURL;
         opts.coin = this.importForm.value.coin;
         this.importBlob(evt.target.result, opts);
       }

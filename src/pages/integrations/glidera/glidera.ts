@@ -55,9 +55,9 @@ export class GlideraPage {
   }
 
   private init(): void {
-    this.onGoingProcessProvider.set('connectingGlidera', true);
+    this.onGoingProcessProvider.set('connectingGlidera');
     this.glideraProvider.init((err, data) => {
-      this.onGoingProcessProvider.set('connectingGlidera', false);
+      this.onGoingProcessProvider.clear();
       if (err) {
         this.popupProvider.ionicAlert('Error connecting Glidera', err + '. Please re-connect to Glidera');
         return;
@@ -81,9 +81,9 @@ export class GlideraPage {
   }
 
   public submitOauthCode(code?: string): void {
-    this.onGoingProcessProvider.set('connectingGlidera', true);
+    this.onGoingProcessProvider.set('connectingGlidera');
     this.glideraProvider.authorize(code, (err, data) => {
-      this.onGoingProcessProvider.set('connectingGlidera', false);
+      this.onGoingProcessProvider.clear();
       if (err) {
         this.popupProvider.ionicAlert('Authorization error', err);
         return;
@@ -134,10 +134,10 @@ export class GlideraPage {
   }
 
   public goToBuyGlideraPage(): void {
-    this.navCtrl.push(AmountPage, { nextPage: 'BuyGlideraPage', currency: this.currency, coin: 'xmcc', fixedUnit: true });
+    this.navCtrl.push(AmountPage, { nextPage: 'BuyGlideraPage', currency: this.currency, coin: 'btc', fixedUnit: true });
   }
 
   public goToSellGlideraPage(): void {
-    this.navCtrl.push(AmountPage, { nextPage: 'SellGlideraPage', currency: this.currency, coin: 'xmcc', fixedUnit: true })
+    this.navCtrl.push(AmountPage, { nextPage: 'SellGlideraPage', currency: this.currency, coin: 'btc', fixedUnit: true })
   }
 }

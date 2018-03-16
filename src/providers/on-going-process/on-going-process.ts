@@ -48,8 +48,8 @@ export class OnGoingProcessProvider {
       'generatingNewAddress': this.translate.instant('Generating new address...'),
       'sendingByEmail': this.translate.instant('Preparing addresses...'),
       'sending2faCode': this.translate.instant('Sending 2FA code...'),
-      'buyingMonoeci': this.translate.instant('Buying Monoeci...'),
-      'sellingMonoeci': this.translate.instant('Selling Monoeci...'),
+      'buyingBitcoin': this.translate.instant('Buying Bitcoin...'),
+      'sellingBitcoin': this.translate.instant('Selling Bitcoin...'),
       'fetchingBitPayAccount': this.translate.instant('Fetching BitPay Account...'),
       'updatingGiftCards': this.translate.instant('Updating Gift Cards...'),
       'updatingGiftCard': this.translate.instant('Updating Gift Card...'),
@@ -59,12 +59,17 @@ export class OnGoingProcessProvider {
       'topup': this.translate.instant('Top up in progress...'),
       'duplicatingWallet': this.translate.instant('Duplicating wallet...'),
     };
-    this.ongoingProcess = {};
+    this.ongoingProcess = [];
   }
 
   public clear() {
-    this.ongoingProcess = {};
-    this.loading.dismiss();
+    this.ongoingProcess = [];
+    try {
+      this.loading.dismiss();
+    } catch(e) {
+      // No problem
+      this.logger.warn(e);
+    };
     this.loading = null;
     this.logger.debug('ongoingProcess clear');
   }
@@ -76,29 +81,21 @@ export class OnGoingProcessProvider {
 
   public resume(): void {
     this.ongoingProcess = this.pausedOngoingProcess;
-    _.forEach(this.pausedOngoingProcess, (v, k) => {
-      this.set(k, v);
+    _.forEach(this.pausedOngoingProcess, (v) => {
+      this.set(v);
       return;
     });
-    this.pausedOngoingProcess = {};
+    this.pausedOngoingProcess = [];
   }
 
-  public set(processName: string, isOn: boolean): void {
-    this.logger.debug('ongoingProcess', processName, isOn);
-    this.ongoingProcess[processName] = isOn;
+  public set(processName: string): void {
+    this.logger.debug('ongoingProcess active: ', processName);
+    this.ongoingProcess.push(processName);
     let showName = this.processNames[processName] || processName;
-    if (!isOn) {
-      delete (this.ongoingProcess[processName]);
-      if (_.isEmpty(this.ongoingProcess)) {
-        this.loading.dismiss();
-        this.loading = null;
-      }
-    } else {
-      if (!this.loading) {
-        this.loading = this.loadingCtrl.create();
-      }
-      this.loading.setContent(showName);
-      this.loading.present();
+    if (!this.loading) {
+      this.loading = this.loadingCtrl.create();
     }
+    this.loading.setContent(showName);
+    this.loading.present();
   }
 }

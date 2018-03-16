@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 
 import { Logger } from '../../providers/logger/logger';
 
-import * as BWC from 'bitcore-wallet-client-monoeci';
+import * as BWC from 'bitcore-wallet-client';
 
 @Injectable()
 export class BwcProvider {
@@ -16,6 +16,10 @@ export class BwcProvider {
   }
   public getBitcore(): any {
     return BWC.Bitcore;
+  }
+
+  public getBitcoreCash(): any {
+    return BWC.BitcoreCash;
   }
 
   public getErrors(): any {

@@ -70,7 +70,7 @@ interface Config {
     glidera: boolean,
     debitcard: boolean,
     amazon: boolean,
-    mercadoLibre: boolean,
+    mercadolibre: boolean,
     shapeshift: boolean
   };
 
@@ -98,7 +98,8 @@ interface Config {
   };
 
   blockExplorerUrl: {
-    xmcc: string;
+    btc: string;
+    bch: string;
   }
 };
 
@@ -118,10 +119,10 @@ const configDefault: Config = {
     reconnectDelay: 5000,
     idleDurationMin: 4,
     settings: {
-      unitName: 'XMCC',
+      unitName: 'BTC',
       unitToSatoshi: 100000000,
       unitDecimals: 8,
-      unitCode: 'xmcc',
+      unitCode: 'btc',
       alternativeName: 'US Dollar',
       alternativeIsoCode: 'USD',
       defaultLanguage: '',
@@ -172,12 +173,12 @@ const configDefault: Config = {
     glidera: true,
     debitcard: true,
     amazon: true,
-    mercadoLibre: true,
+    mercadolibre: true,
     shapeshift: true
   },
 
   rates: {
-    url: 'http://insight.monoeci.io/insight-api-monoeci/currency'
+    url: 'https://insight.bitpay.com:443/api/rates'
   },
 
   release: {
@@ -200,7 +201,8 @@ const configDefault: Config = {
   },
 
   blockExplorerUrl: {
-    xmcc: 'insight.monoeci.io',
+    btc: 'insight.bitpay.com',
+    bch: 'bch-insight.bitpay.com'
   }
 };
 
@@ -233,7 +235,10 @@ export class ConfigProvider {
     });
   }
 
-  public set(newOpts: object) {
+  /**
+   * @param newOpts object or string (JSON)
+   */
+  public set(newOpts: any) {
     let config = _.cloneDeep(configDefault);
 
     if (_.isString(newOpts)) {
@@ -278,7 +283,7 @@ export class ConfigProvider {
     }
 
     if (this.configCache.wallet.settings.unitCode == 'bit') {
-      // Convert to XMCC. Bits will be disabled
+      // Convert to BTC. Bits will be disabled
       this.configCache.wallet.settings.unitName = configDefault.wallet.settings.unitName;
       this.configCache.wallet.settings.unitToSatoshi = configDefault.wallet.settings.unitToSatoshi;
       this.configCache.wallet.settings.unitDecimals = configDefault.wallet.settings.unitDecimals;

@@ -6,6 +6,7 @@ import { Logger } from '../../providers/logger/logger';
 // providers
 import { AddressBookProvider } from '../../providers/address-book/address-book';
 import { BwcErrorProvider } from '../../providers/bwc-error/bwc-error';
+import { OnGoingProcessProvider } from '../../providers/on-going-process/on-going-process';
 import { ProfileProvider } from '../../providers/profile/profile';
 import { TimeProvider } from '../../providers/time/time';
 import { WalletProvider } from '../../providers/wallet/wallet';
@@ -52,7 +53,8 @@ export class WalletDetailsPage {
     private events: Events,
     private logger: Logger,
     private timeProvider: TimeProvider,
-    private translate: TranslateService
+    private translate: TranslateService,
+    private onGoingProcessProvider: OnGoingProcessProvider
   ) {
     let clearCache = this.navParams.data.clearCache;
     this.wallet = this.profileProvider.getWallet(this.navParams.data.walletId);
@@ -153,10 +155,12 @@ export class WalletDetailsPage {
     });
   }
 
-  private updateAll(force?) {
+  private updateAll = _.debounce((force?) => {
     this.updateStatus(force);
     this.updateTxHistory();
-  }
+  }, 2000, {
+    'leading': true
+  });
 
   public toggleBalance() {
     this.profileProvider.toggleHideBalanceFlag(this.wallet.credentials.walletId);
@@ -196,12 +200,17 @@ export class WalletDetailsPage {
   };
 
   public recreate() {
+    this.onGoingProcessProvider.set('recreating');
     this.walletProvider.recreate(this.wallet).then(() => {
+      this.onGoingProcessProvider.clear();
       setTimeout(() => {
         this.walletProvider.startScan(this.wallet).then(() => {
           this.updateAll(true);
         });
       });
+    }).catch((err) => {
+      this.onGoingProcessProvider.clear();
+      this.logger.error(err);
     });
   };
 
@@ -253,6 +262,10 @@ export class WalletDetailsPage {
 
   public openBalanceDetails(): void {
     this.navCtrl.push(WalletBalancePage, { status: this.wallet.status });
+  }
+
+  public back(): void {
+    this.navCtrl.pop();
   }
 
 }

@@ -36,16 +36,33 @@ describe('Profile Provider', () => {
   const walletFixture = {
     api1: {
       id: 'eabee25b-d6ab-4b11-8b76-88570d826914',
-      cachedBalance: '10.00 XMCC',
+      cachedBalance: '10.00 BTC',
       cachedBalanceUpdatedOn: null,
       credentials: {
-        coin: 'xmcc',
+        coin: 'btc',
         network: 'livenet',
         n: 1,
         m: 1
       },
       status: {
-        availableBalanceSat: 1000000000 // 10 XMCC
+        availableBalanceSat: 1000000000 // 10 BTC
+      },
+      isComplete: () => {
+        return true;
+      }
+    },
+    api2: {
+      id: 'zxccv25b-d6ab-4b11-8b76-88570d822222',
+      cachedBalance: '5.00 BCH',
+      cachedBalanceUpdatedOn: null,
+      credentials: {
+        coin: 'bch',
+        network: 'livenet',
+        n: 1,
+        m: 1
+      },
+      status: {
+        availableBalanceSat: 500000000 // 5 BCH
       },
       isComplete: () => {
         return true;
@@ -53,16 +70,16 @@ describe('Profile Provider', () => {
     },
     api3: {
       id: 'qwert25b-d6ab-4b11-8b76-88570d833333',
-      cachedBalance: '1.50 XMCC',
+      cachedBalance: '1.50 BTC',
       cachedBalanceUpdatedOn: null,
       credentials: {
-        coin: 'xmcc',
+        coin: 'btc',
         network: 'testnet',
         n: 2,
         m: 2
       },
       status: {
-        availableBalanceSat: 150000000 // 1.50 XMCC
+        availableBalanceSat: 150000000 // 1.50 BTC
       },
       isComplete: () => {
         return true;
@@ -80,7 +97,7 @@ describe('Profile Provider', () => {
   class PersistenceProviderMock {
     constructor() {}
     getBalanceCache(walletId: any) {
-      return Promise.resolve('0.00 XMCC');
+      return Promise.resolve('0.00 BTC');
     }
   }
 
@@ -129,7 +146,7 @@ describe('Profile Provider', () => {
 
     it('should get successfully all wallets when opts are provided', () => {
       const opts = {
-        coin: 'xmcc',
+        coin: 'btc',
         network: 'testnet',
         n: 2,
         m: 2,
@@ -141,5 +158,14 @@ describe('Profile Provider', () => {
       expect(wallets).toEqual([profileProvider.wallet.api3]);
     });
 
+    it('should not return any wallet when there is no wallets validating provided opts', () => {
+      const opts = {
+        coin: 'bch',
+        network: 'livenet',
+        minAmount: 1000000000
+      };
+      const wallets = profileProvider.getWallets(opts);
+      expect(wallets).toEqual([]);
+    });
   });
 });

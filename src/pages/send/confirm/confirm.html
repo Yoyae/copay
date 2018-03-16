@@ -22,7 +22,7 @@
 
     <button ion-item class="item-fee" (click)="chooseFeeLevel()">
       <div class="fee-title" translate>
-        Monoeci miner fee
+        Bitcoin miner fee
       </div>
       <div class="fee-loading" *ngIf="!wallet || !tx.txp[wallet.id]">
         <div>...</div>
@@ -42,26 +42,29 @@
       </ion-note>
     </button>
 
-    <ion-item *ngIf="tx.paypro">
+    <ion-item *ngIf="tx.paypro && !criticalError">
       <span translate>Payment Expires:</span>
       <ion-note *ngIf="!paymentExpired" item-end>{{remainingTimeStr}}</ion-note>
-      <ion-note *ngIf="paymentExpired" [ngStyle]="{'color': 'red'}" translate item-end>Expired</ion-note>
+      <ion-note *ngIf="paymentExpired" [ngStyle]="{'color': 'red'}" item-end>{{'Expired' | translate}}</ion-note>
     </ion-item>
 
     <ion-item class="container-to" *ngIf="!criticalError">
       <span translate>To</span>
 
       <div class="payment-proposal-to" *ngIf="!tx.recipientType">
-        <img class="icon-monoeci" src="assets/img/icon-monoeci-small.svg">
+        <img class="icon-bitcoin" src="assets/img/icon-bitcoin-small.svg">
         <div class="ellipsis" *ngIf="!tx.paypro" copy-to-clipboard="{{ tx.origToAddress }}">
           <!--TODO: <contact *ngIf="tx.origToAddress && !tx.name" address="{{tx.origToAddress}}"></contact>-->
           <span *ngIf="!tx.name">{{tx.origToAddress}}</span>
           <span *ngIf="tx.name">{{tx.name}}</span>
         </div>
 
-        <div *ngIf="tx.paypro" (click)="openPPModal(tx.paypro)">
-          <ion-icon [hidden]="!tx.paypro.verified || !tx.paypro.caTrusted" [ngStyle]="{'color': 'green'}" ios="ios-lock" md="md-lock"></ion-icon>
-          <ion-icon [hidden]="tx.paypro.caTrusted" [ngStyle]="{'color': 'red'}" ios="ios-unlock" md="md-unlock"></ion-icon>
+        <div class="paypro" *ngIf="tx.paypro" (click)="openPPModal(tx.paypro)">
+
+          <ion-icon *ngIf="tx.paypro.verified && tx.paypro.caTrusted" name="lock" color="success"></ion-icon>
+          <ion-icon *ngIf="!tx.paypro.verified && tx.paypro.caTrusted" name="unlock" color="warning"></ion-icon>
+          <ion-icon *ngIf="!tx.paypro.caTrusted" name="unlock" color="danger"></ion-icon>
+
           <span [hidden]="tx.name">{{tx.paypro.domain || tx.paypro.toAddress}}</span>
           <span [hidden]="!tx.name">{{tx.name}}</span>
         </div>

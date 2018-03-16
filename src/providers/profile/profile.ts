@@ -342,7 +342,8 @@ export class ProfileProvider {
   private askPassword(name: string, title: string): Promise<any> {
     return new Promise((resolve, reject) => {
       let opts = {
-        type: 'password'
+        type: 'password',
+        useDanger: true
       }
       this.popupProvider.ionicPrompt(title, name, opts).then((res: any) => {
         return resolve(res);
@@ -632,11 +633,22 @@ export class ProfileProvider {
       };
 
       bindWallets().then(() => {
-        this.isDisclaimerAccepted().then(() => {
-          return resolve();
+        this.isOnboardingCompleted().then(() => {
+          this.isDisclaimerAccepted().then(() => {
+            return resolve();
+          }).catch(() => {
+            return reject(new Error('NONAGREEDDISCLAIMER: Non agreed disclaimer'));
+          });
         }).catch(() => {
-          this.persistenceProvider.setHomeTipAccepted('accepted');
-          return reject(new Error('NONAGREEDDISCLAIMER: Non agreed disclaimer'));
+          this.isDisclaimerAccepted().then(() => {
+            this.setOnboardingCompleted().then(() => {
+              return resolve();
+            }).catch((err: any) => {
+              this.logger.error(err);
+            });
+          }).catch(() => {
+            return reject(new Error('ONBOARDINGNONCOMPLETED: Onboarding non completed'));
+          });
         });
       }).catch((err: any) => {
         return reject(err);
@@ -654,6 +666,23 @@ export class ProfileProvider {
       this.persistenceProvider.getCopayDisclaimerFlag().then((val) => {
         if (val) {
           this.profile.disclaimerAccepted = true;
+          return resolve();
+        } else {
+          return reject();
+        }
+      });
+    });
+  }
+
+  public isOnboardingCompleted(): Promise<any> {
+    return new Promise((resolve, reject) => {
+
+      let onboardingCompleted = this.profile && this.profile.onboardingCompleted;
+      if (onboardingCompleted) return resolve();
+
+      this.persistenceProvider.getCopayOnboardingFlag().then((val) => {
+        if (val) {
+          this.profile.onboardingCompleted = true;
           return resolve();
         } else {
           return reject();
@@ -913,7 +942,7 @@ export class ProfileProvider {
       opts.m = 1;
       opts.n = 1;
       opts.networkName = 'livenet';
-      opts.coin = 'xmcc';
+      opts.coin = 'btc';
       this.createWallet(opts).then((wallet: any) => {
         return resolve(wallet);
       }).catch((err) => {
@@ -925,6 +954,17 @@ export class ProfileProvider {
   public setDisclaimerAccepted(): Promise<any> {
     return new Promise((resolve, reject) => {
       this.profile.disclaimerAccepted = true;
+      this.persistenceProvider.storeProfile(this.profile).then(() => {
+        return resolve();
+      }).catch((err) => {
+        return reject(err);
+      });
+    });
+  }
+
+  public setOnboardingCompleted(): Promise<any> {
+    return new Promise((resolve, reject) => {
+      this.profile.onboardingCompleted = true;
       this.persistenceProvider.storeProfile(this.profile).then(() => {
         return resolve();
       }).catch((err) => {
@@ -1133,7 +1173,7 @@ export class ProfileProvider {
           if (err)
             this.logger.warn(this.bwcErrorProvider.msg(err, 'Error updating notifications for ' + wallet.name));
           if (++j == l) {
-            notifications = _.sortBy(notifications, 'createdOn');
+            notifications = _.sortBy(notifications, 'createdOn').reverse();
             notifications = _.compact(_.flatten(notifications)).slice(0, MAX);
             let total = notifications.length;
             let processArray = process(notifications);
@@ -1161,7 +1201,7 @@ export class ProfileProvider {
           txps = txps.concat(x.pendingTxps);
       });
       let n = txps.length;
-      txps = _.sortBy(txps, 'pendingForUs', 'createdOn');
+      txps = _.sortBy(txps, 'createdOn').reverse();
       txps = _.compact(_.flatten(txps)).slice(0, opts.limit || MAX);
       return resolve({ txps, n });
     });

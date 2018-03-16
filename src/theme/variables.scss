@@ -22,22 +22,30 @@ $app-direction: ltr;
 // Override - Homogenized ionic component styles
 @import 'overrides';
 
+// Colors
 $colors: (
   primary: $color-primary,
   secondary: $color-secondary,
   warning: #eba133,
-  danger: #bb331a,
-  success: #7bc94d,
+  danger: #ef473a,
+  success: #09C286,
   light: #f4f4f4,
   blank: #fafafa,
   dark: #424242,
-  grey: #999
+  grey: #667,
+  light-grey: #9b9bab
 );
+
+// App background color
+$background-color : #F5F5F5;
+
+// Item list background color
+$list-background-color: #ffffff;
 
 // Refresh color
 $refresher-icon-color: color($colors, primary);
-$refresher-icon-font-size: 12.5px;
-$refresher-height: 60px;
+$refresher-icon-font-size: 14px;
+$refresher-height: 80px;
 
 // Toolbar
 $toolbar-text-color: color($colors, light);
@@ -48,6 +56,15 @@ $text-color: color($colors, dark);
 // Border light
 $list-border-color: color($colors, light);
 
+// Font size
+$font-size-base: 1.4rem;
+
+// Toolbar
+$toolbar-ios-title-text-color: color($colors, light);
+$toolbar-md-title-text-color: color($colors, light);
+$toolbar-md-title-font-size: 1.6rem;
+$toolbar-ios-title-font-size: 1.5rem;
+
 // Onboarding colors
 $onboarding-gradient-top-color: $toolbar-background;
 $onboarding-gradient-bottom-color: $color-secondary;
@@ -56,7 +73,6 @@ $onboarding-background-image: linear-gradient(
   $onboarding-gradient-top-color 0%,
   $onboarding-gradient-bottom-color 100%
 );
-$onboarding-color: #fff;
 
 // App iOS Variables
 // --------------------------------------------------
@@ -65,39 +81,52 @@ $onboarding-color: #fff;
 $tabs-ios-background: color($colors, blank);
 $tabs-ios-border-color: rgba(0, 0, 0, .1);
 
-//$item-ios-body-text-font-size: 1.4rem;
-$item-ios-divider-background: color($colors, blank);
+$item-ios-body-text-font-size: 1.4rem;
+
+$item-ios-divider-background: $background-color;
+$item-ios-divider-color: color($colors, grey);
 $item-ios-padding-top: 16px;
 $item-ios-padding-bottom: 16px;
+$label-ios-margin-top: 14px;
+$label-ios-margin-bottom: 14px;
 
 $list-ios-border-color: color($colors, light);
-//$list-ios-header-font-size: 1.5rem;
+$list-ios-header-font-size: 16px;
 $list-ios-margin-bottom: 0;
+$list-ios-header-font-weight: 700;
+$list-ios-header-color: color($colors, dark);
 
 $searchbar-ios-background-color: color($colors, blank);
 $searchbar-ios-padding-vertical: 16px;
 $searchbar-ios-padding-horizontal: 8px;
 
-$note-ios-color: color($colors, grey);
+$note-ios-color: color($colors, light-grey);
 
 // App Material Design Variables
 // --------------------------------------------------
 // Material Design only Sass variables can go here
 
-//$item-md-font-size: 1.4rem;
-$item-md-divider-background: color($colors, blank);
+$item-md-body-text-font-size: 1.4rem;
+$item-md-font-size: 1.6rem;
+
+$item-md-divider-background: $background-color;
+$item-md-divider-color: color($colors, grey);
 $item-md-padding-top: 16px;
 $item-md-padding-bottom: 16px;
+$label-md-margin-top: 14px;
+$label-md-margin-bottom: 14px;
 
 $searchbar-md-padding-start: 8px;
 $searchbar-md-padding-end: 8px;
 $searchbar-md-padding-top: 16px;
 
 $list-md-border-color: color($colors, light);
+$list-md-header-font-size: 16px;
 $list-md-header-margin-bottom: 0;
 $list-md-margin-bottom: 0;
+$list-md-header-color: color($colors, dark);
 
-$note-md-color: color($colors, grey);
+$note-md-color: color($colors, light-grey);
 
 // App Windows Variables
 // --------------------------------------------------
@@ -132,4 +161,46 @@ $note-md-color: color($colors, grey);
 // (So scroll bars are not visible in Chrome, NW.js, or Electron.)
 .platform-core .scroll-content {
   overflow-y: auto;
+}
+
+// Removes border-bottom
+.md ion-list > .item:last-child, 
+.md ion-list > .item-wrapper:last-child .item,
+.ios ion-list > .item:last-child, 
+.ios ion-list > .item-wrapper:last-child .item {
+    border-bottom: none;
+}
+
+// Transition between home <-> walletDetails
+.ios {
+  page-wallet-details {
+    .balance-header {
+      margin-top: 44px;
+    }
+  }
+}
+.md {
+  page-wallet-details {
+    .balance-header {
+      margin-top: 56px;
+    }
+  }
+}
+
+// Titles centered on all headers for material design
+.toolbar {
+  &.toolbar-md { //material design only
+    position: relative;
+    .back-button {
+      z-index: 999;
+    }
+    .title-md { //material design only
+        position: absolute;
+        left: 0;
+        top: 0;
+        height: 100%;
+        width: 100%;
+        text-align: center;
+    }
+  }
 }

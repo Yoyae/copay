@@ -21,7 +21,8 @@ export class AddressBookProvider {
     try {
       network = (this.bwcProvider.getBitcore().Address(address)).network.name;
     } catch (e) {
-      this.logger.warn('No valid monoeci address.');
+      this.logger.warn('No valid bitcoin address. Trying bitcoin cash...');
+      network = (this.bwcProvider.getBitcoreCash().Address(address)).network.name;
     }
     return network;
   };
@@ -68,7 +69,7 @@ export class AddressBookProvider {
   public add(entry: any): Promise<any> {
     return new Promise((resolve, reject) => {
       var network = this.getNetwork(entry.address);
-      if (_.isEmpty(network)) return reject('Not valid monoeci address');
+      if (_.isEmpty(network)) return reject('Not valid bitcoin address');
       this.persistenceProvider.getAddressbook(network).then((ab: any) => {
         if (ab && _.isString(ab)) ab = JSON.parse(ab);
         ab = ab || {};
@@ -93,7 +94,7 @@ export class AddressBookProvider {
   public remove(addr: any): Promise<any> {
     return new Promise((resolve, reject) => {
       var network = this.getNetwork(addr);
-      if (_.isEmpty(network)) return reject('Not valid monoeci address');
+      if (_.isEmpty(network)) return reject('Not valid bitcoin address');
       this.persistenceProvider.getAddressbook(network).then((ab: any) => {
         if (ab && _.isString(ab)) ab = JSON.parse(ab);
         ab = ab || {};

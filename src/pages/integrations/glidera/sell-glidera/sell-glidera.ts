@@ -50,13 +50,13 @@ export class SellGlideraPage {
     private events: Events,
     private modalCtrl: ModalController
   ) {
-    this.coin = 'xmcc';
+    this.coin = 'btc';
     this.isCordova = this.platformProvider.isCordova;
   }
 
   ionViewWillEnter() {
 
-    this.isFiat = this.navParams.data.currency != 'XMCC' ? true : false;
+    this.isFiat = this.navParams.data.currency != 'BTC' ? true : false;
     this.amount = this.navParams.data.amount;
     this.currency = this.navParams.data.currency;
 
@@ -91,10 +91,10 @@ export class SellGlideraPage {
   }
 
   private processPaymentInfo(): void {
-    this.onGoingProcessProvider.set('connectingGlidera', true);
+    this.onGoingProcessProvider.set('connectingGlidera');
     this.glideraProvider.init((err, data) => {
       if (err) {
-        this.onGoingProcessProvider.set('connectingGlidera', false);
+        this.onGoingProcessProvider.clear();
         this.showErrorAndBack(err);
         return;
       }
@@ -106,7 +106,7 @@ export class SellGlideraPage {
         price.qty = this.amount;
       }
       this.glideraProvider.sellPrice(this.token, price, (err, sell) => {
-        this.onGoingProcessProvider.set('connectingGlidera', false);
+        this.onGoingProcessProvider.clear();
         if (err) {
           this.showErrorAndBack(err);
           return;
@@ -138,21 +138,21 @@ export class SellGlideraPage {
   }
 
   public sellConfirm(): void {
-    let message = 'Sell monoeci for ' + this.amount + ' ' + this.currency;
+    let message = 'Sell bitcoin for ' + this.amount + ' ' + this.currency;
     let okText = 'Confirm';
     let cancelText = 'Cancel';
     this.popupProvider.ionicConfirm(null, message, okText, cancelText).then((ok) => {
       if (!ok) return;
-      this.onGoingProcessProvider.set('sellingMonoeci', true);
+      this.onGoingProcessProvider.set('sellingBitcoin');
       this.glideraProvider.get2faCode(this.token, (err, tfa) => {
         if (err) {
-          this.onGoingProcessProvider.set('sellingMonoeci', false);
+          this.onGoingProcessProvider.clear();
           this.showError(err);
           return;
         }
         this.ask2FaCode(tfa.mode, (twoFaCode) => {
           if (tfa.mode != 'NONE' && _.isEmpty(twoFaCode)) {
-            this.onGoingProcessProvider.set('sellingMonoeci', false);
+            this.onGoingProcessProvider.clear();
             this.showError('No code entered');
             return;
           }
@@ -164,13 +164,13 @@ export class SellGlideraPage {
 
           this.walletProvider.getAddress(this.wallet, false).then((refundAddress) => {
             if (!refundAddress) {
-              this.onGoingProcessProvider.set('sellingMonoeci', false);
+              this.onGoingProcessProvider.clear();
               this.showError('Could not create address');
               return;
             }
             this.glideraProvider.getSellAddress(this.token, (err, sellAddress) => {
               if (!sellAddress || err) {
-                this.onGoingProcessProvider.set('sellingMonoeci', false);
+                this.onGoingProcessProvider.clear();
                 this.showError(err);
                 return;
               }
@@ -213,28 +213,28 @@ export class SellGlideraPage {
                         ip: null
                       };
                       this.glideraProvider.sell(this.token, twoFaCode, data, (err, data) => {
-                        this.onGoingProcessProvider.set('sellingMonoeci', false);
+                        this.onGoingProcessProvider.clear();
                         if (err) return this.showError(err);
                         this.logger.info(data);
                         this.openFinishModal();
                       });
                     }).catch((err) => {
-                      this.onGoingProcessProvider.set('sellingMonoeci', false);
+                      this.onGoingProcessProvider.clear();
                       this.showError(err);
                       this.walletProvider.removeTx(this.wallet, publishedTxp).catch((err) => { // TODO in the original code use signedTxp on this function
                         if (err) this.logger.debug(err);
                       });
                     });
                   }).catch((err) => {
-                    this.onGoingProcessProvider.set('sellingMonoeci', false);
+                    this.onGoingProcessProvider.clear();
                     this.showError(err);
                   });
                 }).catch((err) => {
-                  this.onGoingProcessProvider.set('sellingMonoeci', false);
+                  this.onGoingProcessProvider.clear();
                   this.showError(err);
                 });
               }).catch((err) => {
-                this.onGoingProcessProvider.set('sellingMonoeci', false);
+                this.onGoingProcessProvider.clear();
                 this.showError(err);
               });
             });
@@ -268,7 +268,7 @@ export class SellGlideraPage {
 
   private openFinishModal(): void {
     let finishText = 'Funds sent to Glidera Account';
-    let finishComment = 'The transaction is not yet confirmed, and will show as "Pending" in your Activity. The monoeci sale will be completed automatically once it is confirmed by Glidera';
+    let finishComment = 'The transaction is not yet confirmed, and will show as "Pending" in your Activity. The bitcoin sale will be completed automatically once it is confirmed by Glidera';
     let modal = this.modalCtrl.create(FinishModalPage, { finishText, finishComment }, { showBackdrop: true, enableBackdropDismiss: false });
     modal.present();
     modal.onDidDismiss(() => {

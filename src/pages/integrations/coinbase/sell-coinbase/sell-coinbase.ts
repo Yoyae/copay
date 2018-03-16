@@ -57,8 +57,8 @@ export class SellCoinbasePage {
     private profileProvider: ProfileProvider,
     private modalCtrl: ModalController
   ) {
-    this.coin = 'xmcc';
-    this.isFiat = this.navParams.data.currency != 'XMCC' ? true : false;
+    this.coin = 'btc';
+    this.isFiat = this.navParams.data.currency != 'BTC' ? true : false;
     this.amount = this.navParams.data.amount;
     this.currency = this.navParams.data.currency;
     this.priceSensitivity = this.coinbaseProvider.priceSensitivity;
@@ -107,20 +107,21 @@ export class SellCoinbasePage {
         this.logger.info(err);
         return reject(err);
       }
-
       this.walletProvider.publishAndSign(wallet, txp).then((txp: any) => {
+        this.onGoingProcessProvider.clear();
         return resolve(txp);
       }).catch((err: any) => {
+        this.onGoingProcessProvider.clear();
         return reject(err);
       });
     });
   }
 
   private processPaymentInfo(): void {
-    this.onGoingProcessProvider.set('connectingCoinbase', true);
+    this.onGoingProcessProvider.set('connectingCoinbase');
     this.coinbaseProvider.init((err: any, res: any) => {
       if (err) {
-        this.onGoingProcessProvider.set('connectingCoinbase', false);
+        this.onGoingProcessProvider.clear();
         this.showErrorAndBack(this.coinbaseProvider.getErrorsAsString(err.errors));
         return;
       }
@@ -134,7 +135,7 @@ export class SellCoinbasePage {
       this.selectedPaymentMethodId = null;
       this.coinbaseProvider.getPaymentMethods(accessToken, (err: any, p: any) => {
         if (err) {
-          this.onGoingProcessProvider.set('connectingCoinbase', false);
+          this.onGoingProcessProvider.clear();
           this.showErrorAndBack(this.coinbaseProvider.getErrorsAsString(err.errors));
           return;
         }
@@ -152,7 +153,7 @@ export class SellCoinbasePage {
           }
         }
         if (_.isEmpty(this.paymentMethods)) {
-          this.onGoingProcessProvider.set('connectingCoinbase', false);
+          this.onGoingProcessProvider.clear();
           let url = 'https://support.coinbase.com/customer/portal/articles/1148716-payment-methods-for-us-customers';
           let msg = 'No payment method available to buy';
           let okText = 'More info';
@@ -172,9 +173,9 @@ export class SellCoinbasePage {
 
   private checkTransaction = _.throttle((count: number, txp: any) => {
     this.logger.warn('Check if transaction has been received by Coinbase. Try ' + count + '/5');
-    // TX amount in XMCC
-    let satToXmcc = 1 / 100000000;
-    let amountXMCC = (txp.amount * satToXmcc).toFixed(8);
+    // TX amount in BTC
+    let satToBtc = 1 / 100000000;
+    let amountBTC = (txp.amount * satToBtc).toFixed(8);
     this.coinbaseProvider.init((err: any, res: any) => {
       if (err) {
         this.logger.error(err);
@@ -205,7 +206,7 @@ export class SellCoinbasePage {
           let ctx;
           for (let i = 0; i < coinbaseTransactions.length; i++) {
             ctx = coinbaseTransactions[i];
-            if (ctx.type == 'send' && ctx.from && ctx.amount.amount == amountXMCC) {
+            if (ctx.type == 'send' && ctx.from && ctx.amount.amount == amountBTC) {
               this.logger.warn('Transaction found!', ctx);
               txFound = true;
               this.logger.debug('Saving transaction to process later...');
@@ -216,7 +217,7 @@ export class SellCoinbasePage {
               ctx.sell_price_currency = sellPrice ? sellPrice.currency : 'USD';
               ctx.description = this.appProvider.info.nameCase + ' Wallet: ' + this.wallet.name;
               this.coinbaseProvider.savePendingTransaction(ctx, null, (err: any) => {
-                this.onGoingProcessProvider.set('sellingMonoeci', false);
+                this.onGoingProcessProvider.clear();
                 this.openFinishModal();
                 if (err) this.logger.debug(this.coinbaseProvider.getErrorsAsString(err.errors));
               });
@@ -229,7 +230,7 @@ export class SellCoinbasePage {
             if (count < 5) {
               this.checkTransaction(count + 1, txp);
             } else {
-              this.onGoingProcessProvider.set('sellingMonoeci', false);
+              this.onGoingProcessProvider.clear();
               this.showError('No transaction found');
               return;
             }
@@ -242,10 +243,9 @@ export class SellCoinbasePage {
     });
 
   public sellRequest(): void {
-    this.onGoingProcessProvider.set('connectingCoinbase', true);
     this.coinbaseProvider.init((err: any, res: any) => {
       if (err) {
-        this.onGoingProcessProvider.set('connectingCoinbase', false);
+        this.onGoingProcessProvider.clear();
         this.showErrorAndBack(this.coinbaseProvider.getErrorsAsString(err.errors));
         return;
       }
@@ -258,7 +258,7 @@ export class SellCoinbasePage {
         quote: true
       };
       this.coinbaseProvider.sellRequest(accessToken, accountId, dataSrc, (err: any, data: any) => {
-        this.onGoingProcessProvider.set('connectingCoinbase', false);
+        this.onGoingProcessProvider.clear();
         if (err) {
           this.showErrorAndBack(this.coinbaseProvider.getErrorsAsString(err.errors));
           return;
@@ -273,16 +273,16 @@ export class SellCoinbasePage {
     let configWallet = config.wallet;
     let walletSettings = configWallet.settings;
 
-    let message = 'Selling monoeci for ' + this.amount + ' ' + this.currency;
+    let message = 'Selling bitcoin for ' + this.amount + ' ' + this.currency;
     let okText = 'Confirm';
     let cancelText = 'Cancel';
     this.popupProvider.ionicConfirm(null, message, okText, cancelText).then((ok: any) => {
       if (!ok) return;
 
-      this.onGoingProcessProvider.set('sellingMonoeci', true);
+      this.onGoingProcessProvider.set('sellingBitcoin');
       this.coinbaseProvider.init((err: any, res: any) => {
         if (err) {
-          this.onGoingProcessProvider.set('sellingMonoeci', false);
+          this.onGoingProcessProvider.clear();
           this.showError(this.coinbaseProvider.getErrorsAsString(err.errors));
           return;
         }
@@ -294,14 +294,14 @@ export class SellCoinbasePage {
         };
         this.coinbaseProvider.createAddress(accessToken, accountId, dataSrc, (err: any, data: any) => {
           if (err) {
-            this.onGoingProcessProvider.set('sellingMonoeci', false);
+            this.onGoingProcessProvider.clear();
             this.showError(this.coinbaseProvider.getErrorsAsString(err.errors));
             return;
           }
           let outputs = [];
           let toAddress = data.data.address;
           let amountSat = parseInt((this.sellRequestInfo.amount.amount * 100000000).toFixed(0), 10);
-          let comment = 'Sell monoeci (Coinbase)';
+          let comment = 'Sell bitcoin (Coinbase)';
 
           outputs.push({
             'toAddress': toAddress,
@@ -325,12 +325,12 @@ export class SellCoinbasePage {
               this.logger.debug('Transaction broadcasted. Wait for Coinbase confirmation...');
               this.checkTransaction(1, txSent);
             }).catch((err: any) => {
-              this.onGoingProcessProvider.set('sellingMonoeci', false);
+              this.onGoingProcessProvider.clear();
               this.showError(err);
               return;
             });
           }).catch((err: any) => {
-            this.onGoingProcessProvider.set('sellingMonoeci', false);
+            this.onGoingProcessProvider.clear();
             this.showError(err);
             return;
           });
@@ -360,13 +360,13 @@ export class SellCoinbasePage {
 
   private openFinishModal(): void {
     let finishText = 'Funds sent to Coinbase Account';
-    let finishComment = 'The transaction is not yet confirmed, and will show as "Pending" in your Activity. The monoeci sale will be completed automatically once it is confirmed by Coinbase';
+    let finishComment = 'The transaction is not yet confirmed, and will show as "Pending" in your Activity. The bitcoin sale will be completed automatically once it is confirmed by Coinbase';
     let modal = this.modalCtrl.create(FinishModalPage, { finishText, finishComment }, { showBackdrop: true, enableBackdropDismiss: false });
     modal.present();
     modal.onDidDismiss(() => {
       this.navCtrl.remove(3, 1);
       this.navCtrl.pop();
-      this.navCtrl.push(CoinbasePage, { coin: 'xmcc' });
+      this.navCtrl.push(CoinbasePage, { coin: 'btc' });
     });
   }
 

@@ -1,5 +1,10 @@
 page-disclaimer {
-  @extend %onboarding;
+  & > ion-content {
+    background-image: $onboarding-background-image !important;
+    background-position: center center;
+    background-size: contain;
+    background-repeat: no-repeat;
+  }
   text-align: center;
   ion-header {
     .toolbar-title,
@@ -14,16 +19,23 @@ page-disclaimer {
     font-size: 2vh;
     cursor: pointer;
   }
-  p {
-    line-height: 1.6;
-    font-size: 18px;
-    margin-right: 10px;
-    margin-left: 10px;
-  }
   .checkbox-list {
-    ion-item {
+    ion-item, .agree-to-terms ion-item {
+      font-size: 14px;
       background: none;
       color: #fff;
     }
+  }
+  .top-description {
+    font-size: 1.4rem;
+    padding: 0 4rem 0 4rem;
+    color: $onboarding-comment-color;
+  }
+  .title {
+    color: color($colors, blank);
+  }
+  ion-footer {
+    background-color: color($colors, secondary);
+    box-shadow: 0 1px 10px rgba(0, 0, 0, 0.25);
   }
 }

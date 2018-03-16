@@ -68,12 +68,12 @@ export class WalletAddressesPage {
         this.withBalance = resp.byAddress;
 
         var idx = _.keyBy(this.withBalance, 'address');
-        this.noBalance = _.reject(allAddresses, (x) => {
+        this.noBalance = _.reject(allAddresses, (x: any) => {
           return idx[x.address];
         });
 
-        this.processPaths(this.noBalance);
-        this.processPaths(this.withBalance);
+        this.processList(this.noBalance);
+        this.processList(this.withBalance);
 
         this.latestUnused = _.slice(this.noBalance, 0, this.UNUSED_ADDRESS_LIMIT);
         this.latestWithBalance = _.slice(this.withBalance, 0, this.BALANCE_ADDRESS_LIMIT);
@@ -112,34 +112,38 @@ export class WalletAddressesPage {
 
   }
 
-  private processPaths(list: any): void {
+  private processList(list: any): void {
     _.each(list, (n: any) => {
       n.path = n.path.replace(/^m/g, 'xpub');
+      n.address = this.walletProvider.getAddressView(this.wallet, n.address);
     });
   }
 
   public newAddress(): void {
     if (this.gapReached) return;
 
-    this.onGoingProcessProvider.set('generatingNewAddress', true);
+    this.onGoingProcessProvider.set('generatingNewAddress');
     this.walletProvider.getAddress(this.wallet, true).then((addr: string) => {
       this.walletProvider.getMainAddresses(this.wallet, { limit: 1 }).then((_addr: any) => {
-        this.onGoingProcessProvider.set('generatingNewAddress', false);
+        this.onGoingProcessProvider.clear();
         if (addr != _addr[0].address) {
           this.popupProvider.ionicAlert(this.translate.instant('Error'), this.translate.instant('New address could not be generated. Please try again.'));
           return;
         }
         this.noBalance = [_addr[0]].concat(this.noBalance);
+
+        this.processList(this.noBalance);
+
         this.latestUnused = _.slice(this.noBalance, 0, this.UNUSED_ADDRESS_LIMIT);
         this.viewAll = this.noBalance.length > this.UNUSED_ADDRESS_LIMIT;
       }).catch((err) => {
         this.logger.error(err);
-        this.onGoingProcessProvider.set('generatingNewAddress', false);
+        this.onGoingProcessProvider.clear();
         this.popupProvider.ionicAlert(this.translate.instant('Error'), err);
       });
     }).catch((err) => {
       this.logger.error(err);
-      this.onGoingProcessProvider.set('generatingNewAddress', false);
+      this.onGoingProcessProvider.clear();
       if (err.toString().match('MAIN_ADDRESS_GAP_REACHED')) {
         this.gapReached = true;
       } else {

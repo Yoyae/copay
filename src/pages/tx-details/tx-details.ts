@@ -65,7 +65,9 @@ export class TxDetailsPage {
     this.txsUnsubscribedForNotifications = this.config.confirmedTxsNotifications ? !this.config.confirmedTxsNotifications.enabled : true;
 
     let defaults = this.configProvider.getDefaults();
-    this.blockexplorerUrl = defaults.blockExplorerUrl.xmcc;
+    this.blockexplorerUrl = this.wallet.coin === 'bch'
+      ? defaults.blockExplorerUrl.bch
+      : defaults.blockExplorerUrl.btc;
 
     this.txConfirmNotificationProvider.checkIfEnabled(this.txId).then((res: any) => {
       this.txNotification = {
@@ -83,10 +85,10 @@ export class TxDetailsPage {
   }
 
   public readMore(): void {
-    let url = 'https://github.com/bitpay/copay/wiki/COPAY---FAQ#amount-too-low-to-spend';
+    let url = 'https://support.bitpay.com/hc/en-us/articles/115004497783-What-does-the-BitPay-wallet-s-warning-amount-too-low-to-spend-mean-';
     let optIn = true;
     let title = null;
-    let message = this.translate.instant('Read more in our Wiki');
+    let message = this.translate.instant('Read more in our support page');
     let okText = this.translate.instant('Open');
     let cancelText = this.translate.instant('Go Back');
     this.externalLinkProvider.open(url, optIn, title, message, okText, cancelText);
@@ -144,9 +146,9 @@ export class TxDetailsPage {
 
   private updateTx(opts?: any): void {
     opts = opts ? opts : {};
-    if (!opts.hideLoading) this.onGoingProcess.set('loadingTxInfo', true);
+    if (!opts.hideLoading) this.onGoingProcess.set('loadingTxInfo');
     this.walletProvider.getTx(this.wallet, this.txId).then((tx: any) => {
-      if (!opts.hideLoading) this.onGoingProcess.set('loadingTxInfo', false);
+      if (!opts.hideLoading) this.onGoingProcess.clear();
 
       this.btx = this.txFormatProvider.processTx(this.wallet.coin, tx, this.walletProvider.useLegacyAddress());
       let v: string = this.txFormatProvider.formatAlternativeStr(this.wallet.coin, tx.fees);
@@ -171,7 +173,7 @@ export class TxDetailsPage {
         return;
       });
     }).catch((err: any) => {
-      if (!opts.hideLoading) this.onGoingProcess.set('loadingTxInfo', false);
+      if (!opts.hideLoading) this.onGoingProcess.clear();
       this.logger.warn('Error getting transaction: ' + err);
       this.navCtrl.pop();
       return this.popupProvider.ionicAlert('Error', this.translate.instant('Transaction not available at this time'));

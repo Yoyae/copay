@@ -8,14 +8,14 @@
   </ion-navbar>
 </ion-header>
 
-<ion-content  no-bounce>
+<ion-content no-bounce>
   <div class="bitpayCard-illustration">
     <img class="bitpayCard-illustration-img" src="assets/img/bitpay-card/bitpay-card-visa.svg" />
   </div>
   <ion-slides pager="true">
     <ion-slide>
       <p class="slider-text" translate>
-        Turn monoeci into dollars, swipe anywhere Visa
+        Turn bitcoin into dollars, swipe anywhere Visa
         <sup>&reg;</sup> is accepted.
       </p>
     </ion-slide>
@@ -27,12 +27,12 @@
     </ion-slide>
     <ion-slide>
       <p class="slider-text" translate>
-        Pay 0% fees to turn monoeci into dollars.
+        Pay 0% fees to turn bitcoin into dollars.
       </p>
     </ion-slide>
   </ion-slides>
+  <div padding>
+    <button ion-button class="button-standard" (click)="orderBitPayCard()">Order the BitPay Card</button>
+    <button ion-button clear color="blank" class="button-standard" (click)="connectBitPayCard()">Connect my BitPay Card</button>
+  </div>
 </ion-content>
-<ion-footer text-center padding-vertical>
-  <button ion-button (click)="orderBitPayCard()">Order the BitPay Card</button>
-  <button ion-button outline small (click)="connectBitPayCard()">Connect my BitPay Card</button>
-</ion-footer>

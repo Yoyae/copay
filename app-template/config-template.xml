@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='utf-8'?>
-<widget id="com.monoeci.*BUNDLENAME*"
+<widget id="com.bitpay.*BUNDLENAME*"
   version="*VERSION*"
   android-versionCode="*ANDROIDVERSION*"
   ios-CFBundleVersion="*VERSION*">
@@ -7,8 +7,8 @@
     <description>
       *PURPOSELINE*
     </description>
-    <author email="support@monoeci.io" href="*URL*">
-        Monoeci Dev.
+    <author email="support@bitpay.com" href="*URL*">
+        BitPay Inc.
     </author>
     <content src="index.html" />
     <access origin="*" />
@@ -51,7 +51,7 @@
     <plugin name="cordova-plugin-inappbrowser" spec="^2.0.2" />
     <plugin name="cordova-plugin-touch-id" spec="^3.3.1" />
     <plugin name="cordova-plugin-whitelist" spec="^1.3.3" />
-    <plugin name="cordova-plugin-x-socialsharing" spec="^5.2.1" />
+    <plugin name="cordova-plugin-x-socialsharing" spec="^5.3.2" />
     <plugin name="cordova-plugin-x-toast" spec="^2.6.0" />
     <plugin name="ionic-plugin-keyboard" spec="^2.2.1" />
 
@@ -62,8 +62,9 @@
     <plugin name="cordova-plugin-file" spec="^6.0.1" />
     <plugin name="cordova-custom-config" spec="^4.0.2" />
     <plugin name="cordova-plugin-customurlscheme" spec="https://github.com/cmgustavo/Custom-URL-scheme.git#v4.0">
-      <variable name="URL_SCHEME" value="monoeci" />
+      <variable name="URL_SCHEME" value="bitcoin" />
       <variable name="SECOND_URL_SCHEME" value="*APPURI*" />
+      <variable name="THIRD_URL_SCHEME" value="bitcoincash" />
     </plugin>
     <plugin name="cordova-plugin-fcm" spec="https://github.com/cmgustavo/cordova-plugin-fcm.git#v4.0" />
 

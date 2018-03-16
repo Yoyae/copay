@@ -4,6 +4,7 @@ import { Logger } from '../../providers/logger/logger';
 // providers
 import { AppIdentityProvider } from '../app-identity/app-identity';
 import { BitPayProvider } from '../bitpay/bitpay';
+import { ConfigProvider } from '../config/config';
 import { HomeIntegrationsProvider } from '../home-integrations/home-integrations';
 import { PersistenceProvider } from '../persistence/persistence';
 
@@ -13,23 +14,21 @@ import * as moment from 'moment';
 @Injectable()
 export class BitPayCardProvider {
 
-  public homeItem: any;
-
   constructor(
     private logger: Logger,
     private bitPayProvider: BitPayProvider,
     private appIdentityProvider: AppIdentityProvider,
     private persistenceProvider: PersistenceProvider,
+    private configProvider: ConfigProvider,
     private homeIntegrationsProvider: HomeIntegrationsProvider
   ) {
     this.logger.info('BitPayCardProvider initialized');
+  }
 
-    this.homeItem = {
-      name: 'bitpaycard',
-      title: 'BitPay Visa® Card',
-      icon: 'assets/img/bitpay-card/icon-bitpay.svg',
-      page: 'BitPayCardIntroPage',
-    }
+  private isActive(cb): void {
+    this.getCards((cards) => {
+      return cb(!_.isEmpty(cards));
+    });
   }
 
   private _setError(msg, e?) {
@@ -218,7 +217,6 @@ export class BitPayCardProvider {
       });
 
       this.persistenceProvider.setBitpayDebitCards(this.bitPayProvider.getEnvironment().network, apiContext.pairData.email, cards).then(() => {
-        this.register();
         return cb(null, cards);
       });
     }, (data) => {
@@ -306,26 +304,26 @@ export class BitPayCardProvider {
         if (!card)
           return cb(this._setError('Card not found'));
 
-        this.bitPayProvider.post('/api/v2/' + card.token, json, (data) => {
+        this.bitPayProvider.post('/api/v2/' + card.token, json, (res) => {
           this.logger.info('BitPay TopUp: SUCCESS');
-          if (data.error) {
-            return cb(data.error);
+          if (res.error) {
+            return cb(res.error);
           } else {
-            return cb(null, data.invoice);
+            return cb(null, res.data.invoice);
           }
-        }, (data) => {
-          return cb(this._setError('BitPay Card Error: TopUp', data));
+        }, (res) => {
+          return cb(this._setError('BitPay Card Error: TopUp', res));
         });
       });
     });
   };
 
   public getInvoice(id, cb) {
-    this.bitPayProvider.get('/invoices/' + id, (data) => {
+    this.bitPayProvider.get('/invoices/' + id, (res) => {
       this.logger.info('BitPay Get Invoice: SUCCESS');
-      return cb(data.error, data.data);
-    }, (data) => {
-      return cb(this._setError('BitPay Card Error: Get Invoice', data));
+      return cb(res.error, res.data);
+    }, (res) => {
+      return cb(this._setError('BitPay Card Error: Get Invoice', res));
     });
   };
 
@@ -346,10 +344,9 @@ export class BitPayCardProvider {
     var now = Math.floor(Date.now() / 1000);
     var showRange = 600; // 10min;
 
-    this.getLastKnownBalance(card.eid, (err, data) => {
+    this.getLastKnownBalance(card.eid, (data) => {
       if (data) {
-        data = JSON.parse(data);
-        card.balance = data.balance;
+        card.balance = Number(data.balance);
         card.updatedOn = (data.updatedOn < now - showRange) ? data.updatedOn : null;
       }
       return cb();
@@ -366,7 +363,6 @@ export class BitPayCardProvider {
 
   public remove(cardId, cb) {
     this.persistenceProvider.removeBitpayDebitCard(this.bitPayProvider.getEnvironment().network, cardId).then(() => {
-      this.register();
       this.persistenceProvider.removeBalanceCache(cardId);
       return cb();
     }).catch((err) => {
@@ -384,13 +380,24 @@ export class BitPayCardProvider {
     });
   };
 
+  public getRatesFromCoin(coin, currency, cb) {
+    this.bitPayProvider.get('/rates/' + coin + '/' + currency, (data) => {
+      this.logger.info('BitPay Get Rates: SUCCESS');
+      return cb(data.error, data.data);
+    }, (data) => {
+      return cb(this._setError('BitPay Error: Get Rates', data));
+    });
+  };
+
 
   public get(opts, cb) {
     this.getCards((cards) => {
 
       if (_.isEmpty(cards)) {
+        this.homeIntegrationsProvider.updateLink('debitcard', null); // Name, linked
         return cb();
       }
+      this.homeIntegrationsProvider.updateLink('debitcard', true); // Name, linked
 
       if (opts.cardId) {
         cards = _.filter(cards, (x) => {
@@ -417,11 +424,16 @@ export class BitPayCardProvider {
     });
   };
 
-
   public register() {
-    this.persistenceProvider.getBitpayDebitCards(this.bitPayProvider.getEnvironment().network).then((cards) => {
-      if (_.isEmpty(cards)) this.homeIntegrationsProvider.register(this.homeItem);
-      else this.homeIntegrationsProvider.unregister(this.homeItem);
+    this.isActive((isActive) => {
+      this.homeIntegrationsProvider.register({
+        name: 'debitcard',
+        title: 'BitPay Visa® Card',
+        icon: 'assets/img/bitpay-card/icon-bitpay.svg',
+        page: 'BitPayCardIntroPage',
+        show: !!this.configProvider.get().showIntegration['debitcard'],
+        linked: !!isActive
+      });
     });
   }
 }
@@ -1501,6 +1513,6 @@ const iconMap = {
   9701: 'default',
   9702: 'default',
   9950: 'default',
-  'bp001': 'monoeci-topup',
+  'bp001': 'bitcoin-topup',
   'bp002': 'default'
 };

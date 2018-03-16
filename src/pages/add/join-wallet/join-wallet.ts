@@ -50,14 +50,15 @@ export class JoinWalletPage {
 
     this.showAdvOpts = false;
 
+    let regex: RegExp = /^[0-9A-HJ-NP-Za-km-z]{70,80}$/; // For invitationCode
     this.joinForm = this.form.group({
       myName: [null, Validators.required],
-      invitationCode: [null, Validators.required], // invitationCode == secret
+      invitationCode: [null, [Validators.required, Validators.pattern(regex)]], // invitationCode == secret
       bwsURL: [this.defaults.bws.url],
       selectedSeed: ['new'],
       recoveryPhrase: [null],
       derivationPath: [this.derivationPathByDefault],
-      coin: [this.navParams.data.coin ? this.navParams.data.coin : 'xmcc']
+      coin: [this.navParams.data.coin ? this.navParams.data.coin : 'btc']
     });
 
     this.seedOptions = [{
@@ -108,7 +109,7 @@ export class JoinWalletPage {
     let opts: any = {
       secret: this.joinForm.value.invitationCode,
       myName: this.joinForm.value.myName,
-      bwsurl: this.joinForm.value.bwsurl,
+      bwsurl: this.joinForm.value.bwsURL,
       coin: this.joinForm.value.coin
     }
 
@@ -144,10 +145,10 @@ export class JoinWalletPage {
   }
 
   private join(opts: any): void {
-    this.onGoingProcessProvider.set('joiningWallet', true);
+    this.onGoingProcessProvider.set('joiningWallet');
 
     this.profileProvider.joinWallet(opts).then((wallet: any) => {
-      this.onGoingProcessProvider.set('joiningWallet', false);
+      this.onGoingProcessProvider.clear();
       this.events.publish('status:updated');
       this.walletProvider.updateRemotePreferences(wallet);
 
@@ -158,7 +159,7 @@ export class JoinWalletPage {
         this.navCtrl.popToRoot();
       }
     }).catch((err: any) => {
-      this.onGoingProcessProvider.set('joiningWallet', false);
+      this.onGoingProcessProvider.clear();
       let title = this.translate.instant('Error');
       this.popupProvider.ionicAlert(title, err);
       return;
@@ -174,5 +175,4 @@ export class JoinWalletPage {
       });
     }
   }
-
 }

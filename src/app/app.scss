@@ -17,6 +17,10 @@
 // Position
 // --------------------------------------------------
 
+body {
+  line-height: 22px;
+}
+
 ion-alert.alert-top{
   align-items: center;
 }
@@ -33,8 +37,15 @@ ion-alert.alert-top{
 }
 
 .button-footer {
-  margin: 0;
+  margin: 0px;
   height: 70px;
+  width: 100%;
+  font-size: 1.6rem;
+}
+
+// Prevent uppercase on buttons
+.button {
+  text-transform: none;
 }
 
 // Hide border when refresh
@@ -47,9 +58,15 @@ ion-alert.alert-top{
 
 // Item font size
 .item-title {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 //  font-size: 1.4rem;
 }
 .item-subtitle {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
   font-weight: 300;
   font-size: 12.5px;
   ion-icon {
@@ -82,6 +99,7 @@ ion-alert.alert-top{
   box-shadow: 0px 2px 6px 0px rgba(0, 0, 0, 0.2);
   background-repeat: no-repeat;
   background-clip: padding-box;
+  background-color: #2A3F90;
   background-size: 103%;
 }
 
@@ -108,13 +126,16 @@ ion-alert.alert-top{
 .icon-services {
   background-color: none;
   border-radius: $icon-border-radius;
-  padding: 3px;
-  width: 35px;
-  height: 35px;
+  width: 32px;
+  height: 32px;
   box-shadow: 0px 2px 6px 0px rgba(0, 0, 0, 0.2);
   background-repeat: no-repeat;
   background-clip: padding-box;
   background-size: 103%;
+}
+
+.custom-icon {
+  color: rgb(169, 169, 169);
 }
 
 .icon-contact {
@@ -138,6 +159,9 @@ ion-alert.alert-top{
   }
   &.no-margin {
     margin: 0;
+  }
+  &.success {
+    background-color: color($colors, success);
   }
   &.notice {
     background-color: color($colors, dark);
@@ -200,7 +224,7 @@ a.royal {
 }
 
 .text-gray {
-  color: gray;
+  color: color($colors,grey);
 }
 
 .text-bold {
@@ -216,4 +240,92 @@ a.royal {
 
 .pointer {
   cursor: pointer;
+}
+
+.wallet-warning {
+  font-size: 11px;
+  color: color($colors, danger);
+}
+
+.card{
+  padding-top: 1px;
+  width:92%;
+  padding-bottom: 5px;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.25);
+  overflow: hidden;
+  margin: 20px auto;
+  display: block;
+  border-radius: 4px;
+  background-color: #ffffff;
+
+  .item-divider{
+    background-color: #ffffff;
+    margin-bottom: 5px;
+  }
+}
+
+// Fix Camera
+html , body, .back-transparent, ion-app, .nav-decor {
+  background: none transparent !important;
+}
+
+ion-icon {
+  &[class*="tab-"] {
+    // Instead of using the font-based icons
+    // We're applying SVG masks
+    mask-size: contain;
+    mask-position: 50% 50%;
+    mask-repeat: no-repeat;
+    background: currentColor;
+    width: 2rem !important;
+    height: 2rem !important;
+  }
+  // custom icons
+  &[class*="tab-home"] {
+    mask-image: url(../assets/img/tab-icons/ico-home.svg);
+  }
+  &[class*="tab-receive"] {
+    mask-image: url(../assets/img/tab-icons/ico-receive.svg);
+  }
+  &[class*="tab-scan"] {
+    mask-image: url(../assets/img/tab-icons/ico-scan.svg);
+    width: 3rem !important;
+  }
+  &[class*="tab-send"] {
+    mask-image: url(../assets/img/tab-icons/ico-send.svg);
+  }
+  &[class*="tab-settings"] {
+    mask-image: url(../assets/img/tab-icons/ico-settings.svg);
+  }
+}
+
+.button-standard {
+  width: 90%;
+  max-width: 300px !important;
+  margin-left: auto;
+  margin-right: auto;
+  display: block;
+  min-height: 57px;
+  margin-top: 1.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.btn-transparent {
+  border: 0px !important;
+  background-color: color($colors, secondary);
+  color: color($colors, primary);
+  -webkit-box-shadow: none;
+  -moz-box-shadow: none;
+  box-shadow: none;  
+}
+
+ion-note {
+  font-size: 12px;
+  color: color($colors, light-grey);
+}
+
+.alertDanger {
+  .alert-message {
+    color: color($colors, danger);
+  }
 }

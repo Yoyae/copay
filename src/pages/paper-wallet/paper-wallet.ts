@@ -114,9 +114,9 @@ export class PaperWalletPage {
   }
 
   public scanFunds() {
-    this.onGoingProcessProvider.set('scanning', true);
+    this.onGoingProcessProvider.set('scanning');
     this._scanFunds().then((data) => {
-      this.onGoingProcessProvider.set('scanning', false);
+      this.onGoingProcessProvider.clear();
       this.privateKey = data.privateKey;
       this.balanceSat = data.balance;
       if (this.balanceSat <= 0) {
@@ -124,7 +124,7 @@ export class PaperWalletPage {
         this.navCtrl.pop();
       }
     }).catch((err: any) => {
-      this.onGoingProcessProvider.set('scanning', false);
+      this.onGoingProcessProvider.clear();
       this.logger.error(err);
       this.popupProvider.ionicAlert(this.translate.instant('Error scanning funds:'), err || err.toString());
       this.navCtrl.pop();
@@ -137,7 +137,7 @@ export class PaperWalletPage {
         this.wallet.buildTxFromPrivateKey(this.privateKey, destinationAddress, null, (err: any, testTx: any) => {
           if (err) return reject(err);
           let rawTxLength = testTx.serialize().length;
-          this.feeProvider.getCurrentFeeRate('xmcc', 'livenet').then((feePerKb: number) => {
+          this.feeProvider.getCurrentFeeRate('btc', 'livenet').then((feePerKb: number) => {
             let opts: any = {};
             opts.fee = Math.round((feePerKb * rawTxLength) / 2000);
             this.wallet.buildTxFromPrivateKey(this.privateKey, destinationAddress, opts, (err: any, tx: any) => {
@@ -159,9 +159,9 @@ export class PaperWalletPage {
   }
 
   public sweepWallet(): void {
-    this.onGoingProcessProvider.set('sweepingWallet', true);
+    this.onGoingProcessProvider.set('sweepingWallet');
     this._sweepWallet().then((data: any) => {
-      this.onGoingProcessProvider.set('sweepingWallet', false);
+      this.onGoingProcessProvider.clear();
       this.logger.debug('Success sweep. Destination address:' + data.destinationAddress + ' - transaction id: ' + data.txid);
       this.openFinishModal();
     }).catch((err: any) => {

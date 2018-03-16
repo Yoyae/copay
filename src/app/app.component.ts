@@ -10,6 +10,7 @@ import { AppProvider } from '../providers/app/app';
 import { BitPayCardProvider } from '../providers/bitpay-card/bitpay-card';
 import { CoinbaseProvider } from '../providers/coinbase/coinbase';
 import { ConfigProvider } from '../providers/config/config';
+import { EmailNotificationsProvider } from '../providers/email-notifications/email-notifications';
 import { GlideraProvider } from '../providers/glidera/glidera';
 import { Logger } from '../providers/logger/logger';
 import { MercadoLibreProvider } from '../providers/mercado-libre/mercado-libre';
@@ -23,6 +24,14 @@ import { DisclaimerPage } from '../pages/onboarding/disclaimer/disclaimer';
 import { OnboardingPage } from '../pages/onboarding/onboarding';
 import { PinModalPage } from '../pages/pin/pin';
 import { TabsPage } from '../pages/tabs/tabs';
+
+
+// As the handleOpenURL handler kicks in before the App is started, 
+// declare the handler function at the top of app.component.ts (outside the class definition) 
+// to track the passed Url
+(window as any).handleOpenURL = (url: string) => {
+  (window as any).handleOpenURL_LastURL = url;
+};
 
 @Component({
   templateUrl: 'app.html',
@@ -40,7 +49,7 @@ export class CopayApp {
     private splashScreen: SplashScreen,
     private events: Events,
     private logger: Logger,
-    private app: AppProvider,
+    private appProvider: AppProvider,
     private profile: ProfileProvider,
     private configProvider: ConfigProvider,
     private modalCtrl: ModalController,
@@ -49,19 +58,20 @@ export class CopayApp {
     private amazonProvider: AmazonProvider,
     private bitPayCardProvider: BitPayCardProvider,
     private mercadoLibreProvider: MercadoLibreProvider,
-    private shapeshiftProvider: ShapeshiftProvider
+    private shapeshiftProvider: ShapeshiftProvider,
+    private emailNotificationsProvider: EmailNotificationsProvider
   ) {
     this.initializeApp();
   }
 
   initializeApp() {
     this.platform.ready().then((readySource) => {
-      this.app.load().then(() => {
+      this.appProvider.load().then(() => {
         this.logger.info(
           'Platform ready (' + readySource + '): ' +
-          this.app.info.nameCase +
-          ' - v' + this.app.info.version +
-          ' #' + this.app.info.commitHash);
+          this.appProvider.info.nameCase +
+          ' - v' + this.appProvider.info.version +
+          ' #' + this.appProvider.info.commitHash);
 
         if (this.platform.is('cordova')) {
           this.statusBar.show();
@@ -81,12 +91,13 @@ export class CopayApp {
             // Check PIN or Fingerprint
             this.openLockModal();
           });
-        
-        } 
+
+        }
         this.openLockModal();
         // Check Profile
         this.profile.loadAndBindProfile().then((profile: any) => {
           this.registerIntegrations();
+          this.emailNotificationsProvider.init(); // Update email subscription if necessary
           if (profile) {
             this.logger.info('Profile exists.');
             this.rootPage = TabsPage;
@@ -96,9 +107,9 @@ export class CopayApp {
             this.profile.createProfile();
             this.rootPage = OnboardingPage;
           }
-        }).catch((err: any) => {
+        }).catch((err: Error) => {
           this.logger.warn(err);
-          this.rootPage = DisclaimerPage;
+          this.rootPage = err.message == 'ONBOARDINGNONCOMPLETED: Onboarding non completed' ? OnboardingPage : DisclaimerPage;
         });
       }).catch((err) => {
         this.logger.error('Could not initialize the app');
@@ -141,27 +152,27 @@ export class CopayApp {
   private registerIntegrations(): void {
 
     // Mercado Libre
-    if (this.app.info._enabledExtensions.mercadolibre) this.mercadoLibreProvider.register();
+    if (this.appProvider.info._enabledExtensions.mercadolibre) this.mercadoLibreProvider.register();
 
     // Amazon Gift Cards
-    if (this.app.info._enabledExtensions.amazon) this.amazonProvider.register();
+    if (this.appProvider.info._enabledExtensions.amazon) this.amazonProvider.register();
 
     // ShapeShift
-    if (this.app.info._enabledExtensions.shapeshift) this.shapeshiftProvider.register();
+    if (this.appProvider.info._enabledExtensions.shapeshift) this.shapeshiftProvider.register();
 
     // Glidera
-    if (this.app.info._enabledExtensions.glidera) {
+    if (this.appProvider.info._enabledExtensions.glidera) {
       this.glideraProvider.setCredentials();
       this.glideraProvider.register();
     }
 
     // Coinbase
-    if (this.app.info._enabledExtensions.coinbase) {
+    if (this.appProvider.info._enabledExtensions.coinbase) {
       this.coinbaseProvider.setCredentials();
       this.coinbaseProvider.register();
     }
 
     // BitPay Card
-    if (this.app.info._enabledExtensions.debitcard) this.bitPayCardProvider.register();
+    if (this.appProvider.info._enabledExtensions.debitcard) this.bitPayCardProvider.register();
   }
 }

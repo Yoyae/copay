@@ -73,7 +73,7 @@ msgid "All addresses"
 msgstr ""
 
 msgid ""
-"All signing devices must be added to this multisig wallet before monoeci "
+"All signing devices must be added to this multisig wallet before bitcoin "
 "addresses can be created."
 msgstr ""
 
@@ -100,11 +100,11 @@ msgid ""
 "latest version."
 msgstr ""
 
-msgid "Anyone with your backup phrase can access or spend your monoeci."
+msgid "Anyone with your backup phrase can access or spend your bitcoin."
 msgstr ""
 
 msgid ""
-"Approximate Monoeci network fee to transfer wallet's balance (with normal "
+"Approximate Bitcoin network fee to transfer wallet's balance (with normal "
 "priority)"
 msgstr ""
 
@@ -132,7 +132,7 @@ msgstr ""
 msgid "Average confirmation time"
 msgstr ""
 
-msgid "XMCC wallets"
+msgid "BTC wallets"
 msgstr ""
 
 msgid "Backup"
@@ -157,48 +157,48 @@ msgid "Balance Hidden"
 msgstr ""
 
 msgid ""
-"Monoeci (XMCC) miner fees are high due to record demand for limited space on "
+"Bitcoin (BTC) miner fees are high due to record demand for limited space on "
 "the\n"
-"      Monoeci network. BitPay does not receive and does not control monoeci "
+"      Bitcoin network. BitPay does not receive and does not control bitcoin "
 "miner fees."
 msgstr ""
 
-msgid "Monoeci Address"
+msgid "Bitcoin Address"
 msgstr ""
 
-msgid "Monoeci Cash Wallets"
+msgid "Bitcoin Cash Wallets"
 msgstr ""
 
-msgid "Monoeci Network Fee Policy"
+msgid "Bitcoin Network Fee Policy"
 msgstr ""
 
-msgid "Monoeci Wallets"
+msgid "Bitcoin Wallets"
 msgstr ""
 
-msgid "Monoeci cash Payment"
+msgid "Bitcoin cash Payment"
 msgstr ""
 
-msgid "Monoeci is a currency."
+msgid "Bitcoin is a currency."
 msgstr ""
 
 msgid ""
-"Monoeci is different &ndash; it cannot be safely held with a bank or web "
+"Bitcoin is different &ndash; it cannot be safely held with a bank or web "
 "service."
 msgstr ""
 
-msgid "Monoeci is secure,"
+msgid "Bitcoin is secure,"
 msgstr ""
 
-msgid "Monoeci miner fee"
+msgid "Bitcoin miner fee"
 msgstr ""
 
-msgid "Monoeci miner fees unusually high"
+msgid "Bitcoin miner fees unusually high"
 msgstr ""
 
-msgid "Monoeci network fee policy"
+msgid "Bitcoin network fee policy"
 msgstr ""
 
-msgid "Monoeci transactions include a fee collected by miners on the network."
+msgid "Bitcoin transactions include a fee collected by miners on the network."
 msgstr ""
 
 msgid "Broadcast Payment"
@@ -219,7 +219,7 @@ msgstr ""
 msgid "Buy a Gift Card"
 msgstr ""
 
-msgid "Buying Monoeci..."
+msgid "Buying Bitcoin..."
 msgstr ""
 
 msgid "Buying Gift Card..."
@@ -411,7 +411,7 @@ msgstr ""
 msgid "Create a new wallet"
 msgstr ""
 
-msgid "Create monoeci wallet"
+msgid "Create bitcoin wallet"
 msgstr ""
 
 msgid "Create shared wallet"
@@ -489,7 +489,7 @@ msgid "Duplicating wallet..."
 msgstr ""
 
 msgid ""
-"Each monoeci wallet can generate billions of addresses from your 12-word "
+"Each bitcoin wallet can generate billions of addresses from your 12-word "
 "backup. A new address is automatically generated\n"
 "      and shown each time you receive a payment."
 msgstr ""
@@ -710,7 +710,7 @@ msgid "I've written it down"
 msgstr ""
 
 msgid ""
-"If enabled, Monoeci Cash addresses will be shown using Copay style address, "
+"If enabled, Bitcoin Cash addresses will be shown using Copay style address, "
 "and not the new cashaddr format."
 msgstr ""
 
@@ -795,7 +795,7 @@ msgstr ""
 
 msgid ""
 "It's a good idea to avoid reusing addresses - this both protects your "
-"privacy and keeps your monoecis secure against\n"
+"privacy and keeps your bitcoins secure against\n"
 "        hypothetical attacks by quantum computers."
 msgstr ""
 
@@ -918,7 +918,7 @@ msgstr ""
 msgid "No access key defined"
 msgstr ""
 
-msgid "No backup, no monoeci."
+msgid "No backup, no bitcoin."
 msgstr ""
 
 msgid "No contacts yet"
@@ -957,7 +957,7 @@ msgstr ""
 msgid "No wallets available to use ShapeShift"
 msgstr ""
 
-msgid "No wallets eligible for Monoeci Cash support"
+msgid "No wallets eligible for Bitcoin Cash support"
 msgstr ""
 
 msgid "No wallets with funds"
@@ -966,7 +966,7 @@ msgstr ""
 msgid "Non BIP44 wallet"
 msgstr ""
 
-msgid "Non eligible XMCC wallets"
+msgid "Non eligible BTC wallets"
 msgstr ""
 
 msgid "Normal"
@@ -988,7 +988,7 @@ msgid "Note"
 msgstr ""
 
 msgid ""
-"Note: if this BCH wallet was duplicated from a XMCC wallet, they share the "
+"Note: if this BCH wallet was duplicated from a BTC wallet, they share the "
 "same recovery phrase."
 msgstr ""
 
@@ -1096,7 +1096,7 @@ msgid ""
 "          it was created."
 msgstr ""
 
-msgid "Payment address was translated to new Monoeci Cash address format: {{addr}}"
+msgid "Payment address was translated to new Bitcoin Cash address format: {{addr}}"
 msgstr ""
 
 msgid "Payment details"
@@ -1302,7 +1302,7 @@ msgstr ""
 msgid "Select a wallet"
 msgstr ""
 
-msgid "Selling Monoeci..."
+msgid "Selling Bitcoin..."
 msgstr ""
 
 msgid "Send"
@@ -1413,7 +1413,7 @@ msgid "Slide to send"
 msgstr ""
 
 msgid ""
-"Some of your wallets are not eligible for Monoeci Cash support. You can try "
+"Some of your wallets are not eligible for Bitcoin Cash support. You can try "
 "to access BCH funds from these wallets\n"
 "        using the"
 msgstr ""
@@ -1430,7 +1430,7 @@ msgstr ""
 msgid "Spending Password needed"
 msgstr ""
 
-msgid "Spending this balance will need significant Monoeci network fees"
+msgid "Spending this balance will need significant Bitcoin network fees"
 msgstr ""
 
 msgid "Still pending"
@@ -1537,10 +1537,10 @@ msgstr ""
 msgid "This app is fantastic!"
 msgstr ""
 
-msgid "This app stores your monoeci with cutting-edge security."
+msgid "This app stores your bitcoin with cutting-edge security."
 msgstr ""
 
-msgid "This monoeci payment request has expired."
+msgid "This bitcoin payment request has expired."
 msgstr ""
 
 msgid ""
@@ -1549,8 +1549,8 @@ msgid ""
 msgstr ""
 
 msgid ""
-"This transaction amount is too small compared to current Monoeci network "
-"fees. Spending these funds will need a Monoeci network\n"
+"This transaction amount is too small compared to current Bitcoin network "
+"fees. Spending these funds will need a Bitcoin network\n"
 "        fee cost comparable to the funds itself."
 msgstr ""
 
@@ -1571,7 +1571,7 @@ msgstr ""
 msgid "To"
 msgstr ""
 
-msgid "To get started, you'll need to create a monoeci wallet and get some monoeci."
+msgid "To get started, you'll need to create a bitcoin wallet and get some bitcoin."
 msgstr ""
 
 msgid "Top up in progress..."
@@ -1607,10 +1607,10 @@ msgstr ""
 msgid "Transactions without fee are not supported."
 msgstr ""
 
-msgid "Transfer to Monoeci Cash Wallet"
+msgid "Transfer to Bitcoin Cash Wallet"
 msgstr ""
 
-msgid "Transfer to Monoeci Wallet"
+msgid "Transfer to Bitcoin Wallet"
 msgstr ""
 
 msgid "Transfer to Contact"
@@ -1652,7 +1652,7 @@ msgstr ""
 msgid "Urgent"
 msgstr ""
 
-msgid "Use Monoeci Cash Copay Style Addresses"
+msgid "Use Bitcoin Cash Copay Style Addresses"
 msgstr ""
 
 msgid "Use Unconfirmed Funds"
@@ -1863,7 +1863,7 @@ msgid ""
 "by visiting our project on GitHub."
 msgstr ""
 
-msgid "You can spend monoeci at millions of websites and stores worldwide."
+msgid "You can spend bitcoin at millions of websites and stores worldwide."
 msgstr ""
 
 msgid "You can still export it from Advanced &gt; Export."
@@ -1872,7 +1872,7 @@ msgstr ""
 msgid "You can trade it for other currencies like US Dollars, Euros, or Pounds."
 msgstr ""
 
-msgid "You control your monoeci."
+msgid "You control your bitcoin."
 msgstr ""
 
 msgid "You should not set a fee higher than {{maxFeeRecommended}} satoshis/byte."
@@ -1886,11 +1886,11 @@ msgstr ""
 msgid "Your Gift Cards"
 msgstr ""
 
-msgid "Your monoeci wallet is ready!"
+msgid "Your bitcoin wallet is ready!"
 msgstr ""
 
 msgid ""
-"Your extended private keys are all that is needed to access your monoeci "
+"Your extended private keys are all that is needed to access your bitcoin "
 "funds. Be sure to protect your private\n"
 "        keys and store them only on secure devices. BitPay does not have "
 "access to your private keys, so you alone are responsible\n"
@@ -1921,7 +1921,7 @@ msgstr ""
 
 msgid ""
 "Your wallet keys will be stored in plan text in this device, if an other "
-"app access the store it will be able to access your Monoeci"
+"app access the store it will be able to access your Bitcoin"
 msgstr ""
 
 msgid "[Balance Hidden]"
@@ -1938,7 +1938,7 @@ msgstr ""
 msgid "digital money."
 msgstr ""
 
-msgid "get started with monoeci."
+msgid "get started with bitcoin."
 msgstr ""
 
 msgid "me"

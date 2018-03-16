@@ -52,8 +52,8 @@ export class BuyCoinbasePage {
     private profileProvider: ProfileProvider,
     private modalCtrl: ModalController
   ) {
-    this.coin = 'xmcc';
-    this.isFiat = this.navParams.data.currency != 'XMCC' ? true : false;
+    this.coin = 'btc';
+    this.isFiat = this.navParams.data.currency != 'BTC' ? true : false;
     this.amount = this.navParams.data.amount;
     this.currency = this.navParams.data.currency;
     this.network = this.coinbaseProvider.getNetwork();
@@ -92,10 +92,10 @@ export class BuyCoinbasePage {
   }
 
   private processPaymentInfo(): void {
-    this.onGoingProcessProvider.set('connectingCoinbase', true);
+    this.onGoingProcessProvider.set('connectingCoinbase');
     this.coinbaseProvider.init((err: any, res: any) => {
       if (err) {
-        this.onGoingProcessProvider.set('connectingCoinbase', false);
+        this.onGoingProcessProvider.clear();
         this.showErrorAndBack(err);
         return;
       }
@@ -109,7 +109,7 @@ export class BuyCoinbasePage {
       this.selectedPaymentMethodId = null;
       this.coinbaseProvider.getPaymentMethods(accessToken, (err: any, p: any) => {
         if (err) {
-          this.onGoingProcessProvider.set('connectingCoinbase', false);
+          this.onGoingProcessProvider.clear();
           this.showErrorAndBack(err);
           return;
         }
@@ -127,7 +127,7 @@ export class BuyCoinbasePage {
           }
         }
         if (_.isEmpty(this.paymentMethods)) {
-          this.onGoingProcessProvider.set('connectingCoinbase', false);
+          this.onGoingProcessProvider.clear();
           let url = 'https://support.coinbase.com/customer/portal/articles/1148716-payment-methods-for-us-customers';
           let msg = 'No payment method available to buy';
           let okText = 'More info';
@@ -146,10 +146,9 @@ export class BuyCoinbasePage {
   }
 
   public buyRequest(): void {
-    this.onGoingProcessProvider.set('connectingCoinbase', true);
     this.coinbaseProvider.init((err, res) => {
       if (err) {
-        this.onGoingProcessProvider.set('connectingCoinbase', false);
+        this.onGoingProcessProvider.clear();
         this.showErrorAndBack(err);
         return;
       }
@@ -162,7 +161,7 @@ export class BuyCoinbasePage {
         quote: true
       };
       this.coinbaseProvider.buyRequest(accessToken, accountId, dataSrc, (err: any, data: any) => {
-        this.onGoingProcessProvider.set('connectingCoinbase', false);
+        this.onGoingProcessProvider.clear();
         if (err) {
           this.showErrorAndBack(err);
           return;
@@ -173,16 +172,16 @@ export class BuyCoinbasePage {
   }
 
   public buyConfirm() {
-    let message = 'Buy monoeci for ' + this.amountUnitStr;
+    let message = 'Buy bitcoin for ' + this.amountUnitStr;
     let okText = 'Confirm';
     let cancelText = 'Cancel';
     this.popupProvider.ionicConfirm(null, message, okText, cancelText).then((ok: boolean) => {
       if (!ok) return;
 
-      this.onGoingProcessProvider.set('buyingMonoeci', true);
+      this.onGoingProcessProvider.set('buyingBitcoin');
       this.coinbaseProvider.init((err: any, res: any) => {
         if (err) {
-          this.onGoingProcessProvider.set('buyingMonoeci', false);
+          this.onGoingProcessProvider.clear();
           this.showError(err);
           return;
         }
@@ -196,7 +195,7 @@ export class BuyCoinbasePage {
         };
         this.coinbaseProvider.buyRequest(accessToken, accountId, dataSrc, (err: any, b: any) => {
           if (err) {
-            this.onGoingProcessProvider.set('buyingMonoeci', false);
+            this.onGoingProcessProvider.clear();
             this.showError(err);
             return;
           }
@@ -216,14 +215,14 @@ export class BuyCoinbasePage {
 
   private processBuyTx(tx: any): void {
     if (!tx) {
-      this.onGoingProcessProvider.set('buyingMonoeci', false);
+      this.onGoingProcessProvider.clear();
       this.showError('Transaction not found');
       return;
     }
 
     this.coinbaseProvider.getTransaction(this.accessToken, this.accountId, tx.id, (err: any, updatedTx: any) => {
       if (err) {
-        this.onGoingProcessProvider.set('buyingMonoeci', false);
+        this.onGoingProcessProvider.clear();
         this.showError(err);
         return;
       }
@@ -234,12 +233,12 @@ export class BuyCoinbasePage {
 
         this.logger.debug('Saving transaction to process later...');
         this.coinbaseProvider.savePendingTransaction(updatedTx.data, {}, (err: any) => {
-          this.onGoingProcessProvider.set('buyingMonoeci', false);
+          this.onGoingProcessProvider.clear();
           if (err) this.logger.debug(err);
           this.openFinishModal();
         });
       }).catch((err) => {
-        this.onGoingProcessProvider.set('buyingMonoeci', false);
+        this.onGoingProcessProvider.clear();
         this.showError(err);
       });
     });
@@ -248,7 +247,7 @@ export class BuyCoinbasePage {
   private _processBuyOrder(b: any): void {
     this.coinbaseProvider.getBuyOrder(this.accessToken, this.accountId, b.data.id, (err: any, buyResp: any) => {
       if (err) {
-        this.onGoingProcessProvider.set('buyingMonoeci', false);
+        this.onGoingProcessProvider.clear();
         this.showError(err);
         return;
       }
@@ -276,14 +275,14 @@ export class BuyCoinbasePage {
     this.wallet = wallet;
     let parsedAmount = this.txFormatProvider.parseAmount(this.coin, this.amount, this.currency);
 
-    // Buy always in XMCC
+    // Buy always in BTC
     this.amount = (parsedAmount.amountSat / 100000000).toFixed(8);
-    this.currency = 'XMCC';
+    this.currency = 'BTC';
 
     this.amountUnitStr = parsedAmount.amountUnitStr;
-    this.onGoingProcessProvider.set('calculatingFee', true);
+    this.onGoingProcessProvider.set('calculatingFee');
     this.coinbaseProvider.checkEnoughFundsForFee(this.amount, (err: any) => {
-      this.onGoingProcessProvider.set('calculatingFee', false);
+      this.onGoingProcessProvider.clear();
       if (err) {
         this.showErrorAndBack(err);
         return;
@@ -294,13 +293,13 @@ export class BuyCoinbasePage {
 
   private openFinishModal(): void {
     let finishText = 'Bought';
-    let finishComment = 'Monoeci purchase completed. Coinbase has queued the transfer to your selected wallet';
+    let finishComment = 'Bitcoin purchase completed. Coinbase has queued the transfer to your selected wallet';
     let modal = this.modalCtrl.create(FinishModalPage, { finishText, finishComment }, { showBackdrop: true, enableBackdropDismiss: false });
     modal.present();
     modal.onDidDismiss(() => {
       this.navCtrl.remove(3, 1);
       this.navCtrl.pop();
-      this.navCtrl.push(CoinbasePage, { coin: 'xmcc' });
+      this.navCtrl.push(CoinbasePage, { coin: 'btc' });
     });
   }
 

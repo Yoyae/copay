@@ -4,8 +4,8 @@
       Details
     </ion-title>
     <ion-buttons start>
-      <button (click)="close()" ion-button>
-        {{'Close' | translate}}
+      <button (click)="close()" ion-button translate>
+        Close
       </button>
     </ion-buttons>
   </ion-toolbar>
@@ -27,12 +27,12 @@
           <span *ngIf="tx.type == 'sell'">Sold</span>
         </div>
         <div *ngIf="tx.type == 'send' && (tx.to || tx.from) && tx.status != 'completed'">
-          <span *ngIf="tx.to">Receiving purchased monoeci</span>
-          <span *ngIf="tx.from">Sending monoeci to sell</span>
+          <span *ngIf="tx.to">Receiving purchased bitcoin</span>
+          <span *ngIf="tx.from">Sending bitcoin to sell</span>
         </div>
         <div *ngIf="(tx.type == 'sell' || tx.type == 'buy') && tx.status != 'completed'">
-          <span *ngIf="tx.type == 'buy'">Buying monoeci</span>
-          <span *ngIf="tx.type == 'sell'">Selling monoeci</span>
+          <span *ngIf="tx.type == 'buy'">Buying bitcoin</span>
+          <span *ngIf="tx.type == 'sell'">Selling bitcoin</span>
         </div>
       </div>
       <div class="price">
@@ -100,8 +100,8 @@
 
     <ion-item *ngIf="tx.description">
       <ion-label>
-        <span *ngIf="tx.from && tx.type == 'send'">Sent monoeci from</span>
-        <span *ngIf="tx.to && tx.type == 'send'">Receive monoeci in</span>
+        <span *ngIf="tx.from && tx.type == 'send'">Sent bitcoin from</span>
+        <span *ngIf="tx.to && tx.type == 'send'">Receive bitcoin in</span>
       </ion-label>
       <ion-note item-end>
         {{tx.description}}

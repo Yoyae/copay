@@ -31,6 +31,7 @@ import { WalletProvider } from '../../../providers/wallet/wallet';
 export class ConfirmPage {
 
   private bitcore: any;
+  private bitcoreCash: any;
 
   public countDown = null;
   public CONFIRM_LIMIT_USD: number;
@@ -44,6 +45,7 @@ export class ConfirmPage {
   public showAddress: boolean;
   public walletSelectorTitle: string;
   public buttonText: string;
+  public successText: string;
   public paymentExpired: boolean;
   public remainingTimeStr: string;
 
@@ -53,10 +55,10 @@ export class ConfirmPage {
 
   // Platform info
   public isCordova: boolean;
-  public isWindowsPhoneApp: boolean;
 
   // custom fee flag
   public usingCustomFee: boolean = false;
+  public usingMerchantFee: boolean = false;
 
   constructor(
     private bwcProvider: BwcProvider,
@@ -78,21 +80,22 @@ export class ConfirmPage {
     private translate: TranslateService,
     private externalLinkProvider: ExternalLinkProvider
   ) {
+    this.bitcore = this.bwcProvider.getBitcore();
+    this.bitcoreCash = this.bwcProvider.getBitcoreCash();
     this.CONFIRM_LIMIT_USD = 20;
     this.FEE_TOO_HIGH_LIMIT_PER = 15;
     this.config = this.configProvider.get();
     this.configFeeLevel = this.config.wallet.settings.feeLevel ? this.config.wallet.settings.feeLevel : 'normal';
     this.isCordova = this.platformProvider.isCordova;
-    this.isWindowsPhoneApp = this.platformProvider.isCordova && this.platformProvider.isWP;
   }
 
   ionViewWillEnter() {
-    let B = this.bitcore;
+    let B = this.navParams.data.coin == 'bch' ? this.bitcoreCash : this.bitcore;
     let networkName;
     try {
       networkName = (new B.Address(this.navParams.data.toAddress)).network.name;
     } catch (e) {
-      var message = this.translate.instant('Copay only supports Monoeci Cash using new version numbers addresses');
+      var message = this.translate.instant('Copay only supports Bitcoin Cash using new version numbers addresses');
       var backText = this.translate.instant('Go back');
       var learnText = this.translate.instant('Learn more');
       this.popupProvider.ionicConfirm(null, message, backText, learnText).then((back) => {
@@ -111,7 +114,6 @@ export class ConfirmPage {
       sendMax: this.navParams.data.useSendMax ? true : false,
       description: this.navParams.data.description,
       paypro: this.navParams.data.paypro,
-      feeLevel: this.configFeeLevel,
       spendUnconfirmed: this.config.wallet.spendUnconfirmed,
 
       // Vanity tx info (not in the real tx)
@@ -124,6 +126,18 @@ export class ConfirmPage {
       txp: {},
     };
     this.tx.origToAddress = this.tx.toAddress;
+
+    if (this.navParams.data.requiredFeeRate) {
+      this.usingMerchantFee = true;
+      this.tx.feeRate = +this.navParams.data.requiredFeeRate;
+    } else {
+      this.tx.feeLevel = (this.tx.coin && this.tx.coin == 'bch') ? 'normal ' : this.configFeeLevel;
+    }
+
+    if (this.tx.coin && this.tx.coin == 'bch') {
+      // Use legacy address
+      this.tx.toAddress = this.bitcoreCash.Address(this.tx.toAddress).toString();
+    }
 
     this.tx.feeLevelName = this.feeProvider.feeOpts[this.tx.feeLevel];
     this.showAddress = false;
@@ -229,6 +243,10 @@ export class ConfirmPage {
     // If select another wallet
     this.tx.coin = this.wallet.coin;
 
+    if (!this.usingCustomFee && !this.usingMerchantFee) {
+      this.tx.feeLevel = wallet.coin == 'bch' ? 'normal' : this.configFeeLevel;
+    }
+
     this.setButtonText(this.wallet.credentials.m > 1, !!this.tx.paypro);
 
     if (this.tx.paypro)
@@ -242,23 +260,13 @@ export class ConfirmPage {
 
   private setButtonText(isMultisig: boolean, isPayPro: boolean): void {
     if (isPayPro) {
-      // if (this.isCordova && !this.isWindowsPhoneApp) {
-      //  this.buttonText = this.translate.instant('Slide to pay');
-      // } else {
       this.buttonText = this.translate.instant('Click to pay');
-      // }
     } else if (isMultisig) {
-      // if (this.isCordova && !this.isWindowsPhoneApp) {
-      //  this.buttonText = this.translate.instant('Slide to accept');
-      // } else {
       this.buttonText = this.translate.instant('Click to accept');
-      // }
+      this.successText = this.wallet.credentials.n == 1 ? this.translate.instant('Payment Sent') : this.translate.instant('Proposal created');
     } else {
-      // if (this.isCordova && !this.isWindowsPhoneApp) {
-      // this.buttonText = this.translate.instant('Slide to send');
-      // } else {
       this.buttonText = this.translate.instant('Click to send');
-      // }
+      this.successText = this.translate.instant('Payment Sent');
     }
   }
 
@@ -304,9 +312,34 @@ export class ConfirmPage {
         return resolve();
       }
 
-      this.onGoingProcessProvider.set('calculatingFee', true);
-      this.feeProvider.getFeeRate(wallet.coin, tx.network, tx.feeLevel).then((feeRate: any) => {
-        if (!this.usingCustomFee) tx.feeRate = feeRate;
+      let maxAllowedMerchantFee = {
+        btc: 'urgent',
+        bch: 'normal',
+      }
+
+      this.onGoingProcessProvider.set('calculatingFee');
+      this.feeProvider.getFeeRate(wallet.coin, tx.network, this.usingMerchantFee ? maxAllowedMerchantFee[wallet.coin] : this.tx.feeLevel).then((feeRate: any) => {
+
+        let msg;
+        if (this.usingCustomFee) {
+          msg = this.translate.instant('Custom');
+          tx.feeLevelName = msg;
+        } else if (this.usingMerchantFee) {
+
+          let maxAllowedfee = feeRate * 2;
+          this.logger.info('Using Merchant Fee:' + tx.feeRate + ' vs. referent level:' + maxAllowedfee);
+          if (tx.network != 'testnet' && tx.feeRate > maxAllowedfee) {
+            this.onGoingProcessProvider.set('calculatingFee');
+            this.setNoWallet(this.translate.instant('Merchant fee too high. Payment rejected'), true);
+            return reject('fee_too_high');
+          }
+
+          msg = this.translate.instant('Suggested by Merchant');
+          tx.feeLevelName = msg;
+        } else {
+          tx.feeLevelName = this.feeProvider.feeOpts[tx.feeLevel];
+          tx.feeRate = feeRate;
+        }
 
         // call getSendMaxInfo if was selected from amount view
         if (tx.sendMax) {
@@ -331,6 +364,7 @@ export class ConfirmPage {
           });
         }
       }).catch((err: any) => {
+        this.logger.warn(err);
         this.onGoingProcessProvider.clear();
         return reject(err);
       });
@@ -346,7 +380,7 @@ export class ConfirmPage {
 
           if (sendMaxInfo.amount == 0) {
             this.setNoWallet(this.translate.instant('Insufficient funds for fee'), false);
-            this.popupProvider.ionicAlert('Error', 'Not enough funds for fee').then(() => {
+            this.popupProvider.ionicAlert(this.translate.instant('Error'), this.translate.instant('Not enough funds for fee')).then(() => {
               return resolve('no_funds');
             });
           }
@@ -394,7 +428,13 @@ export class ConfirmPage {
         this.logger.debug('Confirm. TX Fully Updated for wallet:' + wallet.id, JSON.stringify(tx));
         return resolve();
       }).catch((err: any) => {
-        return reject(err);
+        if (err.message == 'Insufficient funds') {
+          this.setNoWallet(this.translate.instant('Insufficient funds'));
+          this.popupProvider.ionicAlert(this.translate.instant('Error'), this.translate.instant('Not enough funds for fee'));
+          return reject('no_funds');
+        } else {
+          return reject(err);
+        }
       });
     });
   }
@@ -404,7 +444,7 @@ export class ConfirmPage {
 
       if (!tx.sendMax) return resolve();
 
-      this.onGoingProcessProvider.set('retrievingInputs', true);
+      this.onGoingProcessProvider.set('retrievingInputs');
       this.walletProvider.getSendMaxInfo(wallet, {
         feePerKb: tx.feeRate,
         excludeUnconfirmedUtxos: !tx.spendUnconfirmed,
@@ -422,7 +462,7 @@ export class ConfirmPage {
 
   private showSendMaxWarning(wallet: any, sendMaxInfo: any): void {
     let fee = (sendMaxInfo.fee / 1e8);
-    let msg = fee + " " + this.tx.coin.toUpperCase() + " will be deducted for monoeci networking fees.";
+    let msg = fee + " " + this.tx.coin.toUpperCase() + " will be deducted for bitcoin networking fees."; // TODO: translate
     let warningMsg = this.verifyExcludedUtxos(wallet, sendMaxInfo);
 
     if (!_.isEmpty(warningMsg))
@@ -477,7 +517,7 @@ export class ConfirmPage {
         txp.inputs = tx.sendMaxInfo.inputs;
         txp.fee = tx.sendMaxInfo.fee;
       } else {
-        if (this.usingCustomFee) {
+        if (this.usingCustomFee || this.usingMerchantFee) {
           txp.feePerKb = tx.feeRate;
         } else txp.feeLevel = tx.feeLevel;
       }
@@ -527,11 +567,11 @@ export class ConfirmPage {
     if (!tx || !wallet) return;
 
     if (this.paymentExpired) {
-      this.popupProvider.ionicAlert(null, this.translate.instant('This monoeci payment request has expired.'));
+      this.popupProvider.ionicAlert(null, this.translate.instant('This bitcoin payment request has expired.'));
       return;
     }
 
-    this.onGoingProcessProvider.set('creatingTx', true);
+    this.onGoingProcessProvider.set('creatingTx');
     this.getTxp(_.clone(tx), wallet, false).then((txp: any) => {
 
       // confirm txs for more that 20usd, if not spending/touchid is enabled
@@ -561,6 +601,7 @@ export class ConfirmPage {
       let publishAndSign = (): void => {
         if (!wallet.canSign() && !wallet.isPrivKeyExternal()) {
           this.logger.info('No signing proposal: No private key');
+          this.onGoingProcessProvider.set('sendingTx');
           this.walletProvider.onlyPublish(wallet, txp).then(() => {
             this.onGoingProcessProvider.clear();
             this.openFinishModal(true);
@@ -572,6 +613,7 @@ export class ConfirmPage {
         }
 
         this.walletProvider.publishAndSign(wallet, txp).then((txp: any) => {
+          this.onGoingProcessProvider.clear();
           if (this.config.confirmedTxsNotifications && this.config.confirmedTxsNotifications.enabled) {
             this.txConfirmNotificationProvider.subscribe(wallet, {
               txid: txp.txid
@@ -579,6 +621,7 @@ export class ConfirmPage {
           }
           this.openFinishModal();
         }).catch((err: any) => {
+          this.onGoingProcessProvider.clear();
           this.setSendError(err);
           return;
         });
@@ -599,7 +642,7 @@ export class ConfirmPage {
   }
 
   private openFinishModal(onlyPublish?: boolean) {
-    let params = {};
+    let params: any = { finishText: this.successText };
     if (onlyPublish) {
       let finishText = this.translate.instant('Payment Published');
       let finishComment = this.translate.instant('You could sign the transaction later in your wallet details');
@@ -615,13 +658,21 @@ export class ConfirmPage {
   }
 
   public openPPModal(): void {
-    this.modalCtrl.create(PayProPage, {}, {
-      showBackdrop: true,
-      enableBackdropDismiss: true,
-    });
+    if (!this.wallet) return;
+    let modal = this.modalCtrl.create(PayProPage, {
+      tx: this.tx,
+      wallet: this.wallet
+    }, {
+        showBackdrop: true,
+        enableBackdropDismiss: true,
+      });
+    modal.present();
   };
 
   public chooseFeeLevel(): void {
+
+    if (this.tx.coin == 'bch') return;
+    if (this.usingMerchantFee) return; // ToDo: should we allow overwride?
 
     let txObject: any = {};
     txObject.network = this.tx.network;

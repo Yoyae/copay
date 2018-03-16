@@ -2,11 +2,6 @@ page-txp-details {
   $item-border-color: #EFEFEF;
   $item-lateral-padding: 20px;
 
-  // Small font size for ion-note
-  ion-note {
-    font-size: 1.3rem;
-  }
-
   .sending-label {
     display: flex;
     align-items: center;
@@ -52,7 +47,7 @@ page-txp-details {
           background-color: color($colors, light);
         }
       }
-      .icon-monoeci {
+      .icon-bitcoin {
         margin: 0 9px 0 0;
         width: 25px;
         height: 25px;
@@ -143,9 +138,6 @@ page-txp-details {
   .btn-remove {
     font-size: 1.2rem;
     color: color($colors, danger);
-  }
-  .btn-broadcast {
-    color: color($colors, primary);
   }
 }
 

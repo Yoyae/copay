@@ -49,12 +49,12 @@ export class BuyGlideraPage {
     private walletProvider: WalletProvider,
     private modalCtrl: ModalController
   ) {
-    this.coin = 'xmcc';
+    this.coin = 'btc';
     this.isCordova = this.platformProvider.isCordova;
   }
 
   ionViewWillEnter() {
-    this.isFiat = this.navParams.data.currency != 'XMCC' ? true : false;
+    this.isFiat = this.navParams.data.currency != 'BTC' ? true : false;
     this.amount = this.navParams.data.amount;
     this.currency = this.navParams.data.currency;
 
@@ -87,10 +87,10 @@ export class BuyGlideraPage {
   }
 
   private processPaymentInfo(): void {
-    this.onGoingProcessProvider.set('connectingGlidera', true);
+    this.onGoingProcessProvider.set('connectingGlidera');
     this.glideraProvider.init((err, data) => {
       if (err) {
-        this.onGoingProcessProvider.set('connectingGlidera', false);
+        this.onGoingProcessProvider.clear();
         this.showErrorAndBack(err);
         return;
       }
@@ -102,7 +102,7 @@ export class BuyGlideraPage {
         price.qty = this.amount;
       }
       this.glideraProvider.buyPrice(this.token, price, (err, buy) => {
-        this.onGoingProcessProvider.set('connectingGlidera', false);
+        this.onGoingProcessProvider.clear();
         if (err) {
           this.showErrorAndBack(err);
           return;
@@ -134,21 +134,21 @@ export class BuyGlideraPage {
   }
 
   public buyConfirm(): void {
-    let message = 'Buy monoeci for ' + this.amount + ' ' + this.currency;
+    let message = 'Buy bitcoin for ' + this.amount + ' ' + this.currency;
     let okText = 'Confirm';
     let cancelText = 'Cancel';
     this.popupProvider.ionicConfirm(null, message, okText, cancelText).then((ok) => {
       if (!ok) return;
-      this.onGoingProcessProvider.set('buyingMonoeci', true);
+      this.onGoingProcessProvider.set('buyingBitcoin');
       this.glideraProvider.get2faCode(this.token, (err, tfa) => {
         if (err) {
-          this.onGoingProcessProvider.set('buyingMonoeci', false);
+          this.onGoingProcessProvider.clear();
           this.showError(err);
           return;
         }
         this.ask2FaCode(tfa.mode, (twoFaCode) => {
           if (tfa.mode != 'NONE' && _.isEmpty(twoFaCode)) {
-            this.onGoingProcessProvider.set('buyingMonoeci', false);
+            this.onGoingProcessProvider.clear();
             this.showError('No code entered');
             return;
           }
@@ -162,13 +162,13 @@ export class BuyGlideraPage {
               ip: null
             };
             this.glideraProvider.buy(this.token, twoFaCode, data, (err, data) => {
-              this.onGoingProcessProvider.set('buyingMonoeci', false);
+              this.onGoingProcessProvider.clear();
               if (err) return this.showError(err);
               this.logger.info(data);
               this.openFinishModal();
             });
           }).catch(() => {
-            this.onGoingProcessProvider.set('buyingMonoeci', false);
+            this.onGoingProcessProvider.clear();
             this.showError(err);
           });
         });
@@ -200,7 +200,7 @@ export class BuyGlideraPage {
 
   private openFinishModal(): void {
     let finishText = 'Bought';
-    let finishComment = 'A transfer has been initiated from your bank account. Your monoecis should arrive to your wallet in 2-4 business day';
+    let finishComment = 'A transfer has been initiated from your bank account. Your bitcoins should arrive to your wallet in 2-4 business day';
     let modal = this.modalCtrl.create(FinishModalPage, { finishText, finishComment }, { showBackdrop: true, enableBackdropDismiss: false });
     modal.present();
     modal.onDidDismiss(() => {

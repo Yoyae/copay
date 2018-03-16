@@ -15,7 +15,7 @@
         <div class="amount">{{amountUnitStr}}</div>
         <div class="alternative">
           <span *ngIf="!isFiat">{{buyInfo.subtotal}} {{buyInfo.currency}}</span>
-          <span *ngIf="isFiat">{{buyInfo.qty}} XMCC</span> @ ${{buyInfo.price}} per XMCC
+          <span *ngIf="isFiat">{{buyInfo.qty}} BTC</span> @ ${{buyInfo.price}} per BTC
         </div>
       </div>
     </ion-item>

@@ -9,7 +9,8 @@ export class WalletSelectorPage {
 
   public showWalletsSelector: boolean;
   public wallets: any[];
-  public walletsXmcc: any[];
+  public walletsBtc: any[];
+  public walletsBch: any[];
   public showSlideEffect: boolean;
   public title: string;
   public selectedWalletId: string;
@@ -41,11 +42,13 @@ export class WalletSelectorPage {
   }
 
   private separeWallets(): void {
-    this.walletsXmcc = [];
+    this.walletsBtc = [];
+    this.walletsBch = [];
     if (this.wallets.length == 0) return;
     for (var i = 0; i <= this.wallets.length; i++) {
       if (this.wallets[i]) {
-        this.walletsXmcc.push(this.wallets[i]);
+        if (this.wallets[i].coin == 'btc') this.walletsBtc.push(this.wallets[i]);
+        else this.walletsBch.push(this.wallets[i]);
       }
     }
   }

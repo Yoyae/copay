@@ -50,7 +50,7 @@ export class Logger {
     this.add('warn', args);
   }
 
-  public getLevels(): void {
+  public getLevels(): any {
     return this.levels;
   }
 
@@ -67,7 +67,8 @@ export class Logger {
   }
 
   public add(level, msg): any {
-    msg = msg.replace('/xpriv.*/', 'xpriv[Hidden]');
+    msg = msg.replace('/xpriv.*/', '[...]');
+    msg = msg.replace('/walletPrivKey.*/', 'walletPrivKey:[...]');
     this.logs.push({
       timestamp: new Date().toISOString(),
       level,
@@ -75,6 +76,10 @@ export class Logger {
     });
   }
 
+  /**
+   * Returns logs of <= to filteredWeight
+   * @param {number} filteredWeight Weight (1-4) to use when filtering logs. optional
+   */
   public get(filterWeight?: number): any {
     let filteredLogs = this.logs;
     if (filterWeight != undefined) {

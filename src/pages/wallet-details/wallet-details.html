@@ -1,11 +1,10 @@
-<ion-header>
+<ion-header no-border>
   <ion-navbar>
     <ion-title>{{wallet.name}}</ion-title>
   </ion-navbar>
 </ion-header>
 
 <ion-content no-bounce>
-
   <div class="balance-card" [ngStyle]="{'background': wallet.color}">
     <div class="balance-header">
       <div (longPress)="toggleBalance()">
@@ -78,7 +77,7 @@
   <div *ngIf="lowUtxosWarning" class="box-notification no-margin warn">
     <a (click)="openAddresses()">
       <ion-icon name="alert"></ion-icon>
-      {{'Spending this balance will need significant Monoeci network fees'|translate}}
+      {{'Spending this balance will need significant Bitcoin network fees'|translate}}
       <ion-icon name="arrow-forward"></ion-icon>
     </a>
   </div>
@@ -105,12 +104,12 @@
 
   <!-- Transactions -->
 
-  <div class="middle-message" *ngIf="showNoTransactionsYetMsg && !updateStatusError">
-    {{'No transactions yet' | translate}}
+  <div class="middle-message" *ngIf="showNoTransactionsYetMsg && !updateStatusError" translate>
+    No transactions yet
   </div>
 
-  <div class="middle-message" *ngIf="txHistory && !txHistory[0] && updateTxHistoryError">
-    {{'Could not update transaction history' | translate}}
+  <div class="middle-message" *ngIf="txHistory && !txHistory[0] && updateTxHistoryError" translate>
+    Could not update transaction history
   </div>
 
   <div class="middle-message" *ngIf="updatingTxHistory && updatingTxHistoryProgress>5">
@@ -138,9 +137,17 @@
             <img src="assets/img/tx-action/icon-confirming.svg" width="40">
           </div>
           <div *ngIf="tx.confirmations > 0">
-            <img src="assets/img/tx-action/icon-received.svg" *ngIf="tx.action == 'received'" width="40">
-            <img src="assets/img/tx-action/icon-sent.svg" *ngIf="tx.action == 'sent'" width="40">
-            <img src="assets/img/tx-action/icon-moved.svg" *ngIf="tx.action == 'moved'" width="40">
+            <span *ngIf="tx.customData && tx.customData.service">
+              <img class="icon-services" src="assets/img/shapeshift/icon-shapeshift.svg" *ngIf="tx.customData.service == 'shapeshift'" width="40">
+              <img class="icon-services" src="assets/img/amazon/icon-amazon.svg" *ngIf="tx.customData.service == 'amazon'" width="40">
+              <img class="icon-services" src="assets/img/mercado-libre/icon-ml.svg" *ngIf="tx.customData.service == 'mercadolibre'" width="40">
+              <img class="icon-services" src="assets/img/bitpay-card/icon-bitpay.svg" *ngIf="tx.customData.service == 'debitcard'" width="40">
+            </span>
+            <span *ngIf="!tx.customData || !tx.customData.service">
+              <img src="assets/img/tx-action/icon-received.svg" *ngIf="tx.action == 'received'" width="40">
+              <img src="assets/img/tx-action/icon-sent.svg" *ngIf="tx.action == 'sent'" width="40">
+              <img src="assets/img/tx-action/icon-moved.svg" *ngIf="tx.action == 'moved'" width="40">
+            </span>
           </div>
         </ion-icon>
 
@@ -165,12 +172,12 @@
         </div>
 
         <div class="action" *ngIf="tx.confirmations > 0 && tx.action == 'moved'">
-          <span *ngIf="(!tx.note || (tx.note && tx.note.body == ''))">{{'Moved' | translate}}</span>
+          <span *ngIf="(!tx.note || (tx.note && tx.note.body == ''))" translate>Moved</span>
           <span *ngIf="tx.note && tx.note.body != ''">{{tx.note.body}}</span>
         </div>
 
         <div class="action" *ngIf="tx.confirmations > 0 && tx.action == 'invalid'">
-          <span class="assertive" *ngIf="!tx.message && !tx.note">{{'Invalid' | translate}}</span>
+          <span class="assertive" *ngIf="!tx.message && !tx.note" translate>Invalid</span>
         </div>
 
         <ion-note item-end text-end>

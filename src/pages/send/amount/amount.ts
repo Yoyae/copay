@@ -117,10 +117,6 @@ export class AmountPage {
     this.shiftMax = this.navParams.data.shiftMax;
     this.shiftMin = this.navParams.data.shiftMin;
 
-    if (this.shiftMax) {
-      this.itemSelectorLabel = 'Send ShapeShift Maximum: ' + this.shiftMax;
-    }
-
     this.setAvailableUnits();
     this.updateUnitUI();
   }
@@ -151,17 +147,29 @@ export class AmountPage {
   private setAvailableUnits(): void {
     this.availableUnits = [];
 
-    let hasXMCCWallets = this.profileProvider.getWallets({
-      coin: 'xmcc'
+    let hasBTCWallets = this.profileProvider.getWallets({
+      coin: 'btc'
     }).length;
 
-    if (hasXMCCWallets) {
+    if (hasBTCWallets) {
       this.availableUnits.push({
-        name: 'Monoeci',
-        id: 'xmcc',
-        shortName: 'XMCC',
+        name: 'Bitcoin',
+        id: 'btc',
+        shortName: 'BTC',
       });
     }
+
+    let hasBCHWallets = this.profileProvider.getWallets({
+      coin: 'bch'
+    }).length;
+
+    if (hasBCHWallets) {
+      this.availableUnits.push({
+        name: 'Bitcoin Cash',
+        id: 'bch',
+        shortName: 'BCH',
+      });
+    };
 
     this.unitIndex = 0;
 
@@ -357,8 +365,9 @@ export class AmountPage {
     else return this.txFormatProvider.formatAmount(val.toFixed(this.unitDecimals) * this.unitToSatoshi, true);
   }
 
-  private fromFiat(val: any): number {
-    return parseFloat((this.rateProvider.fromFiat(val, this.fiatCode, this.availableUnits[this.altUnitIndex].id) * this.satToUnit).toFixed(this.unitDecimals));
+  private fromFiat(val: any, coin?: string): number {
+    coin = coin || this.availableUnits[this.altUnitIndex].id;
+    return parseFloat((this.rateProvider.fromFiat(val, this.fiatCode, coin) * this.satToUnit).toFixed(this.unitDecimals));
   }
 
   private toFiat(val: number): number {
@@ -443,7 +452,7 @@ export class AmountPage {
     if (this.unitIndex >= this.availableUnits.length) this.unitIndex = 0;
 
     if (this.availableUnits[this.unitIndex].isFiat) {
-      // Always return to XMCC... TODO?
+      // Always return to BTC... TODO?
       this.altUnitIndex = 0;
     } else {
       this.altUnitIndex = _.findIndex(this.availableUnits, {

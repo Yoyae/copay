@@ -139,9 +139,9 @@ export class CoinbasePage {
   }
 
   public submitOauthCode(code: string): void {
-    this.onGoingProcessProvider.set('connectingCoinbase', true);
+    this.onGoingProcessProvider.set('connectingCoinbase');
     this.coinbaseProvider.getToken(code, (err: string, accessToken: string) => {
-      this.onGoingProcessProvider.set('connectingCoinbase', false);
+      this.onGoingProcessProvider.clear();
       if (err) {
         this.popupProvider.ionicAlert('Error connecting to Coinbase', err);
         return;
@@ -191,11 +191,11 @@ export class CoinbasePage {
   }
 
   public goToBuyCoinbasePage(): void {
-    this.navCtrl.push(AmountPage, { nextPage: 'BuyCoinbasePage', currency: this.currency, coin: 'xmcc', fixedUnit: true });
+    this.navCtrl.push(AmountPage, { nextPage: 'BuyCoinbasePage', currency: this.currency, coin: 'btc', fixedUnit: true });
   }
 
   public goToSellCoinbasePage(): void {
-    this.navCtrl.push(AmountPage, { nextPage: 'SellCoinbasePage', currency: this.currency, coin: 'xmcc', fixedUnit: true })
+    this.navCtrl.push(AmountPage, { nextPage: 'SellCoinbasePage', currency: this.currency, coin: 'btc', fixedUnit: true })
   }
 
 }

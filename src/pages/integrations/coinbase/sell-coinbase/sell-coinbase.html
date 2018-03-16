@@ -8,13 +8,13 @@
   <ion-list *ngIf="sellRequestInfo">
     <ion-item>
       <div class="selling-label">
-        <img class="selling-img" src="assets/img/sell-monoeci.svg">
+        <img class="selling-img" src="assets/img/sell-bitcoin.svg">
         <span>Selling</span>
       </div>
       <div class="amount-label">
         <div class="amount">{{amountUnitStr}}</div>
         <div class="alternative">
-          <span *ngIf="isFiat">{{sellRequestInfo.subtotal}} {{sellRequestInfo.currency}}</span> @ ${{sellPrice.amount}} per XMCC
+          <span *ngIf="isFiat">{{sellRequestInfo.subtotal}} {{sellRequestInfo.currency}}</span> @ ${{sellPrice.amount}} per BTC
         </div>
       </div>
     </ion-item>
@@ -51,7 +51,7 @@
 
       <ion-item *ngIf="selectedPriceSensitivity">
         <div>
-          Coinbase has not yet implemented an immediate method to sell monoeci from a wallet. To make this sale, funds will be sent
+          Coinbase has not yet implemented an immediate method to sell bitcoin from a wallet. To make this sale, funds will be sent
           to your Coinbase account, and sold when Coinbase accepts the transaction (usually one hour).
         </div>
         <div *ngIf="sellRequestInfo">

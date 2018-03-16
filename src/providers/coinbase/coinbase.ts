@@ -124,7 +124,7 @@ export class CoinbaseProvider {
     if (data && data.access_token && data.refresh_token) {
       this.persistenceProvider.setCoinbaseToken(this.credentials.NETWORK, data.access_token)
       this.persistenceProvider.setCoinbaseRefreshToken(this.credentials.NETWORK, data.refresh_token)
-      this.homeIntegrationsProvider.update('coinbase', data.access_token); // Name, Token
+      this.homeIntegrationsProvider.updateLink('coinbase', data.access_token); // Name, Token
       return cb(null, data.access_token);
     } else {
       return cb('Could not get the access token');
@@ -183,7 +183,7 @@ export class CoinbaseProvider {
     this._getNetAmount(amount, (err, reducedAmount) => {
       if (err) return cb(err);
 
-      // Check if transaction has enough funds to transfer monoeci from Coinbase to Copay
+      // Check if transaction has enough funds to transfer bitcoin from Coinbase to Copay
       if (reducedAmount < 0) {
         return cb('Not enough funds for fee');
       }
@@ -214,10 +214,10 @@ export class CoinbaseProvider {
   private _getNetAmount(amount, cb) {
     // Fee Normal for a single transaction (450 bytes)
     var txNormalFeeKB = 450 / 1000;
-    this.feeProvider.getFeeRate('xmcc', 'livenet', 'normal').then((feePerKb) => {
-      var feeXMCC = (feePerKb * txNormalFeeKB / 100000000).toFixed(8);
+    this.feeProvider.getFeeRate('btc', 'livenet', 'normal').then((feePerKb) => {
+      var feeBTC = (feePerKb * txNormalFeeKB / 100000000).toFixed(8);
 
-      return cb(null, amount - parseInt(feeXMCC, 10), parseInt(feeXMCC, 10));
+      return cb(null, amount - parseInt(feeBTC, 10), parseInt(feeBTC, 10));
     }).catch((err) => {
       return cb('Could not get fee rate');
     });
@@ -275,12 +275,12 @@ export class CoinbaseProvider {
       if (err) return cb(err);
       var data = a.data;
       for (var i = 0; i < data.length; i++) {
-        if (data[i].primary && data[i].type == 'wallet' && data[i].currency && data[i].currency.code == 'XMCC') {
+        if (data[i].primary && data[i].type == 'wallet' && data[i].currency && data[i].currency.code == 'BTC') {
           return cb(null, data[i].id);
         }
       }
       this.logout();
-      return cb('Your primary account should be a XMCC WALLET. Set your wallet account as primary and try again');
+      return cb('Your primary account should be a BTC WALLET. Set your wallet account as primary and try again');
     });
   };
 
@@ -308,7 +308,7 @@ export class CoinbaseProvider {
     this.persistenceProvider.removeCoinbaseToken(this.credentials.NETWORK);
     this.persistenceProvider.removeCoinbaseRefreshToken(this.credentials.NETWORK);
     this.persistenceProvider.removeCoinbaseTxs(this.credentials.NETWORK);
-    this.homeIntegrationsProvider.update('coinbase', null); // Name, Token
+    this.homeIntegrationsProvider.updateLink('coinbase', null); // Name, Token
   }
 
 
@@ -910,7 +910,7 @@ export class CoinbaseProvider {
   private _sendToWallet(tx, accessToken, accountId, coinbasePendingTransactions) {
     if (!tx) return;
     var desc = this.appProvider.info.nameCase + ' Wallet';
-    this._getNetAmount(tx.amount.amount, (err, amountXMCC, feeXMCC) => {
+    this._getNetAmount(tx.amount.amount, (err, amountBTC, feeBTC) => {
       if (err) {
         this._savePendingTransaction(tx, {
           status: 'error',
@@ -924,10 +924,10 @@ export class CoinbaseProvider {
 
       var data = {
         to: tx.toAddr,
-        amount: amountXMCC,
+        amount: amountBTC,
         currency: tx.amount.currency,
         description: desc,
-        fee: feeXMCC
+        fee: feeBTC
       };
       this.sendTo(accessToken, accountId, data, (err, res) => {
         if (err) {
@@ -984,7 +984,8 @@ export class CoinbaseProvider {
         icon: 'assets/img/coinbase/coinbase-icon.png',
         location: '33 Countries',
         page: 'CoinbasePage',
-        linked: !!isActive,
+        show: !!this.configProvider.get().showIntegration['coinbase'],
+        linked: !!isActive
       });
     });
   }

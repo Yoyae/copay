@@ -21,11 +21,14 @@ import * as _ from 'lodash';
 })
 export class SendPage {
   public search: string = '';
-  public walletsXmcc: any;
-  public walletXmccList: any;
+  public walletsBtc: any;
+  public walletsBch: any;
+  public walletBchList: any;
+  public walletBtcList: any;
   public contactsList: object[] = [];
   public filteredContactsList: object[] = [];
-  public hasXmccWallets: boolean;
+  public hasBtcWallets: boolean;
+  public hasBchWallets: boolean;
   public hasContacts: boolean;
   public contactsShowMore: boolean;
   public searchFocus: boolean;
@@ -48,9 +51,12 @@ export class SendPage {
   }
 
   ionViewWillEnter() {
-    this.walletsXmcc = this.profileProvider.getWallets({ coin: 'xmcc' });
-    this.hasXmccWallets = !(_.isEmpty(this.walletsXmcc));
-    this.updateXmccWalletsList();
+    this.walletsBtc = this.profileProvider.getWallets({ coin: 'btc' });
+    this.walletsBch = this.profileProvider.getWallets({ coin: 'bch' });
+    this.hasBtcWallets = !(_.isEmpty(this.walletsBtc));
+    this.hasBchWallets = !(_.isEmpty(this.walletsBch));
+    this.updateBchWalletsList();
+    this.updateBtcWalletsList();
     this.updateContactsList();
   }
 
@@ -58,13 +64,13 @@ export class SendPage {
     this.search = '';
   }
 
-  private updateXmccWalletsList(): void {
-    this.walletXmccList = [];
+  private updateBchWalletsList(): void {
+    this.walletBchList = [];
 
-    if (!this.hasXmccWallets) return;
+    if (!this.hasBchWallets) return;
 
-    _.each(this.walletsXmcc, (v: any) => {
-      this.walletXmccList.push({
+    _.each(this.walletsBch, (v: any) => {
+      this.walletBchList.push({
         color: v.color,
         name: v.name,
         recipientType: 'wallet',
@@ -72,6 +78,37 @@ export class SendPage {
         network: v.network,
         m: v.credentials.m,
         n: v.credentials.n,
+        isComplete: v.isComplete(),
+        needsBackup: v.needsBackup,
+        getAddress: (): Promise<any> => {
+          return new Promise((resolve, reject) => {
+            this.walletProvider.getAddress(v, false).then((addr) => {
+              return resolve(addr);
+            }).catch((err) => {
+              return reject(err);
+            });
+          });
+        }
+      });
+    });
+  }
+
+  private updateBtcWalletsList(): void {
+    this.walletBtcList = [];
+
+    if (!this.hasBtcWallets) return;
+
+    _.each(this.walletsBtc, (v: any) => {
+      this.walletBtcList.push({
+        color: v.color,
+        name: v.name,
+        recipientType: 'wallet',
+        coin: v.coin,
+        network: v.network,
+        m: v.credentials.m,
+        n: v.credentials.n,
+        isComplete: v.isComplete(),
+        needsBackup: v.needsBackup,
         getAddress: (): Promise<any> => {
           return new Promise((resolve, reject) => {
             this.walletProvider.getAddress(v, false).then((addr) => {
@@ -126,6 +163,10 @@ export class SendPage {
     if (this.search == null || this.search.length == 0) {
       this.searchFocus = false;
     }
+  }
+
+  public openScanner(): void {
+    this.navCtrl.parent.select(2);
   }
 
   public findContact(search: string): void {

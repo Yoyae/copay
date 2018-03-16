@@ -7,14 +7,12 @@
 <ion-content no-bounce>
   <div *ngIf="!accessToken" class="center-header">
     <img margin src="assets/img/coinbase/coinbase-logo.png" width="200">
-    <div margin-bottom>
-      <div *ngIf="!showOauthForm">Coinbase's exchange service is available in 33 countries, and can take 3-5 days to buy or sell monoeci.</div>
+    <div margin-bottom padding>
+      <div *ngIf="!showOauthForm">Coinbase's exchange service is available in 33 countries, and can take 3-5 days to buy or sell bitcoin.</div>
       <div *ngIf="showOauthForm">If you have trouble, contact Coinbase support for direct assistance.</div>
     </div>
-    <div margin-bottom *ngIf="!showOauthForm">
-      <button padding margin-bottom ion-button block outline (click)="openAuthenticateWindow()">Connect Coinbase Account</button>
-      <button ion-button block clear small color="dark" (click)="openSignupWindow()">Sign Up for Coinbase &rarr;</button>
-    </div>
+    <button  *ngIf="!showOauthForm" ion-button outline class="button-standard" (click)="openAuthenticateWindow()">Connect Coinbase Account</button>
+    <button  *ngIf="!showOauthForm" ion-button clear small color="dark" (click)="openSignupWindow()">Sign Up for Coinbase &rarr;</button>
     <div *ngIf="showOauthForm">
       <form [formGroup]="oauthCodeForm" (ngSubmit)="submitOauthCode(oauthCodeForm.value.code)">
         <ion-label stacked>OAuth Code</ion-label>
@@ -32,20 +30,20 @@
     <ion-list>
       <button ion-item (click)="goToBuyCoinbasePage()">
         <ion-icon item-start>
-          <img src="assets/img/buy-monoeci.svg" alt="buy monoeci" width="30">
+          <img src="assets/img/buy-bitcoin.svg" alt="buy bitcoin" width="30">
         </ion-icon>
         <ion-label>Buy</ion-label>
         <ion-note *ngIf="buyPrice" item-end>
-          {{buyPrice.amount|currency:'$':2}} {{buyPrice.currency}}/XMCC
+          {{buyPrice.amount|currency:'$':2}} {{buyPrice.currency}}/BTC
         </ion-note>
       </button>
       <button ion-item (click)="goToSellCoinbasePage()">
         <ion-icon item-start>
-          <img src="assets/img/sell-monoeci.svg" alt="sell monoeci" width="30">
+          <img src="assets/img/sell-bitcoin.svg" alt="sell bitcoin" width="30">
         </ion-icon>
         <ion-label>Sell</ion-label>
         <ion-note *ngIf="sellPrice"  item-end>
-          {{sellPrice.amount|currency:'$':2}} {{sellPrice.currency}}/XMCC
+          {{sellPrice.amount|currency:'$':2}} {{sellPrice.currency}}/BTC
         </ion-note>
       </button>
       <ion-item-divider>Activity</ion-item-divider>

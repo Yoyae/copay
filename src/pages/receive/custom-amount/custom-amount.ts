@@ -49,20 +49,20 @@ export class CustomAmountPage {
         this.navParams.data.currency
       );
 
-      // Amount in USD or XMCC
+      // Amount in USD or BTC
       let _amount = parsedAmount.amount;
       let _currency = parsedAmount.currency;
       this.amountUnitStr = parsedAmount.amountUnitStr;
 
-      if (_currency != 'XMCC') {
-        // Convert to XMCC
+      if (_currency != 'BTC' && _currency != 'BCH') {
+        // Convert to BTC or BCH
         let amountUnit = this.txFormatProvider.satToUnit(parsedAmount.amountSat);
-        var xmccParsedAmount = this.txFormatProvider.parseAmount(this.wallet.coin, amountUnit, this.wallet.coin.toUpperCase());
+        var btcParsedAmount = this.txFormatProvider.parseAmount(this.wallet.coin, amountUnit, this.wallet.coin.toUpperCase());
 
-        this.amountCoin = xmccParsedAmount.amount;
-        this.altAmountStr = xmccParsedAmount.amountUnitStr;
+        this.amountCoin = btcParsedAmount.amount;
+        this.altAmountStr = btcParsedAmount.amountUnitStr;
       } else {
-        this.amountCoin = _amount; // XMCC
+        this.amountCoin = _amount; // BTC or BCH
         this.altAmountStr = this.txFormatProvider.formatAlternativeStr(this.wallet.coin, parsedAmount.amountSat);
       }
 

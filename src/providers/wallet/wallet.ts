@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 import { Events } from 'ionic-angular';
 import * as lodash from 'lodash';
+import encoding from 'text-encoding';
 import { Logger } from '../../providers/logger/logger';
 
 // Providers
@@ -49,7 +50,7 @@ export class WalletProvider {
     private rateProvider: RateProvider,
     private filter: FilterProvider,
     private popupProvider: PopupProvider,
-    private ongoingProcessProvider: OnGoingProcessProvider,
+    private onGoingProcessProvider: OnGoingProcessProvider,
     private touchidProvider: TouchIdProvider,
     private events: Events,
     private feeProvider: FeeProvider,
@@ -326,15 +327,19 @@ export class WalletProvider {
   }
 
   public getAddressView(wallet: any, address: string): string {
-    return address;
+    if (wallet.coin != 'bch' || this.useLegacyAddress()) return address;
+    return this.txFormatProvider.toCashAddress(address);
   }
 
   public getProtoAddress(wallet: any, address: string) {
     let proto: string = this.getProtocolHandler(wallet.coin);
     let protoAddr: string = proto + ':' + address;
 
-    return protoAddr;
-
+    if (wallet.coin != 'bch' || this.useLegacyAddress()) {
+      return protoAddr;
+    } else {
+      return protoAddr.toUpperCase();
+    };
   };
 
   public getAddress(wallet: any, forceNew: boolean): Promise<any> {
@@ -343,7 +348,11 @@ export class WalletProvider {
         if (!forceNew && addr) return resolve(addr);
 
         if (!wallet.isComplete())
-          return reject('WALLET_NOT_COMPLETE');
+          return reject(this.bwcErrorProvider.msg('WALLET_NOT_COMPLETE'));
+
+        if (wallet.needsBackup) {
+          return reject(this.bwcErrorProvider.msg('WALLET_NEEDS_BACKUP'));
+        }
 
         this.createAddress(wallet).then((_addr) => {
           this.persistenceProvider.storeLastAddress(wallet.id, _addr).then(() => {
@@ -860,12 +869,12 @@ export class WalletProvider {
 
       try {
         wallet.signTxProposal(txp, password, (err: any, signedTxp: any) => {
-          this.logger.debug('Transaction signed err:' + err);
+          this.logger.warn('Transaction signed err:' + err);
           if (err) return reject(err);
           return resolve(signedTxp);
         });
       } catch (e) {
-        this.logger.warn('Error at signTxProposal:', e);
+        this.logger.error('Error at signTxProposal:', e);
         return reject(e);
       };
     });
@@ -880,8 +889,16 @@ export class WalletProvider {
         return reject('TX_NOT_ACCEPTED');
 
       wallet.broadcastTxProposal(txp, (err: any, broadcastedTxp: any, memo: any) => {
-        if (err)
-          return reject(err);
+        if (err) {
+          if (lodash.isArrayBuffer(err)) {
+            const enc = new encoding.TextDecoder();
+            err = enc.decode(err);
+            this.removeTx(wallet, txp);
+            return reject(err);
+          } else {
+            return reject(err);
+          }
+        }
 
         this.logger.debug('Transaction broadcasted');
         if (memo) this.logger.info(memo);
@@ -975,10 +992,8 @@ export class WalletProvider {
   public recreate(wallet: any): Promise<any> {
     return new Promise((resolve, reject) => {
       this.logger.debug('Recreating wallet:', wallet.id);
-      this.ongoingProcessProvider.set('recreating', true);
       wallet.recreateWallet((err: any) => {
         wallet.notAuthorized = false;
-        this.ongoingProcessProvider.set('recreating', false);
         if (err) return reject(err);
         return resolve();
       });
@@ -1069,19 +1084,12 @@ export class WalletProvider {
     });
   }
 
-  public isReady(wallet: any): string {
-    if (!wallet.isComplete())
-      return 'WALLET_NOT_COMPLETE';
-    if (wallet.needsBackup)
-      return 'WALLET_NEEDS_BACKUP';
-    return null;
-  }
-
   // An alert dialog
   private askPassword(name: string, title: string): Promise<any> {
     return new Promise((resolve, reject) => {
       let opts = {
-        type: 'password'
+        type: 'password',
+        useDanger: true
       }
       this.popupProvider.ionicPrompt(title, name, opts).then((res: any) => {
         return resolve(res);
@@ -1137,14 +1145,11 @@ export class WalletProvider {
 
   public reject(wallet: any, txp: any): Promise<any> {
     return new Promise((resolve, reject) => {
-      this.ongoingProcessProvider.set('rejectTx', true);
       this.rejectTx(wallet, txp).then((txpr: any) => {
         this.invalidateCache(wallet);
-        this.ongoingProcessProvider.set('rejectTx', false);
         this.events.publish('Local/TxAction', wallet.id);
         return resolve(txpr);
       }).catch((err) => {
-        this.ongoingProcessProvider.set('rejectTx', false);
         return reject(err);
       });
     });
@@ -1152,7 +1157,6 @@ export class WalletProvider {
 
   public onlyPublish(wallet: any, txp: any): Promise<any> {
     return new Promise((resolve, reject) => {
-      this.ongoingProcessProvider.set('sendingTx', true);
       this.publishTx(wallet, txp).then((publishedTxp) => {
         this.invalidateCache(wallet);
         this.events.publish('Local/TxAction', wallet.id);
@@ -1180,28 +1184,24 @@ export class WalletProvider {
   private signAndBroadcast(wallet: any, publishedTxp: any, password: any): Promise<any> {
     return new Promise((resolve, reject) => {
 
-      this.ongoingProcessProvider.set('signingTx', true);
+      this.onGoingProcessProvider.set('signingTx');
       this.signTx(wallet, publishedTxp, password).then((signedTxp: any) => {
         this.invalidateCache(wallet);
         if (signedTxp.status == 'accepted') {
-          this.ongoingProcessProvider.set('broadcastingTx', true);
+          this.onGoingProcessProvider.set('broadcastingTx');
           this.broadcastTx(wallet, signedTxp).then((broadcastedTxp: any) => {
-            this.ongoingProcessProvider.clear();
             this.events.publish('Local/TxAction', wallet.id);
             return resolve(broadcastedTxp);
           }).catch((err) => {
-            this.ongoingProcessProvider.clear();
             return reject(this.bwcErrorProvider.msg(err));
           });
         } else {
-          this.ongoingProcessProvider.clear();
           this.events.publish('Local/TxAction', wallet.id);
           return resolve(signedTxp);
         };
       }).catch((err) => {
-        this.ongoingProcessProvider.clear();
-        this.logger.warn('sign error:' + err);
         let msg = err && err.message ? err.message : this.translate.instant('The payment was created but could not be completed. Please try again from home screen');
+        this.logger.debug('Sign error: ' + msg);
         this.events.publish('Local/TxAction', wallet.id);
         return reject(msg);
       });
@@ -1219,12 +1219,11 @@ export class WalletProvider {
             return reject(err);
           });
         }).catch((err) => {
-          this.ongoingProcessProvider.clear();
           return reject(this.bwcErrorProvider.msg(err));
         });
       } else {
         this.prepare(wallet).then((password: string) => {
-          this.ongoingProcessProvider.set('sendingTx', true);
+          this.onGoingProcessProvider.set('sendingTx');
           this.publishTx(wallet, txp).then((publishedTxp: any) => {
             this.signAndBroadcast(wallet, publishedTxp, password).then((broadcastedTxp: any) => {
               return resolve(broadcastedTxp);
@@ -1232,11 +1231,9 @@ export class WalletProvider {
               return reject(err);
             });
           }).catch((err) => {
-            this.ongoingProcessProvider.clear();
             return reject(this.bwcErrorProvider.msg(err));
           });
         }).catch((err) => {
-          this.ongoingProcessProvider.clear();
           return reject(this.bwcErrorProvider.msg(err));
         });
       };
@@ -1329,7 +1326,11 @@ export class WalletProvider {
   }
 
   public getProtocolHandler(coin: string): string {
-    return 'monoeci';
+    if (coin == 'bch') {
+      return 'bitcoincash';
+    } else {
+      return 'bitcoin';
+    }
   }
 
   public copyCopayers(wallet: any, newWallet: any): Promise<any> {

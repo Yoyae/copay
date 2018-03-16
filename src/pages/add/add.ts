@@ -20,7 +20,7 @@ export class AddPage {
     private navParams: NavParams,
     private logger: Logger
   ) {
-    this.coin = this.navParams.data.coin ? this.navParams.data.coin : 'xmcc';
+    this.coin = this.navParams.data.coin ? this.navParams.data.coin : 'btc';
   }
 
   ionViewDidLoad() {

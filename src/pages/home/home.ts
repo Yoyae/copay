@@ -28,6 +28,7 @@ import { ConfigProvider } from '../../providers/config/config';
 import { ExternalLinkProvider } from '../../providers/external-link/external-link';
 import { FeedbackProvider } from '../../providers/feedback/feedback';
 import { HomeIntegrationsProvider } from '../../providers/home-integrations/home-integrations';
+import { IncomingDataProvider } from '../../providers/incoming-data/incoming-data';
 import { OnGoingProcessProvider } from '../../providers/on-going-process/on-going-process';
 import { PersistenceProvider } from '../../providers/persistence/persistence';
 import { PlatformProvider } from '../../providers/platform/platform';
@@ -46,7 +47,8 @@ import * as moment from 'moment';
 })
 export class HomePage {
   public wallets: any;
-  public walletsXmcc: any;
+  public walletsBtc: any;
+  public walletsBch: any;
   public cachedBalanceUpdateOn: string;
   public recentTransactionsEnabled: boolean;
   public txps: any;
@@ -60,14 +62,15 @@ export class HomePage {
   public updateText: string;
   public homeIntegrations: any[];
   public bitpayCardItems: any;
+  public showBitPayCard: boolean = false;
 
   public showRateCard: boolean;
   public homeTip: boolean;
-  public showReorderXmcc: boolean;
+  public showReorderBtc: boolean;
+  public showReorderBch: boolean;
   public showIntegration: any;
 
   private isNW: boolean;
-  private isWindowsPhoneApp: boolean;
   private updatingWalletId: object;
   private zone: any;
 
@@ -92,26 +95,26 @@ export class HomePage {
     private persistenceProvider: PersistenceProvider,
     private feedbackProvider: FeedbackProvider,
     private bitPayCardProvider: BitPayCardProvider,
-    private translate: TranslateService
+    private translate: TranslateService,
+    private incomingDataProvider: IncomingDataProvider
   ) {
     this.updatingWalletId = {};
+    this.addressbook = {};
     this.cachedBalanceUpdateOn = '';
     this.isNW = this.platformProvider.isNW;
-    this.isWindowsPhoneApp = this.platformProvider.isWP;
-    this.showReorderXmcc = false;
+    this.showReorderBtc = false;
+    this.showReorderBch = false;
     this.zone = new NgZone({ enableLongStackTrace: false });
   }
 
-  ionViewWillEnter() { 
+  ionViewWillEnter() {
     this.config = this.configProvider.get();
-    this.pushNotificationsProvider.init();
-    this.homeIntegrations = this.homeIntegrationsProvider.get();
-    this.showIntegration = this.config.showIntegration;
-    this.homeIntegrations.forEach((integration: any) => {
-      integration.show = this.showIntegration[integration.name];
-    });
-    this.homeIntegrations = _.filter(this.homeIntegrations, (homeIntegrations) => {
-      return homeIntegrations.show == true;
+    this.pushNotificationsProvider.init(); 
+    
+    this.addressBookProvider.list().then((ab: any) => {
+      this.addressbook = ab || {};
+    }).catch((err) => {
+      this.logger.error(err);
     });
 
     // Update Tx Notifications
@@ -128,28 +131,42 @@ export class HomePage {
 
     // Create, Join, Import and Delete -> Get Wallets -> Update Status for All Wallets
     this.events.subscribe('status:updated', () => {
+      this.updateTxps();
       this.setWallets();
     });
 
     // Hide stars to rate
     this.events.subscribe('feedback:hide', () => {
       this.showRateCard = false;
-    });
-
-    this.bitPayCardProvider.get({}, (err, cards) => {
-      this.bitpayCardItems = cards;
-    });
+    }); 
   }
 
   ionViewDidEnter() {
     if (this.isNW) this.checkUpdate();
     this.checkHomeTip();
-    this.checkFeedbackInfo();
+    this.checkFeedbackInfo(); 
 
-    this.addressBookProvider.list().then((ab: any) => {
-      this.addressbook = ab || {};
-    }).catch((err) => {
-      this.logger.error(err);
+    if (this.platformProvider.isCordova) {
+      this.handleDeepLinks();
+    }
+
+    // Show integrations
+    let integrations = _.filter(this.homeIntegrationsProvider.get(), { 'show': true });
+
+    // Hide BitPay if linked
+    setTimeout(() => {
+      this.homeIntegrations = _.remove(_.clone(integrations), (x) => {
+        if (x.name == 'debitcard' && x.linked) return;
+        else return x;
+      });
+    }, 200);
+
+    // Only BitPay Wallet
+    this.bitPayCardProvider.get({}, (err, cards) => {
+      this.zone.run(() => {
+        this.showBitPayCard = this.app.info._enabledExtensions.debitcard ? true : false;
+        this.bitpayCardItems = cards;
+      });
     });
   }
 
@@ -162,10 +179,39 @@ export class HomePage {
     this.setWallets();
   }
 
+  private handleDeepLinks() {
+
+    // Check if app was resume by custom url scheme
+    (window as any).handleOpenURL = (url: string) => {
+      setTimeout(() => {
+        this.zone.run(() => {
+          this.logger.info("App was resumed by custom url scheme");
+          this.handleOpenUrl(url);
+        });
+      }, 0);
+    };
+
+    // Check if app was opened by custom url scheme
+    const lastUrl: string = (window as any).handleOpenURL_LastURL || "";
+    if (lastUrl && lastUrl !== "") {
+      delete (window as any).handleOpenURL_LastURL;
+      setTimeout(() => {
+        this.logger.info("App was opened by custom url scheme");
+        this.handleOpenUrl(lastUrl);
+      }, 0)
+    }
+  }
+
+  private handleOpenUrl(url: string) {
+    if (!this.incomingDataProvider.redir(url)) {
+      this.logger.warn('Unknown URL! : ' + url);
+    }
+  }
+
   private startUpdatingWalletId(walletId: string) {
     this.updatingWalletId[walletId] = true;
   }
-  
+
   private stopUpdatingWalletId(walletId: string) {
     setTimeout(() => {
       this.updatingWalletId[walletId] = false;
@@ -174,11 +220,12 @@ export class HomePage {
 
   private setWallets = _.debounce(() => {
     this.wallets = this.profileProvider.getWallets();
-    this.walletsXmcc = this.profileProvider.getWallets({ coin: 'xmcc' });
+    this.walletsBtc = this.profileProvider.getWallets({ coin: 'btc' });
+    this.walletsBch = this.profileProvider.getWallets({ coin: 'bch' });
     this.updateAllWallets();
-  }, 10000, {
-    'leading': true
-  });
+  }, 5000, {
+      'leading': true
+    });
 
   public checkHomeTip(): void {
     this.persistenceProvider.getHomeTipAccepted().then((value: string) => {
@@ -193,10 +240,6 @@ export class HomePage {
 
   private checkFeedbackInfo() {
     this.persistenceProvider.getFeedbackInfo().then((info: any) => {
-      if (this.isWindowsPhoneApp) {
-        this.showRateCard = false;
-        return;
-      }
       if (!info) {
         this.initFeedBackInfo();
       } else {
@@ -232,7 +275,7 @@ export class HomePage {
     this.walletProvider.getStatus(wallet, {}).then((status: any) => {
       wallet.status = status;
       wallet.error = null;
-      this.profileProvider.setLastKnownBalance(wallet.id, wallet.status.availableBalanceStr); 
+      this.profileProvider.setLastKnownBalance(wallet.id, wallet.status.availableBalanceStr);
       this.updateTxps();
       this.stopUpdatingWalletId(walletId);
     }).catch((err: any) => {
@@ -245,34 +288,38 @@ export class HomePage {
     this.profileProvider.getTxps({ limit: 3 }).then((data: any) => {
       this.zone.run(() => {
         this.txps = data.txps;
-        this.txpsN = data.n;  
+        this.txpsN = data.n;
       });
     }).catch((err: any) => {
       this.logger.error(err);
     });
   }, 5000, {
-    'leading': true
-  });
+      'leading': true
+    });
 
   private getNotifications = _.debounce(() => {
     this.profileProvider.getNotifications({ limit: 3 }).then((data: any) => {
       this.zone.run(() => {
         this.notifications = data.notifications;
-        this.notificationsN = data.total;  
+        this.notificationsN = data.total;
       });
     }).catch((err: any) => {
       this.logger.error(err);
     });
   }, 5000, {
-    'leading': true
-  });
+      'leading': true
+    });
 
   private updateAllWallets(): void {
     let wallets: any[] = [];
     let foundMessage = false
 
-    _.each(this.walletsXmcc, (wXmcc) => {
-      wallets.push(wXmcc);
+    _.each(this.walletsBtc, (wBtc) => {
+      wallets.push(wBtc);
+    });
+
+    _.each(this.walletsBch, (wBch) => {
+      wallets.push(wBch);
     });
 
     if (_.isEmpty(wallets)) return;
@@ -335,7 +382,7 @@ export class HomePage {
   }
 
   public goToWalletDetails(wallet: any): void {
-    if (this.showReorderXmcc) return;
+    if (this.showReorderBtc || this.showReorderBch) return;
     if (!wallet.isComplete()) {
       this.navCtrl.push(CopayersPage, { walletId: wallet.credentials.walletId });
       return;
@@ -355,12 +402,13 @@ export class HomePage {
       if (txp) {
         this.openTxpModal(txp);
       } else {
-        this.onGoingProcessProvider.set('loadingTxInfo', true);
+        this.onGoingProcessProvider.set('loadingTxInfo');
         this.walletProvider.getTxp(wallet, n.txpId).then((txp: any) => {
           var _txp = txp;
-          this.onGoingProcessProvider.set('loadingTxInfo', false);
+          this.onGoingProcessProvider.clear();
           this.openTxpModal(_txp);
         }).catch((err: any) => {
+          this.onGoingProcessProvider.clear();
           this.logger.warn('No txp found');
           let title = this.translate.instant('Error');
           let subtitle = this.translate.instant('Transaction not found');
@@ -370,15 +418,28 @@ export class HomePage {
     }
   }
 
-  public reorderXmcc(): void {
-    this.showReorderXmcc = !this.showReorderXmcc;
+  public reorderBtc(): void {
+    this.showReorderBtc = !this.showReorderBtc;
   }
 
-  public reorderWalletsXmcc(indexes): void {
-    let element = this.walletsXmcc[indexes.from];
-    this.walletsXmcc.splice(indexes.from, 1);
-    this.walletsXmcc.splice(indexes.to, 0, element);
-    _.each(this.walletsXmcc, (wallet: any, index: number) => {
+  public reorderBch(): void {
+    this.showReorderBch = !this.showReorderBch;
+  }
+
+  public reorderWalletsBtc(indexes): void {
+    let element = this.walletsBtc[indexes.from];
+    this.walletsBtc.splice(indexes.from, 1);
+    this.walletsBtc.splice(indexes.to, 0, element);
+    _.each(this.walletsBtc, (wallet: any, index: number) => {
+      this.profileProvider.setWalletOrder(wallet.id, index);
+    });
+  };
+
+  public reorderWalletsBch(indexes): void {
+    let element = this.walletsBch[indexes.from];
+    this.walletsBch.splice(indexes.from, 1);
+    this.walletsBch.splice(indexes.to, 0, element);
+    _.each(this.walletsBch, (wallet: any, index: number) => {
       this.profileProvider.setWalletOrder(wallet.id, index);
     });
   };

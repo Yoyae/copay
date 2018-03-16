@@ -38,14 +38,15 @@ describe('Provider: Wallet Provider', () => {
   let walletProvider: WalletProvider;
 
   class BwcProviderMock {
-    constructor() {}
+    constructor() { }
     getErrors() {
       return 'error';
     }
+    getBitcoreCash() { }
   }
 
   class PersistenceProviderMock {
-    constructor() {}
+    constructor() { }
     getLastAddress(walletId: any) {
       return Promise.resolve('storedAddress');
     }
@@ -109,7 +110,8 @@ describe('Provider: Wallet Provider', () => {
       let wallet = {
         isComplete() {
           return true;
-        }
+        },
+        needsBackup: false
       };
       let force = false;
       walletProvider.getAddress(wallet, force).then(address => {
@@ -121,11 +123,25 @@ describe('Provider: Wallet Provider', () => {
       let wallet = {
         isComplete() {
           return false;
-        }
+        },
+        needsBackup: false
       };
       let force = true;
       walletProvider.getAddress(wallet, force).catch(err => {
-        expect(err).toEqual('WALLET_NOT_COMPLETE');
+        expect(err);
+      });
+    });
+
+    it('should reject to generate new address if wallet is not backed up', () => {
+      let wallet = {
+        isComplete() {
+          return true;
+        },
+        needsBackup: true
+      };
+      let force = true;
+      walletProvider.getAddress(wallet, force).catch(err => {
+        expect(err);
       });
     });
 
@@ -134,7 +150,8 @@ describe('Provider: Wallet Provider', () => {
         isComplete() {
           return true;
         },
-        createAddress({}, cb) {
+        needsBackup: false,
+        createAddress({ }, cb) {
           return cb(null, { address: 'newAddress' });
         }
       };
@@ -146,11 +163,16 @@ describe('Provider: Wallet Provider', () => {
   });
 
   describe('Function: Get Protocol Handler Function', () => {
-
-    it('should return monoeci if coin is xmcc', () => {
-      let coin = 'xmcc';
+    it('should return bitcoincash if coin is bch', () => {
+      let coin = 'bch';
       let protocol = walletProvider.getProtocolHandler(coin);
-      expect(protocol).toEqual('monoeci');
+      expect(protocol).toEqual('bitcoincash');
+    });
+
+    it('should return bitcoin if coin is btc', () => {
+      let coin = 'btc';
+      let protocol = walletProvider.getProtocolHandler(coin);
+      expect(protocol).toEqual('bitcoin');
     });
   });
 });

@@ -10,7 +10,8 @@
     <div *ngIf="fromWallets.length > 0">
       <ion-item>
         <span translate>From</span>
-        <img item-end *ngIf="fromWallet.coin == 'xmcc'" src="assets/img/icon-monoeci.svg" width="18">
+        <img item-end *ngIf="fromWallet.coin == 'btc'" src="assets/img/icon-bitcoin.svg" width="18">
+        <img item-end *ngIf="fromWallet.coin == 'bch'" src="assets/img/bitcoin-cash-logo.svg" width="22">
       </ion-item>
       <button ion-item class="wallet-selector" (click)="showWallets('from')">
         <img *ngIf="fromWallet.network != 'testnet'" src="assets/img/icon-wallet.svg" [ngStyle]="{'background-color': fromWallet.color}"
@@ -29,7 +30,7 @@
                 : '') : '' ) }} </span>
               <span *ngIf="fromWallet.scanning" translate> Scanning funds... </span>
 
-              <span *ngIf="fromWallet.balanceHidden && !fromWallet.scanning" translate>[Balance Hidden]</span>
+              <span *ngIf="fromWallet.balanceHidden && !fromWallet.scanning">[<span translate>Balance Hidden</span>]</span>
               <span *ngIf="fromWallet.n > 1">
                 {{fromWallet.m}}-of-{{fromWallet.n}}
               </span>
@@ -44,7 +45,8 @@
     <div *ngIf="toWallets.length > 0">
       <ion-item>
         <span translate>To</span>
-        <img item-end *ngIf="toWallet.coin == 'xmcc'" src="assets/img/icon-monoeci.svg" width="18">
+        <img item-end *ngIf="toWallet.coin == 'btc'" src="assets/img/icon-bitcoin.svg" width="18">
+        <img item-end *ngIf="toWallet.coin == 'bch'" src="assets/img/bitcoin-cash-logo.svg" width="22">
       </ion-item>
       <button ion-item class="wallet-selector" (click)="showWallets('to')">
         <img *ngIf="toWallet.network != 'testnet'" src="assets/img/icon-wallet.svg" class="icon-wallet" [ngStyle]="{'background-color': toWallet.color}"
@@ -63,7 +65,7 @@
                 : '') : '' ) }} </span>
               <span *ngIf="toWallet.scanning" translate> Scanning funds... </span>
 
-              <span *ngIf="toWallet.balanceHidden && !toWallet.scanning" translate>[Balance Hidden]</span>
+              <span *ngIf="toWallet.balanceHidden && !toWallet.scanning">[<span translate>Balance Hidden</span>]</span>
               <span class="tab-home__wallet__multisig-number" *ngIf="toWallet.n > 1">
                 {{toWallet.m}}-of-{{toWallet.n}}
               </span>
@@ -79,7 +81,7 @@
     <ion-item-divider></ion-item-divider>
 
     <ion-item>
-      Rate
+      {{'Rate' | translate}}
       <ion-note item-end>
         <span *ngIf="!rate">...</span>
         <span *ngIf="rate">
@@ -89,7 +91,7 @@
     </ion-item>
 
     <ion-item>
-      Deposit Min
+      {{'Deposit Min' | translate}}
       <ion-note item-end>
         <span *ngIf="!limit">...</span>
         <span *ngIf="limit">
@@ -99,7 +101,7 @@
     </ion-item>
 
     <ion-item>
-      Deposit Max
+      {{'Deposit Max' | translate}}
       <ion-note item-end>
         <span *ngIf="!limit">...</span>
         <span *ngIf="limit">
@@ -109,7 +111,7 @@
     </ion-item>
 
     <ion-item>
-      Miner fee
+      {{'Miner fee' | translate}}
       <ion-note item-end>
         <span *ngIf="!limit">...</span>
         <span *ngIf="limit">
@@ -136,7 +138,7 @@
 
 <ion-footer>
   <button ion-button full class="button-footer" no-low-fee type="button" *ngIf="fromWallets.length > 0 && toWallets.length > 0"
-    [disabled]="!fromWallet || !toWallet || !termsAccepted" (click)="setAmount()">
+    [disabled]="!fromWallet || !toWallet || !termsAccepted" (click)="setAmount()" translate>
     Continue
   </button>
 </ion-footer>

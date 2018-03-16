@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 import { Events, ModalController, NavParams, ViewController } from 'ionic-angular';
+import { Logger } from '../../providers/logger/logger';
 
 // providers
 import { BwcErrorProvider } from '../../providers/bwc-error/bwc-error';
@@ -42,13 +43,13 @@ export class TxpDetailsPage {
   private GLIDERA_LOCK_TIME: number;
   private countDown: any;
   private isCordova: boolean;
-  private isWindowsPhoneApp: boolean;
 
   constructor(
     private navParams: NavParams,
     private platformProvider: PlatformProvider,
     private feeProvider: FeeProvider,
     private events: Events,
+    private logger: Logger,
     private popupProvider: PopupProvider,
     private bwcError: BwcErrorProvider,
     private walletProvider: WalletProvider,
@@ -70,7 +71,6 @@ export class TxpDetailsPage {
     this.currentSpendUnconfirmed = config.spendUnconfirmed;
     this.loading = false;
     this.isCordova = this.platformProvider.isCordova;
-    this.isWindowsPhoneApp = this.platformProvider.isCordova && this.platformProvider.isWP;
     this.copayers = this.wallet.status.wallet.copayers;
     this.copayerId = this.wallet.credentials.copayerId;
     this.isShared = this.wallet.credentials.n > 1;
@@ -120,18 +120,10 @@ export class TxpDetailsPage {
     }).length == this.tx.requiredSignatures - 1;
 
     if (lastSigner) {
-      // if (this.isCordova && !this.isWindowsPhoneApp) {
-      //  this.buttonText = this.translate.instant('Slide to send');
-      // } else {
       this.buttonText = this.translate.instant('Click to send');
-      // }
       this.successText = this.translate.instant('Payment Sent');
     } else {
-      // if (this.isCordova && !this.isWindowsPhoneApp) {
-      // this.buttonText = this.translate.instant('Slide to accept');
-      // } else {
       this.buttonText = this.translate.instant('Click to accept');
-      // }
       this.successText = this.translate.instant('Payment Accepted');
     }
   }
@@ -174,7 +166,12 @@ export class TxpDetailsPage {
       this.wallet.fetchPayPro({
         payProUrl: this.tx.payProUrl,
       }, (err, paypro) => {
-        if (err) return;
+        if (err) {
+          this.logger.error(err);
+          this.paymentExpired = true;
+          this.popupProvider.ionicAlert(null, this.translate.instant('Could not fetch the invoice'));
+          return;
+        }
         this.tx.paypro = paypro;
         this.paymentTimeControl(this.tx.paypro.expires);
       });
@@ -212,8 +209,10 @@ export class TxpDetailsPage {
   public sign(): void {
     this.loading = true;
     this.walletProvider.publishAndSign(this.wallet, this.tx).then((txp: any) => {
+      this.onGoingProcessProvider.clear();
       this.openFinishModal();
     }).catch((err: any) => {
+      this.onGoingProcessProvider.clear();
       this.setError(err, ('Could not send payment'));
     });
   }
@@ -224,9 +223,12 @@ export class TxpDetailsPage {
     this.popupProvider.ionicConfirm(title, msg, null, null).then((res: boolean) => {
       if (!res) return
       this.loading = true;
+      this.onGoingProcessProvider.set('rejectTx');
       this.walletProvider.reject(this.wallet, this.tx).then((txpr) => {
+        this.onGoingProcessProvider.clear();
         this.close();
       }).catch((err: any) => {
+        this.onGoingProcessProvider.clear();
         this.setError(err, this.translate.instant('Could not reject payment'));
       });
     });
@@ -237,12 +239,12 @@ export class TxpDetailsPage {
     let msg = this.translate.instant('Are you sure you want to remove this transaction?');
     this.popupProvider.ionicConfirm(title, msg, null, null).then((res: boolean) => {
       if (!res) return;
-      this.onGoingProcessProvider.set('removeTx', true);
+      this.onGoingProcessProvider.set('removeTx');
       this.walletProvider.removeTx(this.wallet, this.tx).then(() => {
-        this.onGoingProcessProvider.set('removeTx', false);
+        this.onGoingProcessProvider.clear();
         this.close();
       }).catch((err: any) => {
-        this.onGoingProcessProvider.set('removeTx', false);
+        this.onGoingProcessProvider.clear();
         if (err && !(err.message && err.message.match(/Unexpected/))) {
           this.setError(err, this.translate.instant('Could not delete payment proposal'));
         }
@@ -252,12 +254,12 @@ export class TxpDetailsPage {
 
   public broadcast(txp: any): void {
     this.loading = true;
-    this.onGoingProcessProvider.set('broadcastingTx', true);
+    this.onGoingProcessProvider.set('broadcastingTx');
     this.walletProvider.broadcastTx(this.wallet, this.tx).then((txpb: any) => {
-      this.onGoingProcessProvider.set('broadcastingTx', false);
+      this.onGoingProcessProvider.clear();
       this.openFinishModal();
     }).catch((err: any) => {
-      this.onGoingProcessProvider.set('broadcastingTx', false);
+      this.onGoingProcessProvider.clear();
       this.setError(err, 'Could not broadcast payment');
     });
   }

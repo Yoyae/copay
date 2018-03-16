@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Logger } from '@nsalaun/ng-logger';
 
+// providers
 import { ConfigProvider } from '../../providers/config/config';
 import { LanguageProvider } from '../../providers/language/language';
 import { PersistenceProvider } from '../../providers/persistence/persistence';
@@ -50,7 +51,7 @@ export class AppProvider {
     public http: HttpClient,
     private logger: Logger,
     private language: LanguageProvider,
-    private config: ConfigProvider,
+    public config: ConfigProvider,
     private persistence: PersistenceProvider,
   ) {
     this.logger.info('AppProvider initialized.');
@@ -78,8 +79,8 @@ export class AppProvider {
   private getInfo() {
     return this.http.get(this.jsonPathApp);
   }
+
   private getServicesInfo() {
     return this.http.get(this.jsonPathServices);
   }
-
 }

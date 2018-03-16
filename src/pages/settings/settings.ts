@@ -3,8 +3,11 @@ import { TranslateService } from '@ngx-translate/core';
 import { NavController } from 'ionic-angular';
 import { Logger } from '../../providers/logger/logger';
 
+import * as _ from 'lodash';
+
 // providers
 import { AppProvider } from '../../providers/app/app';
+import { BitPayCardProvider } from '../../providers/bitpay-card/bitpay-card';
 import { ConfigProvider } from '../../providers/config/config';
 import { ExternalLinkProvider } from '../../providers/external-link/external-link';
 import { HomeIntegrationsProvider } from '../../providers/home-integrations/home-integrations';
@@ -15,14 +18,17 @@ import { ProfileProvider } from '../../providers/profile/profile';
 // pages
 import { FeedbackCompletePage } from '../feedback/feedback-complete/feedback-complete';
 import { SendFeedbackPage } from '../feedback/send-feedback/send-feedback';
+import { AmazonSettingsPage } from '../integrations/amazon/amazon-settings/amazon-settings';
 import { BitPaySettingsPage } from '../integrations/bitpay-card/bitpay-settings/bitpay-settings';
 import { CoinbaseSettingsPage } from '../integrations/coinbase/coinbase-settings/coinbase-settings';
 import { GlideraSettingsPage } from '../integrations/glidera/glidera-settings/glidera-settings';
+import { MercadoLibreSettingsPage } from '../integrations/mercado-libre/mercado-libre-settings/mercado-libre-settings';
+import { ShapeshiftSettingsPage } from '../integrations/shapeshift/shapeshift-settings/shapeshift-settings';
 import { AboutPage } from './about/about';
 import { AddressbookPage } from './addressbook/addressbook';
 import { AdvancedPage } from './advanced/advanced';
 import { AltCurrencyPage } from './alt-currency/alt-currency';
-import { EnabledServicesPage } from './enabled-services/enabled-services';
+import { BitcoinCashPage } from './bitcoin-cash/bitcoin-cash';
 import { FeePolicyPage } from './fee-policy/fee-policy';
 import { LanguagePage } from './language/language';
 import { LockPage } from './lock/lock';
@@ -37,14 +43,15 @@ export class SettingsPage {
   public appName: string;
   public currentLanguageName: string;
   public languages: any[];
-  public walletsXmcc: any[];
+  public walletsBtc: any[];
+  public walletsBch: any[];
   public config: any;
   public selectedAlternative: any;
   public isCordova: boolean;
-  public isWindowsPhoneApp: boolean;
   public lockMethod: string;
-  public exchangeServices: any[] = [];
-  public bitpayCardEnabled: boolean = false;
+  public integrationServices: any[] = [];
+  public bitpayCardItems: any[] = [];
+  public showBitPayCard: boolean = false;
 
   constructor(
     private navCtrl: NavController,
@@ -55,14 +62,14 @@ export class SettingsPage {
     private configProvider: ConfigProvider,
     private logger: Logger,
     private homeIntegrationsProvider: HomeIntegrationsProvider,
+    private bitPayCardProvider: BitPayCardProvider,
     private platformProvider: PlatformProvider,
     private translate: TranslateService
   ) {
     this.appName = this.app.info.nameCase;
-    this.currentLanguageName = this.language.getName(this.language.getCurrent());
-    this.walletsXmcc = [];
+    this.walletsBch = [];
+    this.walletsBtc = [];
     this.isCordova = this.platformProvider.isCordova;
-    this.isWindowsPhoneApp = this.platformProvider.isWP;
   }
 
   ionViewDidLoad() {
@@ -70,8 +77,12 @@ export class SettingsPage {
   }
 
   ionViewWillEnter() {
-    this.walletsXmcc = this.profileProvider.getWallets({
-      coin: 'xmcc'
+    this.currentLanguageName = this.language.getName(this.language.getCurrent());
+    this.walletsBtc = this.profileProvider.getWallets({
+      coin: 'btc'
+    });
+    this.walletsBch = this.profileProvider.getWallets({
+      coin: 'bch'
     });
     this.config = this.configProvider.get();
     this.selectedAlternative = {
@@ -79,11 +90,29 @@ export class SettingsPage {
       isoCode: this.config.wallet.settings.alternativeIsoCode
     }
     this.lockMethod = this.config.lock.method;
-    this.exchangeServices = this.homeIntegrationsProvider.getAvailableExchange();
+  }
 
-    if (this.app.info._enabledExtensions.debitcard) {
-      this.bitpayCardEnabled = true;
-    }
+  ionViewDidEnter() {
+    // Show integrations
+    let integrations = this.homeIntegrationsProvider.get();
+
+    // Hide BitPay if linked
+    setTimeout(() => {
+      this.integrationServices = _.remove(_.clone(integrations), (x) => {
+        if (x.name == 'debitcard' && x.linked) return;
+        else return x;
+      });
+    }, 200);
+
+    // Only BitPay Wallet
+    this.bitPayCardProvider.get({}, (err, cards) => {
+      this.showBitPayCard = this.app.info._enabledExtensions.debitcard ? true : false;
+      this.bitpayCardItems = cards;
+    });
+  }
+
+  public openBitcoinCashPage(): void {
+    this.navCtrl.push(BitcoinCashPage);
   }
 
   public openAltCurrencyPage(): void {
@@ -130,15 +159,7 @@ export class SettingsPage {
     this.navCtrl.push(FeedbackCompletePage, { score: 4, skipped: true, fromSettings: true });
   }
 
-  public openEnabledServicesPage(): void {
-    this.navCtrl.push(EnabledServicesPage);
-  }
-
-  public openBitPaySettings(): void {
-    this.navCtrl.push(BitPaySettingsPage);
-  }
-
-  public openIntegrationSettings(name: string): void {
+  public openSettingIntegration(name: string): void {
     switch (name) {
       case 'coinbase':
         this.navCtrl.push(CoinbaseSettingsPage);
@@ -146,7 +167,23 @@ export class SettingsPage {
       case 'glidera':
         this.navCtrl.push(GlideraSettingsPage);
         break;
+      case 'debitcard':
+        this.navCtrl.push(BitPaySettingsPage);
+        break;
+      case 'amazon':
+        this.navCtrl.push(AmazonSettingsPage);
+        break;
+      case 'mercadolibre':
+        this.navCtrl.push(MercadoLibreSettingsPage);
+        break;
+      case 'shapeshift':
+        this.navCtrl.push(ShapeshiftSettingsPage);
+        break;
     }
+  }
+
+  public openCardSettings(id): void {
+    this.navCtrl.push(BitPaySettingsPage, { id });
   }
 
   public openHelpExternalLink(): void {

@@ -1,14 +1,14 @@
-<img src="https://raw.githubusercontent.com/yoyae/copay-monoeci/master/resources/monoeci/android/icon/drawable-xxxhdpi-icon.png" alt="Copay-Monoeci" width="79">
+<img src="https://raw.githubusercontent.com/bitpay/copay/master/resources/copay/android/icon/drawable-xxxhdpi-icon.png" alt="Copay" width="79">
 
-[![CircleCI](https://img.shields.io/circleci/project/github/yoyae/copay-monoeci.svg)](https://circleci.com/gh/yoyae/copay-monoeci/)
-[![Codecov](https://img.shields.io/codecov/c/github/yoyae/copay-monoeci.svg)](https://codecov.io/gh/yoyae/copay-monoeci/)
+[![CircleCI](https://img.shields.io/circleci/project/github/bitpay/copay.svg)](https://circleci.com/gh/bitpay/copay/)
+[![Codecov](https://img.shields.io/codecov/c/github/bitpay/copay.svg)](https://codecov.io/gh/bitpay/copay/)
 [![Crowdin](https://d322cqt584bo4o.cloudfront.net/copay/localized.png)](https://crowdin.com/project/copay)
 
-Copay-Monoeci is a secure monoeci wallet platform for both desktop and mobile devices. Copay-Monoeci uses [Bitcore Wallet Service](https://github.com/yoyae/bitcore-wallet-service-monoeci) (BWS) for peer synchronization and network interfacing.
+Copay is a secure bitcoin wallet platform for both desktop and mobile devices. Copay uses [Bitcore Wallet Service](https://github.com/bitpay/bitcore-wallet-service) (BWS) for peer synchronization and network interfacing.
 
-Binary versions of Copay-Monoeci are available for download at [Copay-Monoeci.io](https://copay.io/#download). Copay-Monoeci Binaries are signed with the key `copay@bitpay.com` – See the section [`How to Verify Copay-Monoeci Signatures`](https://github.com/yoyae/copay-monoeci#how-to-verify-copay-signatures) for details.
+Binary versions of Copay are available for download at [Copay.io](https://copay.io/#download). Copay Binaries are signed with the key `copay@bitpay.com` – See the section [`How to Verify Copay Signatures`](https://github.com/bitpay/copay#how-to-verify-copay-signatures) for details.
 
-For a list of frequently asked questions please visit the [Copay-Monoeci FAQ](https://github.com/yoyae/copay-monoeci/wiki/COPAY---FAQ).
+For a list of frequently asked questions please visit the [Copay FAQ](https://github.com/bitpay/copay/wiki/COPAY---FAQ).
 
 ## Main Features
 
@@ -17,48 +17,45 @@ For a list of frequently asked questions please visit the [Copay-Monoeci FAQ](ht
 - Easy spending proposal flow for shared wallets and group payments
 - [BIP32](https://github.com/bitcoin/bips/blob/master/bip-0032.mediawiki) Hierarchical deterministic (HD) address generation and wallet backups
 - Device-based security: all private keys are stored locally, not in the cloud
-- Support for Monoeci testnet wallets
+- Support for Bitcoin testnet wallets
 - Synchronous access across all major mobile and desktop platforms
-- Payment protocol (BIP70-BIP73) support: easily-identifiable payment requests and verifiable, secure monoeci payments
+- Payment protocol (BIP70-BIP73) support: easily-identifiable payment requests and verifiable, secure bitcoin payments
 - Support for over 150 currency pricing options and unit denomination in BTC or bits
 - Mnemonic (BIP39) support for wallet backups
 - Paper wallet sweep support (BIP38)
-- Hardware wallet support (Trezor and Ledger) (only in Chrome App version)
 - Email notifications for payments and transfers
 - Push notifications (only available for ios and android versions)
 - Customizable wallet naming and background colors
 - Multiple languages supported
-- Available for [iOS](https://itunes.apple.com/us/app/copay/id951330296), [Android](https://play.google.com/store/apps/details?id=com.bitpay.copay&hl=en), [Windows Phone](http://www.windowsphone.com/en-us/store/app/copay-wallet/4372479b-a064-4d18-8bd3-74a3bdb81c3a), [Chrome App](https://chrome.google.com/webstore/detail/copay/cnidaodnidkbaplmghlelgikaiejfhja?hl=en), [Linux](https://github.com/yoyae/copay-monoeci/releases/latest), [Windows](https://github.com/yoyae/copay-monoeci/releases/latest) and [OS X](https://github.com/yoyae/copay-monoeci/releases/latest) devices
+- Available for [iOS](https://itunes.apple.com/us/app/copay/id951330296), [Android](https://play.google.com/store/apps/details?id=com.bitpay.copay&hl=en), [Windows Phone](http://www.windowsphone.com/en-us/store/app/copay-wallet/4372479b-a064-4d18-8bd3-74a3bdb81c3a), [Chrome App](https://chrome.google.com/webstore/detail/copay/cnidaodnidkbaplmghlelgikaiejfhja?hl=en), [Linux](https://github.com/bitpay/copay/releases/latest), [Windows](https://github.com/bitpay/copay/releases/latest) and [OS X](https://github.com/bitpay/copay/releases/latest) devices
 
 ## Testing in a Browser
 
-> **Note:** This method should only be used for development purposes. When running Copay-Monoeci in a normal browser environment, browser extensions and other malicious code might have access to internal data and private keys. For production use, see the latest official [releases](https://github.com/yoyae/copay-monoeci/releases/).
+> **Note:** This method should only be used for development purposes. When running Copay in a normal browser environment, browser extensions and other malicious code might have access to internal data and private keys. For production use, see the latest official [releases](https://github.com/bitpay/copay/releases/).
 
 Clone the repo and open the directory:
 
 ```sh
-git clone https://github.com/yoyae/copay-monoeci.git
+git clone https://github.com/bitpay/copay.git
 cd copay
 ```
 
-Ensure you have [Node](https://nodejs.org/) installed, then install and start Copay-Monoeci:
+Ensure you have [Node](https://nodejs.org/) installed, then install and start Copay:
 
 ```sh
 npm run apply:copay
-npm start
+npm run start
 ```
 
 Visit [`localhost:8100`](http://localhost:8100/) to view the app.
 
-A watch task is also available to rebuild components of the app as changes are made. This task can be run in a separate process – while the server started by `npm start` is running – to quickly test changes.
-
-```
-npm run watch
-```
-
 ## Unit Tests (Karma and Jasmine)
 
-To run the tests, run npm run test.
+To run the tests, run:
+
+```
+ npm run test
+```
 
 ## Testing on Real Devices
 
@@ -72,6 +69,7 @@ When your developement enviroment is ready, run the `start:android` npm package 
 
 ```sh
 npm run apply:copay
+npm run prepare:copay
 npm run start:android
 ```
 
@@ -83,21 +81,22 @@ When your developement enviroment is ready, run the `start:ios` npm package scri
 
 ```sh
 npm run apply:copay
+npm run prepare:copay
 npm run start:ios
 ```
 
-### Desktop (Linux, macOS, and Windows)
+<!-- ### Desktop (Linux, macOS, and Windows)
 
-The desktop version of Copay-Monoeci currently uses NW.js, an app runtime based on Chromium. To get started, first install NW.js on your system from [the NW.js website](https://nwjs.io/).
+The desktop version of Copay currently uses NW.js, an app runtime based on Chromium. To get started, first install NW.js on your system from [the NW.js website](https://nwjs.io/).
 
 When NW.js is installed, run the `start:desktop` npm package script.
 
 ```sh
 npm run apply:copay
 npm run start:desktop
-```
+``` -->
 
-## Build Copay-Monoeci App Bundles
+## Build Copay App Bundles
 
 Before building the release version for a platform, run the `clean-all` command to delete any untracked files in your current working directory. (Be sure to stash any uncommited changes you've made.) This guarantees consistency across builds for the current state of this repository.
 
@@ -108,6 +107,7 @@ The `final` commands build the production version of the app, and bundle it with
 ```sh
 npm run clean-all
 npm run apply:copay
+npm run prepare:copay
 npm run final:android
 ```
 
@@ -116,33 +116,17 @@ npm run final:android
 ```sh
 npm run clean-all
 npm run apply:copay
+npm run prepare:copay
 npm run final:ios
 ```
 
-### Windows Phone
-
-- Install Visual Studio 2013 (or newer)
-- Run `make wp8-prod`
-
-### Desktop (Linux, macOS, and Windows)
+<!-- ### Desktop (Linux, macOS, and Windows)
 
 ```sh
 npm run clean-all
 npm run apply:copay
 npm run final:desktop
-```
-
-### Google Chrome App
-
-> cd chrome-app/
-
-```sh
-npm run apply:copay
-grunt
-make
-```
-
-On success, the Chrome extension will be located at: `browser-extensions/chrome/copay-chrome-extension`.  To install it go to `chrome://extensions/` in your browser and ensure you have the 'developer mode' option enabled in the settings.  Then click on "Load unpacked chrome extension" and choose the directory mentioned above.
+``` -->
 
 ## Configuration
 
@@ -156,85 +140,57 @@ COPAY_EXTERNAL_SERVICES_CONFIG_LOCATION="~/.copay/externalServices.json" npm run
 BITPAY_EXTERNAL_SERVICES_CONFIG_LOCATION="~/.bitpay/externalServices.json" npm run apply:bitpay
 ```
 
-## About Copay-Monoeci
+## About Copay
 
 ### General
 
-Copay-Monoeci implements a multisig wallet using [p2sh](https://en.bitcoin.it/wiki/Pay_to_script_hash) addresses.  It supports multiple wallets, each with its own configuration, such as 3-of-5 (3 required signatures from 5 participant peers) or 2-of-3.  To create a multisig wallet shared between multiple participants, Copay-Monoeci requires the extended public keys of all the wallet participants.  Those public keys are then incorporated into the wallet configuration and combined to generate a payment address where funds can be sent into the wallet.  Conversely, each participant manages their own private key and that private key is never transmitted anywhere.
+Copay implements a multisig wallet using [p2sh](https://en.bitcoin.it/wiki/Pay_to_script_hash) addresses.  It supports multiple wallets, each with its own configuration, such as 3-of-5 (3 required signatures from 5 participant peers) or 2-of-3.  To create a multisig wallet shared between multiple participants, Copay requires the extended public keys of all the wallet participants.  Those public keys are then incorporated into the wallet configuration and combined to generate a payment address where funds can be sent into the wallet.  Conversely, each participant manages their own private key and that private key is never transmitted anywhere.
 
 To unlock a payment and spend the wallet's funds, a quorum of participant signatures must be collected and assembled in the transaction.  The funds cannot be spent without at least the minimum number of signatures required by the wallet configuration (2-of-3, 3-of-5, 6-of-6, etc.).  Once a transaction proposal is created, the proposal is distributed among the wallet participants for each to sign the transaction locally.  Finally, when the transaction is signed, the last signing participant will broadcast the transaction to the Bitcoin network.
 
-Copay-Monoeci also implements [BIP32](https://github.com/bitcoin/bips/blob/master/bip-0032.mediawiki) to generate new addresses for peers.  The public key that each participant contributes to the wallet is a BIP32 extended public key.  As additional public keys are needed for wallet operations (to produce new addresses to receive payments into the wallet, for example) new public keys can be derived from the participants' original extended public keys.  Once again, it's important to stress that each participant keeps their own private keys locally - private keys are not shared - and are used to sign transaction proposals to make payments from the shared wallet.
+Copay also implements [BIP32](https://github.com/bitcoin/bips/blob/master/bip-0032.mediawiki) to generate new addresses for peers.  The public key that each participant contributes to the wallet is a BIP32 extended public key.  As additional public keys are needed for wallet operations (to produce new addresses to receive payments into the wallet, for example) new public keys can be derived from the participants' original extended public keys.  Once again, it's important to stress that each participant keeps their own private keys locally - private keys are not shared - and are used to sign transaction proposals to make payments from the shared wallet.
 
 For more information regarding how addresses are generated using this procedure, see: [Structure for Deterministic P2SH Multisignature Wallets](https://github.com/bitcoin/bips/blob/master/bip-0045.mediawiki).
 
-## Copay-Monoeci Backups and Recovery
+## Copay Backups and Recovery
 
-Since v1.2 Copay-Monoeci uses BIP39 mnemonics for backing up wallets.  The BIP44 standard is used for wallet address derivation. Multisig wallets use P2SH addresses, while non-multisig wallets use P2PKH.
+Since v1.2 Copay uses BIP39 mnemonics for backing up wallets.  The BIP44 standard is used for wallet address derivation. Multisig wallets use P2SH addresses, while non-multisig wallets use P2PKH.
 
-Information about backup and recovery procedures is available at: https://github.com/yoyae/copay-monoeci/blob/master/backupRecovery.md
+Information about backup and recovery procedures is available at: https://github.com/bitpay/copay/blob/master/backupRecovery.md
 
-Previous versions of Copay-Monoeci used files as backups. See the following section.
+Previous versions of Copay used files as backups. See the following section.
 
-It is possible to recover funds from a Copay-Monoeci Wallet without using Copay-Monoeci or the Wallet Service, check the [Copay-Monoeci Recovery Tool](https://github.com/yoyae/copay-monoeci-recovery).
+It is possible to recover funds from a Copay Wallet without using Copay or the Wallet Service, check the [Copay Recovery Tool](https://github.com/bitpay/copay-recovery/tree/master).
 
 
 ## Wallet Export Format
 
-Copay-Monoeci encrypts the backup with the [Stanford JS Crypto Library](http://bitwiseshiftleft.github.io/sjcl/).  To extract the private key of your wallet you can use https://bitwiseshiftleft.github.io/sjcl/demo/, copy the backup to 'ciphertext' and enter your password.  The resulting JSON will have a key named: `xPrivKey`, that is the extended private key of your wallet.  That information is enough to sign any transaction from your wallet, so be careful when handling it!
+Copay encrypts the backup with the [Stanford JS Crypto Library](http://bitwiseshiftleft.github.io/sjcl/). To extract the private key of your wallet you can go to settings, choose your wallet, click in "more options", then "wallet information", scroll to the bottom and click in "Extended Private Key". That information is enough to sign any transaction from your wallet, so be careful when handling it!
 
-The backup also contains the key `publicKeyRing` that holds the extended public keys of the Copay-Monoeciers.
+The backup also contains the key `publicKeyRing` that holds the extended public keys of the Copayers.
 Depending on the key `derivationStrategy`, addresses are derived using
-[BIP44](https://github.com/bitcoin/bips/blob/master/bip-0044.mediawiki) or [BIP45](https://github.com/bitcoin/bips/blob/master/bip-0045.mediawiki). Wallets created in Copay-Monoeci v1.2 and forward always use BIP44, all previous wallets use BIP45. Also note that since Copay-Monoeci version v1.2, non-multisig wallets use address types Pay-to-PublicKeyHash (P2PKH) while multisig wallets still use Pay-to-ScriptHash (P2SH) (key `addressType` at the backup):
+[BIP44](https://github.com/bitcoin/bips/blob/master/bip-0044.mediawiki) or [BIP45](https://github.com/bitcoin/bips/blob/master/bip-0045.mediawiki). Wallets created in Copay v1.2 and forward always use BIP44, all previous wallets use BIP45. Also note that since Copay version v1.2, non-multisig wallets use address types Pay-to-PublicKeyHash (P2PKH) while multisig wallets still use Pay-to-ScriptHash (P2SH) (key `addressType` at the backup):
 
-| Copay-Monoeci Version  | Wallet Type   | Derivation Strategy   | Address Type  |
-|---|---|---|---|---|
-|  <1.2  | All  |  BIP45 | P2SH   |
-|  >=1.2 | Non-multisig  | BIP44  | P2PKH   |
-| >=1.2  | Multisig  |  BIP44 |  P2SH   |
-| >=1.5  | Multisig Hardware wallets  |  BIP44 (root m/48') |  P2SH   |
+| Copay Version | Wallet Type               | Derivation Strategy | Address Type |
+|---------------|---------------------------|---------------------|--------------|
+| <1.2          | All                       | BIP45               | P2SH         |
+| ≥1.2          | Non-multisig              | BIP44               | P2PKH        |
+| ≥1.2          | Multisig                  | BIP44               | P2SH         |
+| ≥1.5          | Multisig Hardware wallets | BIP44 (root m/48’)  | P2SH         |
 
 Using a tool like [Bitcore PlayGround](http://bitcore.io/playground) all wallet addresses can be generated. (TIP: Use the `Address` section for P2PKH address type wallets and `Multisig Address` for P2SH address type wallets). For multisig addresses, the required number of signatures (key `m` on the export) is also needed to recreate the addresses.
 
-BIP45 note: All addresses generated at BWS with BIP45 use the 'shared cosigner index' (2147483647) so Copay-Monoeci address indexes look like: `m/45'/2147483647/0/x` for main addresses and `m/45'/2147483647/1/y` for change addresses.
+BIP45 note: All addresses generated at BWS with BIP45 use the 'shared cosigner index' (2147483647) so Copay address indexes look like: `m/45'/2147483647/0/x` for main addresses and `m/45'/2147483647/1/y` for change addresses.
 
-Since version 1.5, Copay-Monoeci uses the root `m/48'` for hardware multisignature wallets. This was coordinated with Ledger and Trezor teams. While the derivation path format is still similar to BIP44, the root was in order to indicate that these wallets are not discoverable by scanning addresses for funds. Address generation for multisignature wallets requires the other copayers extended public keys.
+Since version 1.5, Copay uses the root `m/48'` for hardware multisignature wallets. This was coordinated with Ledger and Trezor teams. While the derivation path format is still similar to BIP44, the root was in order to indicate that these wallets are not discoverable by scanning addresses for funds. Address generation for multisignature wallets requires the other copayers extended public keys.
 
 
 ## Bitcore Wallet Service
 
-Copay-Monoeci depends on [Bitcore Wallet Service](https://github.com/bitpay/bitcore-wallet-service) (BWS) for blockchain information, networking and Copay-Monoecier synchronization.  A BWS instance can be setup and operational within minutes or you can use a public instance like `https://bws.bitpay.com`.  Switching between BWS instances is very simple and can be done with a click from within Copay-Monoeci.  BWS also allows Copay-Monoeci to interoperate with other wallets like [Bitcore Wallet CLI] (https://github.com/bitpay/bitcore-wallet).
-
-## Hardware Wallet Support
-
-Copay-Monoeci supports Ledger and Trezor hardware wallets. Hardware wallet support is only available through the Chrome App. Ledger support is only available on multisig wallets.
-
-To use Ledger, you need to have the Ledger Chrome App installed, available at:
-https://chrome.google.com/webstore/detail/ledger-wallet/kkdpmhnladdopljabkgpacgpliggeeaf
-
-To use Trezor, you need to have the Trezor Chrome Extension installed, available at:
-https://chrome.google.com/webstore/detail/trezor-chrome-extension/jcjjhjgimijdkoamemaghajlhegmoclj
-
-To create or join a wallet using Ledger or Trezor go to:
-
-  Add Wallet -> Create or Join -> Advanced options -> Wallet Seed -> select Trezor or Ledger
-
-Both devices support multiple accounts, so you can use them for multiple wallets. Select the account and then click on create or join.
-
-It is also possible to import a wallet from a device using:
-  Add Wallet -> Import -> Hardware wallet
-
-Here it is also necesary to select the account number.
-
-When creating or joining a wallet, Copay-Monoeci will ask for two public keys for the device. One public keys is used for the wallet itself and the other is used as an entropy source to create a private / public key pair for signing requests to the Wallet Service.
-
-Every time you need to sign a transaction, the device will be needed to perform the signature. Follow the on screen instructions after clicking the `send` or `accept` buttons.
-
-Finally, in case you lose the device and you have the 24 word seed for the device, you can recover access to your funds using Copay-Monoeci, see: https://github.com/yoyae/copay-monoeci/blob/master/backupRecovery.md#hardware-wallets
-
+Copay depends on [Bitcore Wallet Service](https://github.com/bitpay/bitcore-wallet-service) (BWS) for blockchain information, networking and Copayer synchronization.  A BWS instance can be setup and operational within minutes or you can use a public instance like `https://bws.bitpay.com`.  Switching between BWS instances is very simple and can be done with a click from within Copay.  BWS also allows Copay to interoperate with other wallets like [Bitcore Wallet CLI] (https://github.com/bitpay/bitcore-wallet).
 
 ## Translations
-Copay-Monoeci uses standard gettext PO files for translations and [Crowdin](https://crowdin.com/project/copay) as the front-end tool for translators.  To join our team of translators, please create an account at [Crowdin](https://crowdin.com) and translate the Copay-Monoeci documentation and application text into your native language.
+Copay uses standard gettext PO files for translations and [Crowdin](https://crowdin.com/project/copay) as the front-end tool for translators.  To join our team of translators, please create an account at [Crowdin](https://crowdin.com) and translate the Copay documentation and application text into your native language.
 
 To download and build using the latest translations from Crowdin, please use the following commands:
 
@@ -256,7 +212,7 @@ This will download all partial and complete language translations while also cle
 *Gracias totales!*
 
 ## Release Schedules
-Copay-Monoeci uses the `MAJOR.MINOR.BATCH` convention for versioning.  Any release that adds features should modify the MINOR or MAJOR number.
+Copay uses the `MAJOR.MINOR.BATCH` convention for versioning.  Any release that adds features should modify the MINOR or MAJOR number.
 
 ### Bug Fixing Releases
 
@@ -268,10 +224,10 @@ We release bug fixes as soon as possible for all platforms.  Usually around a we
 - t+7: iOS is submitted for 1.2.1. All other platforms are submitted with auto-release off.
 - t + (~17): All platforms 1.2.1 are released when Apple approves the iOS application update.
 
-## How to Verify Copay-Monoeci Signatures
+## How to Verify Copay Signatures
 
  1. Download the `copay@bitpay.com` public key (`gpg --recv-keys 1112CFA1`)
- 2. Download Copay-Monoeci binary (`$FILENAME`) and signature file (`$FILENAME.sig`)
+ 2. Download Copay binary (`$FILENAME`) and signature file (`$FILENAME.sig`)
  3. Verify the signature by running:
 
 ``` bash
@@ -280,10 +236,10 @@ $ gpg --verify \
  $FILENAME
 
 # It should return:
-Good signature from "Copay-Monoeci (visit copay.io) <copay@bitpay.com>"
+Good signature from "Copay (visit copay.io) <copay@bitpay.com>"
 ```
 
-### Public Key for Copay-Monoeci Binaries
+### Public Key for Copay Binaries
 Instead of importing the public key from a public server (like gnu's) you can grab it from here:
 
 ```
@@ -337,4 +293,4 @@ review the [guidelines for contributing](CONTRIBUTING.md).
 
 ## License
 
-Copay-Monoeci is released under the MIT License.  Please refer to the [LICENSE](https://github.com/yoyae/copay-monoeci/blob/master/LICENSE) file that accompanies this project for more information including complete terms and conditions.
+Copay is released under the MIT License.  Please refer to the [LICENSE](https://github.com/bitpay/copay/blob/master/LICENSE) file that accompanies this project for more information including complete terms and conditions.

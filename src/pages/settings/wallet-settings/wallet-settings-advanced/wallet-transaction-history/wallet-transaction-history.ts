@@ -31,7 +31,7 @@ export class WalletTransactionHistoryPage {
   public unitToSatoshi: number;
   public unitDecimals: number;
   public satToUnit: number;
-  public satToXmcc: number;
+  public satToBtc: number;
 
   private currency: string;
 
@@ -62,7 +62,7 @@ export class WalletTransactionHistoryPage {
     this.unitToSatoshi = this.config.wallet.settings.unitToSatoshi;
     this.unitDecimals = this.config.wallet.settings.unitDecimals;
     this.satToUnit = 1 / this.unitToSatoshi;
-    this.satToXmcc = 1 / 100000000;
+    this.satToBtc = 1 / 100000000;
     this.csvHistory();
   }
 
@@ -111,12 +111,12 @@ export class WalletTransactionHistoryPage {
           }
           _creator = (it.creatorName && it.creatorName != 'undefined') ? it.creatorName : '';
         }
-        _amount = (it.action == 'sent' ? '-' : '') + (amount * this.satToXmcc).toFixed(8);
+        _amount = (it.action == 'sent' ? '-' : '') + (amount * this.satToBtc).toFixed(8);
         _note = it.message || '';
         _comment = it.note ? it.note.body : '';
 
         if (it.action == 'moved')
-          _note += ' Moved:' + (it.amount * this.satToXmcc).toFixed(8)
+          _note += ' Moved:' + (it.amount * this.satToBtc).toFixed(8)
 
         this.csvContent.push({
           'Date': this.formatDate(it.time * 1000),
@@ -131,10 +131,10 @@ export class WalletTransactionHistoryPage {
         });
 
         if (it.fees && (it.action == 'moved' || it.action == 'sent')) {
-          var _fee = (it.fees * this.satToXmcc).toFixed(8)
+          var _fee = (it.fees * this.satToBtc).toFixed(8)
           this.csvContent.push({
             'Date': this.formatDate(it.time * 1000),
-            'Destination': 'Monoeci Network Fees',
+            'Destination': 'Bitcoin Network Fees',
             'Description': '',
             'Amount': '-' + _fee,
             'Currency': this.currency,

@@ -4,8 +4,8 @@
       Details
     </ion-title>
     <ion-buttons start>
-      <button (click)="close()" ion-button>
-        {{'Close' | translate}}
+      <button (click)="close()" ion-button translate>
+        Close
       </button>
     </ion-buttons>
   </ion-toolbar>
@@ -24,7 +24,7 @@
       <div class="title" padding>
         <span *ngIf="tx.type == 'BUY'">Bought</span>
         <span *ngIf="tx.type == 'SELL'">Sold</span>
-        <b>{{tx.qty}}</b> XMCC
+        <b>{{tx.qty}}</b> BTC
       </div>
       <div class="price">
         {{tx.subtotal|currency:'':2}} {{tx.currency}}
@@ -58,7 +58,7 @@
         <span>Exchange rate</span>
       </ion-label>
       <ion-note item-end>
-        {{tx.price|currency:'':2}} {{tx.currency}}/XMCC
+        {{tx.price|currency:'':2}} {{tx.currency}}/BTC
       </ion-note>
     </ion-item>
 
