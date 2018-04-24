@@ -1,11 +1,12 @@
 import { Component, ViewChild } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
-import { AlertController, Navbar, NavController, NavParams, Slides } from 'ionic-angular';
+import { AlertController, ModalController, Navbar, NavController, NavParams, Slides } from 'ionic-angular';
 import * as _ from 'lodash';
 import { Logger } from '../../../providers/logger/logger';
 
 // pages
 import { DisclaimerPage } from '../../onboarding/disclaimer/disclaimer';
+import { BackupReadyModalPage } from '../backup-ready-modal/backup-ready-modal';
 
 // providers
 import { BwcProvider } from '../../../providers/bwc/bwc';
@@ -50,7 +51,8 @@ export class BackupGamePage {
     private bwcProvider: BwcProvider,
     private onGoingProcessProvider: OnGoingProcessProvider,
     private popupProvider: PopupProvider,
-    private translate: TranslateService
+    private translate: TranslateService,
+    private modalCtrl: ModalController
   ) {
     this.walletId = this.navParams.get('walletId');
     this.fromOnboarding = this.navParams.get('fromOnboarding');
@@ -97,7 +99,7 @@ export class BackupGamePage {
         selected: false
       };
     });
-  };
+  }
 
   public addButton(index: number, item: any): void {
     var newWord = {
@@ -107,21 +109,18 @@ export class BackupGamePage {
     this.customWords.push(newWord);
     this.shuffledMnemonicWords[index].selected = true;
     this.shouldContinue();
-  };
+  }
 
   public removeButton(index: number, item: any): void {
     // if ($scope.loading) return;
     this.customWords.splice(index, 1);
     this.shuffledMnemonicWords[item.prevIndex].selected = false;
     this.shouldContinue();
-  };
+  }
 
   private shouldContinue(): void {
-    this.selectComplete =
-      this.customWords.length === this.shuffledMnemonicWords.length
-        ? true
-        : false;
-  };
+    this.selectComplete = this.customWords.length === this.shuffledMnemonicWords.length ? true : false;
+  }
 
   private isDeletedSeed(): boolean {
     if (!this.wallet.credentials.mnemonic && !this.wallet.credentials.mnemonicEncrypted)
@@ -140,7 +139,11 @@ export class BackupGamePage {
     this.slides.lockSwipes(true);
   }
 
-  public slideNext(): void {
+  public slideNext(reset: boolean): void {
+    if (reset) {
+      this.resetGame();
+    }
+
     if (this.currentIndex == 1 && !this.mnemonicHasPassphrase)
       this.finalStep();
     else {
@@ -150,6 +153,14 @@ export class BackupGamePage {
 
     this.currentIndex = this.slides.getActiveIndex();
     this.slides.lockSwipes(true);
+  }
+
+  private resetGame() {
+    this.customWords = [];
+    this.shuffledMnemonicWords.forEach(word => {
+      word.selected = false;
+    });
+    this.selectComplete = false;
   }
 
   private setFlow(): void {
@@ -170,7 +181,7 @@ export class BackupGamePage {
 
     if (this.currentIndex == 2) this.slidePrev();
 
-  };
+  }
 
   public copyRecoveryPhrase(): string {
     if (this.wallet.network == 'livenet') return null;
@@ -214,16 +225,15 @@ export class BackupGamePage {
       this.profileProvider.setBackupFlag(this.wallet.credentials.walletId);
       return resolve();
     });
-  };
+  }
 
   private finalStep(): void {
     this.onGoingProcessProvider.set('validatingWords');
     this.confirm().then(() => {
       this.onGoingProcessProvider.clear();
-      let title = this.translate.instant('Your bitcoin wallet is backed up!');
-      let message = this.translate.instant("Be sure to store your recovery phrase in a secure place. If this app is deleted, your money cannot be recovered without it.");
-      let okText = this.translate.instant("Got it");
-      this.popupProvider.ionicAlert(title, message, okText).then(() => {
+      let modal = this.modalCtrl.create(BackupReadyModalPage, {}, { showBackdrop: false, enableBackdropDismiss: false });
+      modal.present({ animate: false });
+      modal.onDidDismiss(() => {
         if (this.fromOnboarding) {
           this.navCtrl.push(DisclaimerPage);
         } else {

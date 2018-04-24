@@ -1,4 +1,5 @@
 import { Component, HostListener } from '@angular/core';
+import { TranslateService } from '@ngx-translate/core';
 import { ActionSheetController, NavController, NavParams } from 'ionic-angular';
 import * as _ from 'lodash';
 
@@ -56,6 +57,7 @@ export class AmountPage {
   public allowSend: boolean;
   public recipientType: string;
   public toAddress: string;
+  public network: string;
   public name: string;
   public email: string;
   public color: string;
@@ -76,11 +78,13 @@ export class AmountPage {
     private profileProvider: ProfileProvider,
     private platformProvider: PlatformProvider,
     private rateProvider: RateProvider,
-    private txFormatProvider: TxFormatProvider
+    private txFormatProvider: TxFormatProvider,
+    private translate: TranslateService
   ) {
     this.config = this.configProvider.get();
     this.recipientType = this.navParams.data.recipientType;
     this.toAddress = this.navParams.data.toAddress;
+    this.network = this.navParams.data.network;
     this.name = this.navParams.data.name;
     this.email = this.navParams.data.email;
     this.color = this.navParams.data.color;
@@ -102,7 +106,7 @@ export class AmountPage {
     this.reNr = /^[1234567890\.]$/;
     this.reOp = /^[\*\+\-\/]$/;
     this.nextView = this.getNextView();
-    this.itemSelectorLabel = 'Send Max amount';
+    this.itemSelectorLabel = this.translate.instant('Send Max amount');
 
 
     this.unitToSatoshi = this.config.wallet.settings.unitToSatoshi;
@@ -147,29 +151,17 @@ export class AmountPage {
   private setAvailableUnits(): void {
     this.availableUnits = [];
 
-    let hasBTCWallets = this.profileProvider.getWallets({
-      coin: 'btc'
-    }).length;
+    this.availableUnits.push({
+      name: 'Bitcoin',
+      id: 'btc',
+      shortName: 'BTC',
+    });
 
-    if (hasBTCWallets) {
-      this.availableUnits.push({
-        name: 'Bitcoin',
-        id: 'btc',
-        shortName: 'BTC',
-      });
-    }
-
-    let hasBCHWallets = this.profileProvider.getWallets({
-      coin: 'bch'
-    }).length;
-
-    if (hasBCHWallets) {
-      this.availableUnits.push({
-        name: 'Bitcoin Cash',
-        id: 'bch',
-        shortName: 'BCH',
-      });
-    };
+    this.availableUnits.push({
+      name: 'Bitcoin Cash',
+      id: 'bch',
+      shortName: 'BCH',
+    });
 
     this.unitIndex = 0;
 
@@ -419,9 +411,7 @@ export class AmountPage {
       };
     } else {
       let amount = _amount;
-      amount = unit.isFiat
-        ? (this.fromFiat(amount) * this.unitToSatoshi).toFixed(0)
-        : (amount * this.unitToSatoshi).toFixed(0);
+      amount = unit.isFiat ? (this.fromFiat(amount) * this.unitToSatoshi).toFixed(0) : (amount * this.unitToSatoshi).toFixed(0);
       data = {
         recipientType: this.recipientType,
         amount,

@@ -61,7 +61,7 @@ export class PersistenceProvider {
   public load() {
     this.storage = this.platform.isCordova
       ? new FileStorage(this.file, this.logger)
-      : new LocalStorage();
+      : new LocalStorage(this.platform, this.logger);
   }
 
   storeNewProfile(profile): Promise<void> {
@@ -511,4 +511,15 @@ export class PersistenceProvider {
     return this.storage.get('order-' + walletId);
   };
 
+  setLockStatus(isLocked: string): Promise<void> {
+    return this.storage.set('lockStatus', isLocked);
+  };
+
+  getLockStatus(): Promise<string> {
+    return this.storage.get('lockStatus');
+  };
+
+  removeLockStatus(): Promise<void> {
+    return this.storage.remove('lockStatus');
+  };
 }

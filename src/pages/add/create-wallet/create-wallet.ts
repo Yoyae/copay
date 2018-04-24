@@ -70,7 +70,7 @@ export class CreateWalletPage implements OnInit {
   ) {
 
     this.isShared = this.navParams.get('isShared');
-    this.title = this.isShared ? 'Create shared wallet' : 'Create personal wallet';
+    this.title = this.isShared ? this.translate.instant('Create shared wallet') : this.translate.instant('Create personal wallet');
     this.defaults = this.configProvider.getDefaults();
     this.tc = this.isShared ? this.defaults.wallet.totalCopayers : 1;
 
@@ -90,7 +90,7 @@ export class CreateWalletPage implements OnInit {
       derivationPath: [this.derivationPathByDefault],
       testnetEnabled: [false],
       singleAddress: [false],
-      coin: [this.navParams.data.coin]
+      coin: [null, Validators.required]
     });
 
     this.setTotalCopayers(this.tc);
@@ -120,11 +120,11 @@ export class CreateWalletPage implements OnInit {
   private updateSeedSourceSelect(): void {
     this.seedOptions = [{
       id: 'new',
-      label: 'Random',
+      label: this.translate.instant('Random'),
       supportsTestnet: true
     }, {
       id: 'set',
-      label: 'Specify Recovery Phrase',
+      label: this.translate.instant('Specify Recovery Phrase'),
       supportsTestnet: false
     }];
     this.createForm.controls['selectedSeed'].setValue(this.seedOptions[0].id); // new or set
@@ -137,7 +137,7 @@ export class CreateWalletPage implements OnInit {
       this.createForm.get('recoveryPhrase').setValidators(null);
     }
     this.createForm.controls['selectedSeed'].setValue(seed); // new or set
-    this.createForm.controls['testnet'].setValue(false);
+    if (this.createForm.controls['testnet']) this.createForm.controls['testnet'].setValue(false);
     this.createForm.controls['derivationPath'].setValue(this.derivationPathByDefault);
     this.createForm.controls['recoveryPhrase'].setValue(null);
   }
@@ -154,7 +154,7 @@ export class CreateWalletPage implements OnInit {
       m: this.createForm.value.requiredCopayers,
       n: this.createForm.value.totalCopayers,
       myName: this.createForm.value.totalCopayers > 1 ? this.createForm.value.myName : null,
-      networkName: this.createForm.value.testnetEnabled && this.createForm.value.coin != 'bch' ? 'testnet' : 'livenet',
+      networkName: this.createForm.value.testnetEnabled ? 'testnet' : 'livenet',
       bwsurl: this.createForm.value.bwsURL,
       singleAddress: this.createForm.value.singleAddress,
       coin: this.createForm.value.coin
@@ -201,6 +201,7 @@ export class CreateWalletPage implements OnInit {
       this.events.publish('status:updated');
       this.walletProvider.updateRemotePreferences(wallet);
       this.pushNotificationsProvider.updateSubscription(wallet);
+      this.profileProvider.setWalletOrder(wallet.credentials.walletId, null, wallet.coin);
 
       if (this.createForm.value.selectedSeed == 'set') {
         this.profileProvider.setBackupFlag(wallet.credentials.walletId);
@@ -214,7 +215,7 @@ export class CreateWalletPage implements OnInit {
       }
     }).catch((err: any) => {
       this.onGoingProcessProvider.clear();
-      this.logger.warn(err);
+      this.logger.error('Create: could not create wallet', err);
       let title = this.translate.instant('Error');
       this.popupProvider.ionicAlert(title, err);
       return;

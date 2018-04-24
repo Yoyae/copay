@@ -11,6 +11,7 @@ import { BwcProvider } from '../bwc/bwc';
 import { ConfigProvider } from '../config/config';
 import { FeeProvider } from '../fee/fee';
 import { FilterProvider } from '../filter/filter';
+import { LanguageProvider } from '../language/language';
 import { OnGoingProcessProvider } from '../on-going-process/on-going-process';
 import { PersistenceProvider } from '../persistence/persistence';
 import { PopupProvider } from '../popup/popup';
@@ -49,6 +50,7 @@ export class WalletProvider {
     private bwcErrorProvider: BwcErrorProvider,
     private rateProvider: RateProvider,
     private filter: FilterProvider,
+    private languageProvider: LanguageProvider,
     private popupProvider: PopupProvider,
     private onGoingProcessProvider: OnGoingProcessProvider,
     private touchidProvider: TouchIdProvider,
@@ -104,7 +106,7 @@ export class WalletProvider {
 
         lodash.each(txps, (tx: any) => {
 
-          tx = this.txFormatProvider.processTx(wallet.coin, tx);
+          tx = this.txFormatProvider.processTx(wallet.coin, tx, this.useLegacyAddress());
 
           // no future transactions...
           if (tx.createdOn > now)
@@ -232,7 +234,7 @@ export class WalletProvider {
           cache.alternativeBalanceAvailable = true;
           cache.isRateAvailable = true;
         }).catch((err) => {
-          this.logger.warn(err);
+          this.logger.warn('Could not get rates: ', err);
         });
       };
 
@@ -377,15 +379,15 @@ export class WalletProvider {
         if (err) {
           let prefix = this.translate.instant('Could not create address');
           if (err instanceof this.errors.CONNECTION_ERROR || (err.message && err.message.match(/5../))) {
-            this.logger.warn(err);
-            return setTimeout(() => {
-              this.createAddress(wallet);
-            }, 5000);
+            this.bwcErrorProvider.cb(err, prefix).then((msg) => {
+              return reject(msg);
+            });
           } else if (
             err instanceof this.errors.MAIN_ADDRESS_GAP_REACHED || (err.message && err.message == 'MAIN_ADDRESS_GAP_REACHED')
           ) {
             this.logger.warn(this.bwcErrorProvider.msg(err, 'Server Error'));
             prefix = null;
+            this.popupProvider.ionicAlert(null, this.bwcErrorProvider.msg('MAIN_ADDRESS_GAP_REACHED'));
             wallet.getMainAddresses({
               reverse: true,
               limit: 1
@@ -413,11 +415,7 @@ export class WalletProvider {
           return resolve(localTxs);
         };
 
-        try {
-          localTxs = JSON.parse(txs);
-        } catch (ex) {
-          localTxs = txs;
-        };
+        localTxs = txs;
         return resolve(lodash.compact(localTxs));
       }).catch((err: Error) => {
         return reject(err);
@@ -569,7 +567,7 @@ export class WalletProvider {
                 minTs: endingTs
               }, (err: any, notes: any) => {
                 if (err) {
-                  this.logger.warn(err);
+                  this.logger.warn('Could not get TxNotes: ', err);
                   return reject(err);
                 };
                 lodash.each(notes, (note: any) => {
@@ -651,7 +649,7 @@ export class WalletProvider {
     wallet.hasUnsafeConfirmed = false;
 
     lodash.each(txs, (tx: any) => {
-      tx = this.txFormatProvider.processTx(wallet.coin, tx);
+      tx = this.txFormatProvider.processTx(wallet.coin, tx, this.useLegacyAddress());
 
       // no future transactions...
       if (tx.time > now)
@@ -869,8 +867,10 @@ export class WalletProvider {
 
       try {
         wallet.signTxProposal(txp, password, (err: any, signedTxp: any) => {
-          this.logger.warn('Transaction signed err:' + err);
-          if (err) return reject(err);
+          if (err) {
+            this.logger.error('Transaction signed err: ', err);
+            return reject(err);
+          }
           return resolve(signedTxp);
         });
       } catch (e) {
@@ -901,7 +901,7 @@ export class WalletProvider {
         }
 
         this.logger.debug('Transaction broadcasted');
-        if (memo) this.logger.info(memo);
+        if (memo) this.logger.info('Memo: ', memo);
 
         return resolve(broadcastedTxp);
       });
@@ -968,11 +968,14 @@ export class WalletProvider {
       // Update this JIC.
       let config: any = this.configProvider.get();
 
-      // TODO prefs.email  (may come from arguments)
+      // Get email from local config
       prefs.email = config.emailNotifications.email;
-      prefs.language = "en" // This line was hardcoded - TODO: prefs.language = uxLanguage.getCurrentLanguage();
-      // TODO let walletSettings = config.wallet.settings;
-      // prefs.unit = walletSettings.unitCode; // TODO: remove, not used
+
+      // Get current languge
+      prefs.language = this.languageProvider.getCurrent();
+
+      // Set OLD wallet in bits to btc
+      prefs.unit = 'btc'; // DEPRECATED
 
       updateRemotePreferencesFor(lodash.clone(clients), prefs).then(() => {
         this.logger.debug('Remote preferences saved for' + lodash.map(clients, (x: any) => {
@@ -1085,13 +1088,13 @@ export class WalletProvider {
   }
 
   // An alert dialog
-  private askPassword(name: string, title: string): Promise<any> {
+  private askPassword(warnMsg: string, title: string): Promise<any> {
     return new Promise((resolve, reject) => {
       let opts = {
         type: 'password',
         useDanger: true
       }
-      this.popupProvider.ionicPrompt(title, name, opts).then((res: any) => {
+      this.popupProvider.ionicPrompt(title, warnMsg, opts).then((res: any) => {
         return resolve(res);
       });
     });
@@ -1099,11 +1102,11 @@ export class WalletProvider {
 
   public encrypt(wallet: any): Promise<any> {
     return new Promise((resolve, reject) => {
-      var title = this.translate.instant('Enter new spending password');
-      var warnMsg = this.translate.instant('Your wallet key will be encrypted. The Spending Password cannot be recovered. Be sure to write it down.');
+      var title = this.translate.instant('Enter a new encrypt password');
+      var warnMsg = this.translate.instant('Your wallet key will be encrypted. The encrypt password cannot be recovered. Be sure to write it down.');
       this.askPassword(warnMsg, title).then((password: string) => {
         if (!password) return reject(this.translate.instant('no password'));
-        title = this.translate.instant('Confirm your new spending password');
+        title = this.translate.instant('Confirm your new encrypt password');
         this.askPassword(warnMsg, title).then((password2: string) => {
           if (!password2 || password != password2) return reject(this.translate.instant('password mismatch'));
           wallet.encryptPrivateKey(password);
@@ -1120,7 +1123,7 @@ export class WalletProvider {
   public decrypt(wallet: any): Promise<any> {
     return new Promise((resolve, reject) => {
       this.logger.debug('Disabling private key encryption for' + wallet.name);
-      this.askPassword(null, this.translate.instant('Enter Spending Password')).then((password: string) => {
+      this.askPassword(null, this.translate.instant('Enter encrypt password')).then((password: string) => {
         if (!password) return reject(this.translate.instant('no password'));
         try {
           wallet.decryptPrivateKey(password);
@@ -1135,7 +1138,7 @@ export class WalletProvider {
   public handleEncryptedWallet(wallet: any): Promise<any> {
     return new Promise((resolve, reject) => {
       if (!this.isEncrypted(wallet)) return resolve();
-      this.askPassword(wallet.name, this.translate.instant('Enter Spending Password')).then((password: string) => {
+      this.askPassword(null, this.translate.instant('Enter encrypt password')).then((password: string) => {
         if (!password) return reject(this.translate.instant('No password'));
         if (!wallet.checkPassword(password)) return reject(this.translate.instant('Wrong password'));
         return resolve(password);

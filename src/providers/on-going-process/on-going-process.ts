@@ -24,12 +24,12 @@ export class OnGoingProcessProvider {
       'calculatingFee': this.translate.instant('Calculating fee...'),
       'connectingCoinbase': this.translate.instant('Connecting to Coinbase...'),
       'connectingGlidera': this.translate.instant('Connecting to Glidera...'),
-      'connectingShapeshift': this.translate.instant('Connecting to Shapeshift...'),
+      'connectingShapeshift': this.translate.instant('Connecting to ShapeShift...'),
       'creatingTx': this.translate.instant('Creating transaction...'),
       'creatingWallet': this.translate.instant('Creating Wallet...'),
       'deletingWallet': this.translate.instant('Deleting Wallet...'),
       'extractingWalletInfo': this.translate.instant('Extracting Wallet information...'),
-      'fetchingPayPro': this.translate.instant('Fetching payment information'),
+      'fetchingPayPro': this.translate.instant('Fetching payment information...'),
       'generatingCSV': this.translate.instant('Generating .csv file...'),
       'gettingFeeLevels': this.translate.instant('Getting fee levels...'),
       'importingWallet': this.translate.instant('Importing Wallet...'),
@@ -66,9 +66,9 @@ export class OnGoingProcessProvider {
     this.ongoingProcess = [];
     try {
       this.loading.dismiss();
-    } catch(e) {
+    } catch (e) {
       // No problem
-      this.logger.warn(e);
+      this.logger.warn('on-going-process is still active. No problem.', e);
     };
     this.loading = null;
     this.logger.debug('ongoingProcess clear');

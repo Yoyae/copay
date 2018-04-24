@@ -11,6 +11,7 @@ import { Clipboard } from '@ionic-native/clipboard';
 import { Device } from '@ionic-native/device';
 import { FCM } from '@ionic-native/fcm';
 import { QRScanner } from '@ionic-native/qr-scanner';
+import { ScreenOrientation } from '@ionic-native/screen-orientation';
 import { SocialSharing } from '@ionic-native/social-sharing';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { StatusBar } from '@ionic-native/status-bar';
@@ -20,7 +21,7 @@ import { TouchID } from '@ionic-native/touch-id';
 /* Modules */
 import { TranslatePoHttpLoader } from '@biesbjerg/ngx-translate-po-http-loader';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
-import { Level, NgLoggerModule } from '@nsalaun/ng-logger';
+import { ZXingScannerModule } from '@zxing/ngx-scanner';
 import { MomentModule } from 'angular2-moment';
 import { NgxQRCodeModule } from 'ngx-qrcode2';
 
@@ -34,12 +35,14 @@ import { CreateWalletPage } from '../pages/add/create-wallet/create-wallet';
 import { ImportWalletPage } from '../pages/add/import-wallet/import-wallet';
 import { JoinWalletPage } from '../pages/add/join-wallet/join-wallet';
 import { BackupGamePage } from '../pages/backup/backup-game/backup-game';
+import { BackupNeededModalPage } from '../pages/backup/backup-needed-modal/backup-needed-modal';
+import { BackupReadyModalPage } from '../pages/backup/backup-ready-modal/backup-ready-modal';
+import { BackupWarningModalPage } from '../pages/backup/backup-warning-modal/backup-warning-modal';
 import { BackupWarningPage } from '../pages/backup/backup-warning/backup-warning';
 import { FeedbackCompletePage } from '../pages/feedback/feedback-complete/feedback-complete';
 import { FeedbackPage } from '../pages/feedback/feedback/feedback';
 import { SendFeedbackPage } from '../pages/feedback/send-feedback/send-feedback';
 import { FinishModalPage } from '../pages/finish/finish';
-import { IncomingDataMenuPage } from '../pages/incoming-data-menu/incoming-data-menu';
 import { BackupRequestPage } from '../pages/onboarding/backup-request/backup-request';
 import { CollectEmailPage } from '../pages/onboarding/collect-email/collect-email';
 import { DisclaimerPage } from '../pages/onboarding/disclaimer/disclaimer';
@@ -49,6 +52,7 @@ import { PaperWalletPage } from '../pages/paper-wallet/paper-wallet';
 import { PayProPage } from '../pages/paypro/paypro';
 import { FeeWarningPage } from '../pages/send/fee-warning/fee-warning';
 import { BitcoinCashPage } from '../pages/settings/bitcoin-cash/bitcoin-cash';
+import { SlideToAcceptPage } from '../pages/slide-to-accept/slide-to-accept';
 import { TabsPage } from '../pages/tabs/tabs';
 import { TxDetailsPage } from '../pages/tx-details/tx-details';
 import { TxpDetailsPage } from '../pages/txp-details/txp-details';
@@ -98,6 +102,7 @@ import { BitPaySettingsPage } from '../pages/integrations/bitpay-card/bitpay-set
 import { CardItemPage } from '../pages/includes/card-item/card-item';
 import { FeedbackCardPage } from '../pages/includes/feedback-card/feedback-card';
 import { GravatarPage } from '../pages/includes/gravatar/gravatar';
+import { IncomingDataMenuPage } from '../pages/includes/incoming-data-menu/incoming-data-menu';
 import { TxpPage } from '../pages/includes/txp/txp';
 import { WalletActivityPage } from '../pages/includes/wallet-activity/wallet-activity';
 import { WalletItemPage } from '../pages/includes/wallet-item/wallet-item';
@@ -207,11 +212,17 @@ import { WalletProvider } from '../providers/wallet/wallet';
 
 /* Directives */
 import { CopyToClipboard } from '../directives/copy-to-clipboard/copy-to-clipboard';
+import { IosScrollBgColor } from '../directives/ios-scroll-bg-color/ios-scroll-bg-color';
 import { LongPress } from '../directives/long-press/long-press';
-import { NoLowFee } from '../directives/no-low-fee/no-low-fee'
+import { NavbarBg } from '../directives/navbar-bg/navbar-bg';
+import { NoLowFee } from '../directives/no-low-fee/no-low-fee';
 
+/* Components */
+import { ComponentsModule } from './../components/components.module';
+
+/* Read translation files */
 export function createTranslateLoader(http: HttpClient) {
-  return new TranslatePoHttpLoader(http, 'assets/i18n', '.po');
+  return new TranslatePoHttpLoader(http, 'assets/i18n/po', '.po');
 }
 
 @NgModule({
@@ -251,7 +262,10 @@ export function createTranslateLoader(http: HttpClient) {
     IncomingDataMenuPage,
     ImportWalletPage,
     JoinWalletPage,
+    BackupWarningModalPage,
     BackupWarningPage,
+    BackupReadyModalPage,
+    BackupNeededModalPage,
     BackupGamePage,
     ConfirmPage,
     CustomAmountPage,
@@ -315,9 +329,12 @@ export function createTranslateLoader(http: HttpClient) {
     WalletActivityPage,
     WalletSelectorPage,
     CardItemPage,
+    SlideToAcceptPage,
     /* Directives */
     CopyToClipboard,
+    IosScrollBgColor,
     LongPress,
+    NavbarBg,
     NoLowFee,
     /* Pipes */
     SatToUnitPipe,
@@ -334,8 +351,8 @@ export function createTranslateLoader(http: HttpClient) {
       backButtonText: ''
     }),
     BrowserModule,
+    ComponentsModule,
     HttpClientModule,
-    NgLoggerModule.forRoot(Level.LOG),
     MomentModule,
     NgxQRCodeModule,
     TranslateModule.forRoot({
@@ -345,6 +362,7 @@ export function createTranslateLoader(http: HttpClient) {
         deps: [HttpClient]
       }
     }),
+    ZXingScannerModule.forRoot()
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -383,7 +401,10 @@ export function createTranslateLoader(http: HttpClient) {
     IncomingDataMenuPage,
     ImportWalletPage,
     JoinWalletPage,
+    BackupWarningModalPage,
     BackupWarningPage,
+    BackupReadyModalPage,
+    BackupNeededModalPage,
     BackupGamePage,
     ConfirmPage,
     CustomAmountPage,
@@ -446,7 +467,8 @@ export function createTranslateLoader(http: HttpClient) {
     WalletItemPage,
     WalletActivityPage,
     WalletSelectorPage,
-    CardItemPage
+    CardItemPage,
+    SlideToAcceptPage
   ],
   providers: [
     AddressProvider,
@@ -490,6 +512,7 @@ export function createTranslateLoader(http: HttpClient) {
     StatusBar,
     SplashScreen,
     ScanProvider,
+    ScreenOrientation,
     SocialSharing,
     Toast,
     TouchID,

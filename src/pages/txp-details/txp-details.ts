@@ -4,6 +4,7 @@ import { Events, ModalController, NavParams, ViewController } from 'ionic-angula
 import { Logger } from '../../providers/logger/logger';
 
 // providers
+import { AddressBookProvider } from '../../providers/address-book/address-book';
 import { BwcErrorProvider } from '../../providers/bwc-error/bwc-error';
 import { ConfigProvider } from '../../providers/config/config';
 import { FeeProvider } from '../../providers/fee/fee';
@@ -38,6 +39,8 @@ export class TxpDetailsPage {
   public expires: string;
   public currentSpendUnconfirmed: boolean;
   public loading: boolean;
+  public contactName: string;
+  public showMultiplesOutputs: boolean;
 
   private isGlidera: boolean;
   private GLIDERA_LOCK_TIME: number;
@@ -59,12 +62,14 @@ export class TxpDetailsPage {
     private profileProvider: ProfileProvider,
     private txFormatProvider: TxFormatProvider,
     private translate: TranslateService,
-    private modalCtrl: ModalController
+    private modalCtrl: ModalController,
+    private addressBookProvider: AddressBookProvider
   ) {
+    this.showMultiplesOutputs = false;
     let config = this.configProvider.get().wallet;
     this.tx = this.navParams.data.tx;
     this.wallet = this.tx.wallet ? this.tx.wallet : this.profileProvider.getWallet(this.tx.walletId);
-    this.tx = this.txFormatProvider.processTx(this.wallet.coin, this.tx);
+    this.tx = this.txFormatProvider.processTx(this.wallet.coin, this.tx, this.walletProvider.useLegacyAddress());
     if (!this.tx.toAddress) this.tx.toAddress = this.tx.outputs[0].toAddress;
     this.isGlidera = this.navParams.data.isGlidera;
     this.GLIDERA_LOCK_TIME = 6 * 60 * 60;
@@ -76,6 +81,27 @@ export class TxpDetailsPage {
     this.isShared = this.wallet.credentials.n > 1;
     this.canSign = this.wallet.canSign() || this.wallet.isPrivKeyExternal();
     this.color = this.wallet.color;
+    this.contact();
+
+    // To test multiple outputs...
+
+    // var txp = {
+    //   message: 'test multi-output',
+    //   fee: 1000,
+    //   createdOn: Math.floor(Date.now() / 1000),
+    //   outputs: [],
+    // };
+    // for (let i = 0; i < 15; i++) {
+
+    //   txp.outputs.push({
+    //     amountStr: "600 BTC",
+    //     toAddress: '2N8bhEwbKtMvR2jqMRcTCQqzHP6zXGToXcK',
+    //     message: 'output #' + (Number(i) + 1)
+    //   });
+    // };
+    // this.tx = _.merge(this.tx, txp);
+    // this.tx.hasMultiplesOutputs = true;
+
   }
 
   ionViewWillEnter() {
@@ -120,10 +146,10 @@ export class TxpDetailsPage {
     }).length == this.tx.requiredSignatures - 1;
 
     if (lastSigner) {
-      this.buttonText = this.translate.instant('Click to send');
+      this.buttonText = this.isCordova ? this.translate.instant('Slide to send') : this.translate.instant('Click to send');
       this.successText = this.translate.instant('Payment Sent');
     } else {
-      this.buttonText = this.translate.instant('Click to accept');
+      this.buttonText = this.isCordova ? this.translate.instant('Slide to accept') : this.translate.instant('Click to accept');
       this.successText = this.translate.instant('Payment Accepted');
     }
   }
@@ -261,6 +287,8 @@ export class TxpDetailsPage {
     }).catch((err: any) => {
       this.onGoingProcessProvider.clear();
       this.setError(err, 'Could not broadcast payment');
+
+      this.logger.error('Could not broadcast: ', this.tx.coin, this.tx.network, this.tx.raw);
     });
   }
 
@@ -274,7 +302,7 @@ export class TxpDetailsPage {
         copayerId: this.wallet.credentials.copayerId
       });
 
-      this.tx = this.txFormatProvider.processTx(this.wallet.coin, tx);
+      this.tx = this.txFormatProvider.processTx(this.wallet.coin, tx, this.walletProvider.useLegacyAddress());
 
       if (!action && tx.status == 'pending') this.tx.pendingForUs = true;
 
@@ -315,6 +343,18 @@ export class TxpDetailsPage {
     modal.onDidDismiss(() => {
       this.close();
     })
+  }
+
+  private contact(): void {
+    let addr = this.tx.toAddress;
+    this.addressBookProvider.get(addr).then((ab: any) => {
+      if (ab) {
+        let name = _.isObject(ab) ? ab.name : ab;
+        this.contactName = name;
+      }
+    }).catch((err: any) => {
+      this.logger.warn(err);
+    });
   }
 
 }

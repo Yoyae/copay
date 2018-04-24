@@ -53,14 +53,19 @@ export class ProfileProvider {
     // this.config.whenAvailable( (config) => { TODO
     wallet.usingCustomBWS = config.bwsFor && config.bwsFor[wallet.id] && (config.bwsFor[wallet.id] != defaults.bws.url);
     wallet.name = (config.aliasFor && config.aliasFor[wallet.id]) || wallet.credentials.walletName;
-    wallet.color = (config.colorFor && config.colorFor[wallet.id]) ? config.colorFor[wallet.id] : null;
+    wallet.color = (config.colorFor && config.colorFor[wallet.id]) ? config.colorFor[wallet.id] : '#647ce8';
     wallet.email = config.emailFor && config.emailFor[wallet.id];
     // });
   }
 
-  public setWalletOrder(walletId: string, index: number): void {
+  public setWalletOrder(walletId: string, index?: number, coin?: string): void {
+    if (index === null) {
+      let wallets = this.getWallets({ coin });
+      let maxIndex = _.maxBy(wallets, 'order') ? _.maxBy(wallets, 'order').order : null;
+      index = maxIndex != null ? maxIndex + 1 : 0;
+    }
     this.persistenceProvider.setWalletOrder(walletId, index);
-    this.logger.debug('Wallet new order stored');
+    this.logger.debug('Wallet new order stored ' + this.wallet[walletId].name + ': ' + index);
     this.wallet[walletId].order = index;
   }
 
@@ -232,7 +237,7 @@ export class ProfileProvider {
         }
         return resolve();
       }).catch((err: any) => {
-        this.logger.warn(err);
+        this.logger.warn('Could not get last known balance: ', err);
       });
     });
   }
@@ -312,7 +317,7 @@ export class ProfileProvider {
           password: opts.password
         });
       } catch (err) {
-        return reject(this.translate.instant('Could not import. Check input file and spending password'));
+        return reject(this.translate.instant('Could not import. Check input file.'));
       }
 
       let strParsed: any = JSON.parse(str);
@@ -329,7 +334,7 @@ export class ProfileProvider {
         this.setMetaData(walletClient, addressBook).then(() => {
           return resolve(walletClient);
         }).catch((err: any) => {
-          this.logger.warn(err);
+          this.logger.warn('Could not set meta data: ', err);
           return reject(err);
         });
       }).catch((err: any) => {
@@ -339,13 +344,13 @@ export class ProfileProvider {
   }
 
   // An alert dialog
-  private askPassword(name: string, title: string): Promise<any> {
+  private askPassword(warnMsg: string, title: string): Promise<any> {
     return new Promise((resolve, reject) => {
       let opts = {
         type: 'password',
         useDanger: true
       }
-      this.popupProvider.ionicPrompt(title, name, opts).then((res: any) => {
+      this.popupProvider.ionicPrompt(title, warnMsg, opts).then((res: any) => {
         return resolve(res);
       });
     });
@@ -365,6 +370,9 @@ export class ProfileProvider {
 
   private askToEncryptWallet(wallet: any): Promise<any> {
     return new Promise((resolve, reject) => {
+
+      if (!wallet.canSign()) return resolve();
+
       var title = this.translate.instant('Would you like to protect this wallet with a password?');
       var message = this.translate.instant('Encryption can protect your funds if this device is stolen or compromised by malicious software.');
       var okText = this.translate.instant('Yes');
@@ -399,7 +407,7 @@ export class ProfileProvider {
           });
         }
         else {
-          title = this.translate.instant('Enter your password again to confirm');
+          title = this.translate.instant('Enter your encrypt password again to confirm');
           this.askPassword(warnMsg, title).then((password2: string) => {
             if (!password2 || password != password2) {
               this.encrypt(wallet).then(() => {
@@ -478,7 +486,7 @@ export class ProfileProvider {
         try {
           localAddressBook1 = JSON.parse(localAddressBook);
         } catch (ex) {
-          this.logger.warn(ex);
+          this.logger.info('Address Book: JSON.parse not neccesary.', localAddressBook);
         }
         let mergeAddressBook = _.merge(addressBook, localAddressBook1);
         this.persistenceProvider.setAddressbook(wallet.credentials.network, JSON.stringify(mergeAddressBook)).then(() => {
@@ -759,7 +767,7 @@ export class ProfileProvider {
           });
 
         } catch (ex) {
-          this.logger.info(ex);
+          this.logger.info('Invalid wallet recovery phrase: ', ex);
           return reject(this.translate.instant('Could not create: Invalid wallet recovery phrase'));
         }
       } else if (opts.extendedPrivateKey) {
@@ -771,7 +779,7 @@ export class ProfileProvider {
             coin: opts.coin,
           });
         } catch (ex) {
-          this.logger.warn(ex);
+          this.logger.warn('Could not get seed from Extended Private Key: ', ex);
           return reject(this.translate.instant('Could not create using the specified extended private key'));
         }
       } else if (opts.extendedPublicKey) {
@@ -925,7 +933,7 @@ export class ProfileProvider {
       delete this.wallet[walletId];
 
       this.persistenceProvider.removeAllWalletData(walletId).catch((err: any) => {
-        this.logger.warn(err);
+        this.logger.warn('Could not remove all wallet data: ', err);
       });
 
       this.persistenceProvider.storeProfile(this.profile).then(() => {

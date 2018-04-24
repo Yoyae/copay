@@ -202,7 +202,7 @@ const configDefault: Config = {
 
   blockExplorerUrl: {
     btc: 'insight.bitpay.com',
-    bch: 'bch-insight.bitpay.com'
+    bch: 'bch-insight.bitpay.com/#'
   }
 };
 
@@ -215,7 +215,7 @@ export class ConfigProvider {
     private logger: Logger,
     private persistence: PersistenceProvider
   ) {
-    this.logger.debug('ConfigProvider initialized.');
+    this.logger.info('ConfigProvider initialized.');
   }
 
   public load() {
@@ -228,9 +228,9 @@ export class ConfigProvider {
           this.configCache = _.clone(configDefault);
         }
         resolve();
-      }).catch((err) => {
-        this.logger.error(err);
-        reject();
+      }).catch(err => {
+        this.logger.error('Error Loading Config');
+        reject(err);
       });
     });
   }

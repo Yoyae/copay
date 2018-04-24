@@ -1,17 +1,19 @@
 import { Component } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
-import { AlertController, Events, NavController } from 'ionic-angular';
+import { AlertController, Events, ModalController, NavController } from 'ionic-angular';
 import { Logger } from '../../providers/logger/logger';
 
 // Native
 import { SocialSharing } from '@ionic-native/social-sharing';
 
 // Pages
-import { BackupGamePage } from '../backup/backup-game/backup-game';
+import { BackupNeededModalPage } from '../backup/backup-needed-modal/backup-needed-modal';
+import { BackupWarningPage } from '../backup/backup-warning/backup-warning';
 import { AmountPage } from '../send/amount/amount';
 import { CopayersPage } from './../add/copayers/copayers';
 
 // Providers
+import { AddressProvider } from '../../providers/address/address';
 import { BwcErrorProvider } from '../../providers/bwc-error/bwc-error';
 import { ExternalLinkProvider } from '../../providers/external-link/external-link';
 import { PlatformProvider } from '../../providers/platform/platform';
@@ -33,6 +35,7 @@ export class ReceivePage {
   public wallet: any;
   public showShareButton: boolean;
   public loading: boolean;
+  public isOpenSelector: boolean;
 
   constructor(
     private navCtrl: NavController,
@@ -46,11 +49,14 @@ export class ReceivePage {
     private bwcErrorProvider: BwcErrorProvider,
     private translate: TranslateService,
     private externalLinkProvider: ExternalLinkProvider,
+    private modalCtrl: ModalController,
+    private addressProvider: AddressProvider
   ) {
     this.showShareButton = this.platformProvider.isCordova;
   }
 
   ionViewWillEnter() {
+    this.isOpenSelector = false;
     this.wallets = this.profileProvider.getWallets();
     this.onWalletSelect(this.checkSelectedWallet(this.wallet, this.wallets));
     this.events.subscribe('bwsEvent', (walletId, type, n) => {
@@ -84,6 +90,7 @@ export class ReceivePage {
       color: this.wallet.color,
       coin: this.wallet.coin,
       nextPage: 'CustomAmountPage',
+      network: this.addressProvider.validateAddress(this.address).network
     });
   }
 
@@ -92,7 +99,7 @@ export class ReceivePage {
     this.loading = newAddr || _.isEmpty(this.address) ? true : false;
 
     this.walletProvider.getAddress(this.wallet, newAddr).then((addr) => {
-      this.loading = false
+      this.loading = false;
       this.address = this.walletProvider.getAddressView(this.wallet, addr);
       this.updateQrAddress();
     }).catch((err) => {
@@ -111,11 +118,13 @@ export class ReceivePage {
   }
 
   public showWallets(): void {
+    this.isOpenSelector = true;
     let id = this.wallet ? this.wallet.credentials.walletId : null;
     this.events.publish('showWalletsSelectorEvent', this.wallets, id);
     this.events.subscribe('selectWalletEvent', (wallet: any) => {
       if (!_.isEmpty(wallet)) this.onWalletSelect(wallet);
       this.events.unsubscribe('selectWalletEvent');
+      this.isOpenSelector = false;
     });
   }
 
@@ -124,17 +133,11 @@ export class ReceivePage {
   };
 
   public goToBackup(): void {
-    let opts = {
-      title: 'Screenshots are not secure',
-      message: 'If you take a screenshot, your backup may be viewed by other apps. You can make a safe backup with physical paper and a pen',
-      buttons: [{
-        text: 'I understand',
-        handler: () => {
-          this.navCtrl.push(BackupGamePage, { walletId: this.wallet.credentials.walletId });
-        }
-      }],
-    }
-    this.alertCtrl.create(opts).present();
+    let BackupWarningModal = this.modalCtrl.create(BackupNeededModalPage, {}, { showBackdrop: true, enableBackdropDismiss: false });
+    BackupWarningModal.present({ animate: false });
+    BackupWarningModal.onDidDismiss((goToBackupPage) => {
+      if (goToBackupPage) this.navCtrl.push(BackupWarningPage, { walletId: this.wallet.credentials.walletId });
+    });
   }
 
   public openWikiBackupNeeded(): void {

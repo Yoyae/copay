@@ -73,10 +73,6 @@ export class ChooseFeeLevelPage {
     });
   }
 
-  public close() {
-    this.viewCtrl.dismiss({ newFeeLevel: "Hola mundo" });
-  }
-
   private showErrorAndClose(title: string, msg: string): void {
     title = title ? title : this.translate.instant('Error');
     this.logger.error(msg);
@@ -141,6 +137,10 @@ export class ChooseFeeLevelPage {
   public ok(): void {
     this.customFeePerKB = this.customFeePerKB ? (this.customSatPerByte * 1000).toFixed() : null;
     this.viewCtrl.dismiss({ newFeeLevel: this.feeLevel, customFeePerKB: this.customFeePerKB });
+  }
+
+  public cancel(): void {
+    this.viewCtrl.dismiss();
   }
 
   public changeSelectedFee(newFeeLevelValue: string): void {

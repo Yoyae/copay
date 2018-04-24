@@ -1,19 +1,21 @@
 import { Component } from '@angular/core';
-import { NavController } from 'ionic-angular';
-import { Logger } from '../../providers/logger/logger';
+import { Events, NavController } from 'ionic-angular';
+import * as _ from 'lodash';
 
-// providers
+// Providers
 import { AddressBookProvider } from '../../providers/address-book/address-book';
 import { AddressProvider } from '../../providers/address/address';
+import { ExternalLinkProvider } from '../../providers/external-link/external-link';
 import { IncomingDataProvider } from '../../providers/incoming-data/incoming-data';
+import { Logger } from '../../providers/logger/logger';
 import { PopupProvider } from '../../providers/popup/popup';
 import { ProfileProvider } from '../../providers/profile/profile';
 import { WalletProvider } from '../../providers/wallet/wallet';
 
-// pages
+// Pages
+import { PaperWalletPage } from '../paper-wallet/paper-wallet';
+import { AddressbookAddPage } from '../settings/addressbook/add/add';
 import { AmountPage } from './amount/amount';
-
-import * as _ from 'lodash';
 
 @Component({
   selector: 'page-send',
@@ -31,7 +33,6 @@ export class SendPage {
   public hasBchWallets: boolean;
   public hasContacts: boolean;
   public contactsShowMore: boolean;
-  public searchFocus: boolean;
   private CONTACTS_SHOW_LIMIT: number = 10;
   private currentContactsPage: number = 0;
 
@@ -43,11 +44,17 @@ export class SendPage {
     private logger: Logger,
     private incomingDataProvider: IncomingDataProvider,
     private popupProvider: PopupProvider,
-    private addressProvider: AddressProvider
+    private addressProvider: AddressProvider,
+    private events: Events,
+    private externalLinkProvider: ExternalLinkProvider
   ) { }
 
   ionViewDidLoad() {
     this.logger.info('ionViewDidLoad SendPage');
+  }
+
+  ionViewWillLeave() {
+    this.events.unsubscribe('finishIncomingDataMenuEvent');
   }
 
   ionViewWillEnter() {
@@ -55,6 +62,24 @@ export class SendPage {
     this.walletsBch = this.profileProvider.getWallets({ coin: 'bch' });
     this.hasBtcWallets = !(_.isEmpty(this.walletsBtc));
     this.hasBchWallets = !(_.isEmpty(this.walletsBch));
+
+    this.events.subscribe('finishIncomingDataMenuEvent', (data) => {
+      switch (data.redirTo) {
+        case 'AmountPage':
+          this.sendPaymentToAddress(data.value, data.coin);
+          break;
+        case 'AddressBookPage':
+          this.addToAddressBook(data.value);
+          break;
+        case 'OpenExternalLink':
+          this.goToUrl(data.value);
+          break;
+        case 'PaperWalletPage':
+          this.scanPaperWallet(data.value);
+          break;
+      }
+    });
+
     this.updateBchWalletsList();
     this.updateBtcWalletsList();
     this.updateContactsList();
@@ -62,6 +87,22 @@ export class SendPage {
 
   ionViewDidEnter() {
     this.search = '';
+  }
+
+  private goToUrl(url: string): void {
+    this.externalLinkProvider.open(url);
+  }
+
+  private sendPaymentToAddress(bitcoinAddress: string, coin: string): void {
+    this.navCtrl.push(AmountPage, { toAddress: bitcoinAddress, coin });
+  }
+
+  private addToAddressBook(bitcoinAddress: string): void {
+    this.navCtrl.push(AddressbookAddPage, { addressbookEntry: bitcoinAddress });
+  }
+
+  private scanPaperWallet(privateKey: string) {
+    this.navCtrl.push(PaperWalletPage, { privateKey });
   }
 
   private updateBchWalletsList(): void {
@@ -155,16 +196,6 @@ export class SendPage {
     this.updateContactsList();
   }
 
-  public searchInFocus(): void {
-    this.searchFocus = true;
-  }
-
-  public searchBlurred(): void {
-    if (this.search == null || this.search.length == 0) {
-      this.searchFocus = false;
-    }
-  }
-
   public openScanner(): void {
     this.navCtrl.parent.select(2);
   }
@@ -201,7 +232,7 @@ export class SendPage {
       });
       return;
     }).catch((err: any) => {
-      this.logger.warn(err);
+      this.logger.error('Send: could not getAddress', err);
     });
-  };
+  }
 }

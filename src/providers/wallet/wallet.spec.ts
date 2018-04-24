@@ -9,7 +9,6 @@ import {
   TranslateModule,
   TranslateService
 } from '@ngx-translate/core';
-import { Level, NgLoggerModule } from '@nsalaun/ng-logger';
 import {
   AlertController,
   App,
@@ -20,11 +19,13 @@ import {
 } from 'ionic-angular';
 
 import { Logger } from '../../providers/logger/logger';
+import { AppProvider } from '../app/app';
 import { BwcErrorProvider } from '../bwc-error/bwc-error';
 import { BwcProvider } from '../bwc/bwc';
 import { ConfigProvider } from '../config/config';
 import { FeeProvider } from '../fee/fee';
 import { FilterProvider } from '../filter/filter';
+import { LanguageProvider } from '../language/language';
 import { OnGoingProcessProvider } from '../on-going-process/on-going-process';
 import { PersistenceProvider } from '../persistence/persistence';
 import { PlatformProvider } from '../platform/platform';
@@ -38,15 +39,15 @@ describe('Provider: Wallet Provider', () => {
   let walletProvider: WalletProvider;
 
   class BwcProviderMock {
-    constructor() { }
+    constructor() {}
     getErrors() {
       return 'error';
     }
-    getBitcoreCash() { }
+    getBitcoreCash() {}
   }
 
   class PersistenceProviderMock {
-    constructor() { }
+    constructor() {}
     getLastAddress(walletId: any) {
       return Promise.resolve('storedAddress');
     }
@@ -70,12 +71,12 @@ describe('Provider: Wallet Provider', () => {
     TestBed.configureTestingModule({
       imports: [
         HttpClientModule,
-        NgLoggerModule.forRoot(Level.LOG),
         TranslateModule.forRoot({
           loader: { provide: TranslateLoader, useClass: TranslateFakeLoader }
         })
       ],
       providers: [
+        AppProvider,
         AlertController,
         AndroidFingerprintAuth,
         App,
@@ -89,6 +90,7 @@ describe('Provider: Wallet Provider', () => {
         FilterProvider,
         LoadingController,
         Logger,
+        LanguageProvider,
         OnGoingProcessProvider,
         { provide: PersistenceProvider, useClass: PersistenceProviderMock },
         Platform,
@@ -151,13 +153,44 @@ describe('Provider: Wallet Provider', () => {
           return true;
         },
         needsBackup: false,
-        createAddress({ }, cb) {
+        createAddress({}, cb) {
           return cb(null, { address: 'newAddress' });
         }
       };
       let force = true;
       walletProvider.getAddress(wallet, force).then(address => {
         expect(address).toEqual('newAddress');
+      });
+    });
+
+    it('should reject to generate new address if connection error', () => {
+      let wallet = {
+        isComplete() {
+          return true;
+        },
+        needsBackup: false,
+        createAddress({}, cb) {
+          return cb('CONNECTION_ERROR');
+        }
+      };
+      let force = false;
+      walletProvider.getAddress(wallet, force).catch(err => {
+        expect(err).toEqual('CONNECTION_ERROR');
+      });
+    });
+    it('should reject to generate new address if gap reached', () => {
+      let wallet = {
+        isComplete() {
+          return true;
+        },
+        needsBackup: false,
+        createAddress({}, cb) {
+          return cb('MAIN_ADDRESS_GAP_REACHED');
+        }
+      };
+      let force = false;
+      walletProvider.getAddress(wallet, force).catch(err => {
+        expect(err).toEqual('MAIN_ADDRESS_GAP_REACHED');
       });
     });
   });

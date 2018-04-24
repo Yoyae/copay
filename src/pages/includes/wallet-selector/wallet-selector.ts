@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { Events } from 'ionic-angular';
+import { Events, Platform } from 'ionic-angular';
 
 @Component({
   selector: 'wallet-selector',
@@ -16,7 +16,8 @@ export class WalletSelectorPage {
   public selectedWalletId: string;
 
   constructor(
-    private events: Events
+    private events: Events,
+    private platform: Platform
   ) {
     this.showWalletsSelector = false;
     this.showSlideEffect = false;
@@ -30,6 +31,12 @@ export class WalletSelectorPage {
       }, 50);
       this.wallets = wallets;
       this.separeWallets();
+
+      let unregisterBackButtonAction = this.platform.registerBackButtonAction(() => {
+        unregisterBackButtonAction();
+        this.backdropDismiss();
+      }, 0);
+
     });
   }
 

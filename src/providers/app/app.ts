@@ -1,11 +1,13 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Logger } from '@nsalaun/ng-logger';
+
+import { Logger } from '../../providers/logger/logger';
 
 // providers
 import { ConfigProvider } from '../../providers/config/config';
 import { LanguageProvider } from '../../providers/language/language';
 import { PersistenceProvider } from '../../providers/persistence/persistence';
+import { PlatformProvider } from '../../providers/platform/platform';
 
 /* TODO: implement interface propertly
 interface App {
@@ -53,6 +55,7 @@ export class AppProvider {
     private language: LanguageProvider,
     public config: ConfigProvider,
     private persistence: PersistenceProvider,
+    private platformProvider: PlatformProvider
   ) {
     this.logger.info('AppProvider initialized.');
   }
@@ -60,20 +63,37 @@ export class AppProvider {
   public load(): Promise<any> {
     return new Promise((resolve, reject) => {
       this.persistence.load();
-      this.config.load().then(() => {
-        this.language.load();
-        this.getServicesInfo().subscribe((infoServices) => {
-          this.servicesInfo = infoServices;
-          this.getInfo().subscribe((infoApp) => {
-            this.info = infoApp;
-            resolve();
+      this.config
+        .load()
+        .then(() => {
+          this.language.load();
+          this.getServicesInfo().subscribe(infoServices => {
+            this.servicesInfo = infoServices;
+            this.getInfo().subscribe(infoApp => {
+              this.info = infoApp;
+              if (this.platformProvider.isNW) this.setCustomMenuBarNW();
+              resolve();
+            });
           });
+        })
+        .catch(err => {
+          reject(err);
         });
-      }).catch((err) => {
-        this.logger.error(err);
-        reject(err);
-      });
     });
+  }
+
+  private setCustomMenuBarNW() {
+    let gui = (window as any).require('nw.gui');
+    let win = gui.Window.get();
+    let nativeMenuBar = new gui.Menu({
+      type: 'menubar'
+    });
+    try {
+      nativeMenuBar.createMacBuiltin(this.info.nameCase);
+    } catch (e) {
+      this.logger.debug('This is not OSX');
+    }
+    win.menu = nativeMenuBar;
   }
 
   private getInfo() {

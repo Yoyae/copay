@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 import { Events, ModalController, NavController, NavParams } from 'ionic-angular';
 import * as _ from 'lodash';
@@ -32,12 +32,12 @@ const FEE_TOO_HIGH_LIMIT_PER = 15;
   templateUrl: 'bitpay-card-topup.html',
 })
 export class BitPayCardTopUpPage {
+  @ViewChild('slideButton') slideButton;
 
   public cardId;
   public useSendMax: boolean;
   public amount;
   public currency;
-  public message;
   public isCordova;
   public wallets;
 
@@ -55,6 +55,8 @@ export class BitPayCardTopUpPage {
   private bitcoreCash: any;
   private createdTx;
   private configWallet: any;
+
+  public isOpenSelector: boolean;
 
   constructor(
     private bitPayCardProvider: BitPayCardProvider,
@@ -87,11 +89,18 @@ export class BitPayCardTopUpPage {
     this.logger.info('ionViewDidLoad BitPayCardTopUpPage');
   }
 
+  ionViewWillLeave() {
+    this.navCtrl.swipeBackEnabled = true;
+  }
+
   ionViewWillEnter() {
+    this.isOpenSelector = false;
+    this.navCtrl.swipeBackEnabled = false;
+
     this.cardId = this.navParams.data.id;
     this.useSendMax = this.navParams.data.useSendMax;
     this.currency = this.navParams.data.currency;
-    this.amount = this.navParams.data.amount; 
+    this.amount = this.navParams.data.amount;
 
     let coin;
     if (this.currency == 'BTC') coin = 'btc';
@@ -121,7 +130,7 @@ export class BitPayCardTopUpPage {
       if (_.isEmpty(this.wallets)) {
         this.showErrorAndBack(null, this.translate.instant('No wallets available'));
         return;
-      } 
+      }
 
       this.showWallets(); // Show wallet selector
     });
@@ -136,10 +145,12 @@ export class BitPayCardTopUpPage {
 
   private _resetValues() {
     this.totalAmountStr = this.amount = this.invoiceFee = this.networkFee = this.totalAmount = this.wallet = null;
-    this.createdTx = this.message = null;
+    this.createdTx = null;
   }
 
   private showErrorAndBack(title: string, msg: any) {
+    if (this.isCordova)
+      this.slideButton.isConfirmed(false);
     title = title ? title : this.translate.instant('Error');
     this.logger.error(msg);
     msg = (msg && msg.errors) ? msg.errors[0].message : msg;
@@ -150,6 +161,8 @@ export class BitPayCardTopUpPage {
 
   private showError(title: string, msg: any): Promise<any> {
     return new Promise((resolve, reject) => {
+      if (this.isCordova)
+        this.slideButton.isConfirmed(false);
       title = title || this.translate.instant('Error');
       this.logger.error(msg);
       msg = (msg && msg.errors) ? msg.errors[0].message : msg;
@@ -171,7 +184,6 @@ export class BitPayCardTopUpPage {
     return new Promise((resolve, reject) => {
       if (!wallet.canSign() && !wallet.isPrivKeyExternal()) {
         let err = this.translate.instant('No signing proposal: No private key');
-        this.logger.info(err);
         return reject(err);
       }
 
@@ -384,21 +396,21 @@ export class BitPayCardTopUpPage {
     };
     this.onGoingProcessProvider.set('loadingTxInfo');
     this.createInvoice(dataSrc).then((invoice) => {
-      
+
       // Check if BTC or BCH is enabled in this account
       if (!this.isCryptoCurrencySupported(wallet, invoice)) {
         let msg = this.translate.instant('Top-up with this cryptocurrency is not enabled');
         this.showErrorAndBack(null, msg);
         return;
       }
-      
+
       // Sometimes API does not return this element;
       invoice['minerFees'][COIN]['totalFee'] = invoice.minerFees[COIN].totalFee || 0;
       let invoiceFeeSat = invoice.minerFees[COIN].totalFee;
 
-      this.message = this.amountUnitStr + ' to ' + this.lastFourDigits;
+      let message = this.amountUnitStr + ' to ' + this.lastFourDigits;
 
-      this.createTx(wallet, invoice, this.message).then((ctxp) => {
+      this.createTx(wallet, invoice, message).then((ctxp) => {
         this.onGoingProcessProvider.clear();
 
         // Save TX in memory
@@ -430,10 +442,13 @@ export class BitPayCardTopUpPage {
     }
 
     let title = this.translate.instant('Confirm');
+    let message = 'Load ' + this.amountUnitStr;
     let okText = this.translate.instant('OK');
     let cancelText = this.translate.instant('Cancel');
-    this.popupProvider.ionicConfirm(title, this.message, okText, cancelText).then((ok) => {
+    this.popupProvider.ionicConfirm(title, message, okText, cancelText).then((ok) => {
       if (!ok) {
+        if (this.isCordova)
+          this.slideButton.isConfirmed(false);
         return;
       }
 
@@ -469,11 +484,13 @@ export class BitPayCardTopUpPage {
   }
 
   public showWallets(): void {
+    this.isOpenSelector = true;
     let id = this.wallet ? this.wallet.credentials.walletId : null;
     this.events.publish('showWalletsSelectorEvent', this.wallets, id, 'From');
     this.events.subscribe('selectWalletEvent', (wallet: any) => {
       if (!_.isEmpty(wallet)) this.onWalletSelect(wallet);
       this.events.unsubscribe('selectWalletEvent');
+      this.isOpenSelector = false;
     });
   }
 
@@ -485,8 +502,14 @@ export class BitPayCardTopUpPage {
     let modal = this.modalCtrl.create(FinishModalPage, { finishText, finishComment }, { showBackdrop: true, enableBackdropDismiss: false });
     modal.present();
     modal.onDidDismiss(() => {
-      this.navCtrl.popToRoot({ animate: false });
-      this.navCtrl.push(BitPayCardPage, { id: this.cardId });
+      this.navCtrl.popToRoot({ animate: false }).then(() => {
+        this.navCtrl.parent.select(0);
+
+        // Fixes mobile navigation
+        setTimeout(() => {
+          this.navCtrl.push(BitPayCardPage, { id: this.cardId }, { animate: false });
+        }, 200);
+      });
     });
   }
 

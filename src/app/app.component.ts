@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { ScreenOrientation } from '@ionic-native/screen-orientation';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { StatusBar } from '@ionic-native/status-bar';
 import { Events, ModalController, Platform } from 'ionic-angular';
@@ -14,6 +15,7 @@ import { EmailNotificationsProvider } from '../providers/email-notifications/ema
 import { GlideraProvider } from '../providers/glidera/glidera';
 import { Logger } from '../providers/logger/logger';
 import { MercadoLibreProvider } from '../providers/mercado-libre/mercado-libre';
+import { PopupProvider } from '../providers/popup/popup';
 import { ProfileProvider } from '../providers/profile/profile';
 import { ShapeshiftProvider } from '../providers/shapeshift/shapeshift';
 import { TouchIdProvider } from '../providers/touchid/touchid';
@@ -59,7 +61,9 @@ export class CopayApp {
     private bitPayCardProvider: BitPayCardProvider,
     private mercadoLibreProvider: MercadoLibreProvider,
     private shapeshiftProvider: ShapeshiftProvider,
-    private emailNotificationsProvider: EmailNotificationsProvider
+    private emailNotificationsProvider: EmailNotificationsProvider,
+    private screenOrientation: ScreenOrientation,
+    private popupProvider: PopupProvider
   ) {
     this.initializeApp();
   }
@@ -75,6 +79,9 @@ export class CopayApp {
 
         if (this.platform.is('cordova')) {
           this.statusBar.show();
+
+          // Set to portrait
+          this.screenOrientation.lock(this.screenOrientation.ORIENTATIONS.PORTRAIT);
 
           // Only overlay for iOS
           if (this.platform.is('ios')) this.statusBar.overlaysWebView(true);
@@ -94,9 +101,9 @@ export class CopayApp {
 
         }
         this.openLockModal();
+        this.registerIntegrations();
         // Check Profile
         this.profile.loadAndBindProfile().then((profile: any) => {
-          this.registerIntegrations();
           this.emailNotificationsProvider.init(); // Update email subscription if necessary
           if (profile) {
             this.logger.info('Profile exists.');
@@ -108,13 +115,17 @@ export class CopayApp {
             this.rootPage = OnboardingPage;
           }
         }).catch((err: Error) => {
-          this.logger.warn(err);
+          this.logger.warn('LoadAndBindProfile', err.message);
           this.rootPage = err.message == 'ONBOARDINGNONCOMPLETED: Onboarding non completed' ? OnboardingPage : DisclaimerPage;
         });
       }).catch((err) => {
-        this.logger.error('Could not initialize the app');
+        let title = 'Could not initialize the app';
+        let message = JSON.stringify(err);
+        this.popupProvider.ionicAlert(title, message);
       });
 
+    }).catch((e) => {
+      this.logger.error('Platform is not ready.', e);
     });
   }
 
@@ -125,27 +136,28 @@ export class CopayApp {
   private openLockModal(): void {
     if (this.isModalOpen) return;
     let config: any = this.configProvider.get();
-    let lockMethod = config.lock.method;
+    let lockMethod = config.lock.method ? config.lock.method.toLowerCase() : null;
     if (!lockMethod) return;
-    if (lockMethod == 'PIN') this.openPINModal('checkPin');
-    if (lockMethod == 'Fingerprint') this.openFingerprintModal();
+    if (lockMethod == 'pin') this.openPINModal('checkPin');
+    if (lockMethod == 'fingerprint') this.openFingerprintModal();
   }
 
   private openPINModal(action): void {
     this.isModalOpen = true;
-    let modal = this.modalCtrl.create(PinModalPage, { action }, { showBackdrop: false, enableBackdropDismiss: false });
-    modal.present();
-    modal.onDidDismiss(() => {
+    this.events.publish('showPinModalEvent', action);
+    this.events.subscribe('finishPinModalEvent', () => {
       this.isModalOpen = false;
+      this.events.unsubscribe('finishPinModalEvent');
     });
   }
 
   private openFingerprintModal(): void {
     this.isModalOpen = true;
-    let modal = this.modalCtrl.create(FingerprintModalPage, {}, { showBackdrop: false, enableBackdropDismiss: false });
-    modal.present();
-    modal.onDidDismiss(() => {
+    let isCopay = this.appProvider.info.nameCase == 'Copay' ? true : false;
+    this.events.publish('showFingerprintModalEvent', isCopay);
+    this.events.subscribe('finishFingerprintModalEvent', () => {
       this.isModalOpen = false;
+      this.events.unsubscribe('finishFingerprintModalEvent');
     });
   }
 

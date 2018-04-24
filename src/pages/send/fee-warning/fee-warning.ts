@@ -8,9 +8,9 @@ import { ViewController } from 'ionic-angular';
 export class FeeWarningPage {
   constructor(
     private viewCtrl: ViewController
-  ) {}
+  ) { }
 
-  close() {
+  public close(): void {
     this.viewCtrl.dismiss();
   }
 }

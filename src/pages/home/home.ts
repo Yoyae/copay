@@ -1,6 +1,6 @@
 import { Component, NgZone } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
-import { Events, ModalController, NavController } from 'ionic-angular';
+import { Events, ModalController, NavController, Platform } from 'ionic-angular';
 import { Logger } from '../../providers/logger/logger';
 
 // Pages
@@ -75,6 +75,7 @@ export class HomePage {
   private zone: any;
 
   constructor(
+    private plt: Platform,
     private navCtrl: NavController,
     private profileProvider: ProfileProvider,
     private releaseProvider: ReleaseProvider,
@@ -89,7 +90,7 @@ export class HomePage {
     private popupProvider: PopupProvider,
     private modalCtrl: ModalController,
     private addressBookProvider: AddressBookProvider,
-    private app: AppProvider,
+    private appProvider: AppProvider,
     private platformProvider: PlatformProvider,
     private homeIntegrationsProvider: HomeIntegrationsProvider,
     private persistenceProvider: PersistenceProvider,
@@ -109,8 +110,8 @@ export class HomePage {
 
   ionViewWillEnter() {
     this.config = this.configProvider.get();
-    this.pushNotificationsProvider.init(); 
-    
+    this.pushNotificationsProvider.init();
+
     this.addressBookProvider.list().then((ab: any) => {
       this.addressbook = ab || {};
     }).catch((err) => {
@@ -120,6 +121,12 @@ export class HomePage {
     // Update Tx Notifications
     this.recentTransactionsEnabled = this.config.recentTransactions.enabled;
     if (this.recentTransactionsEnabled) this.getNotifications();
+
+    // Update Tx Proposals
+    this.updateTxps();
+
+    // Update list of wallets and status
+    this.setWallets();
 
     // BWS Events: Update Status per Wallet
     // NewBlock, NewCopayer, NewAddress, NewTxProposal, TxProposalAcceptedBy, TxProposalRejectedBy, txProposalFinallyRejected,
@@ -138,16 +145,20 @@ export class HomePage {
     // Hide stars to rate
     this.events.subscribe('feedback:hide', () => {
       this.showRateCard = false;
-    }); 
+    });
   }
 
   ionViewDidEnter() {
     if (this.isNW) this.checkUpdate();
     this.checkHomeTip();
-    this.checkFeedbackInfo(); 
+    this.checkFeedbackInfo();
 
     if (this.platformProvider.isCordova) {
       this.handleDeepLinks();
+    }
+
+    if (this.platformProvider.isNW) {
+      this.handleDeepLinksNW();
     }
 
     // Show integrations
@@ -164,7 +175,7 @@ export class HomePage {
     // Only BitPay Wallet
     this.bitPayCardProvider.get({}, (err, cards) => {
       this.zone.run(() => {
-        this.showBitPayCard = this.app.info._enabledExtensions.debitcard ? true : false;
+        this.showBitPayCard = this.appProvider.info._enabledExtensions.debitcard ? true : false;
         this.bitpayCardItems = cards;
       });
     });
@@ -176,7 +187,33 @@ export class HomePage {
 
   ionViewDidLoad() {
     this.logger.info('ionViewDidLoad HomePage');
-    this.setWallets();
+
+    this.plt.resume.subscribe(e => {
+      this.updateTxps();
+      this.setWallets();
+    });
+  }
+
+  private handleDeepLinksNW() {
+
+    var gui = (window as any).require('nw.gui');
+
+    // This event is sent to an existent instance of Copay (only for standalone apps)
+    gui.App.on('open', (pathData) => {
+      if (pathData.indexOf(/^bitcoin(cash)?:/) != -1) {
+        this.logger.debug('Bitcoin URL found');
+        this.handleOpenUrl(pathData.substring(pathData.indexOf(/^bitcoin(cash)?:/)));
+      } else if (pathData.indexOf(this.appProvider.info.name + '://') != -1) {
+        this.logger.debug(this.appProvider.info.name + ' URL found');
+        this.handleOpenUrl(pathData.substring(pathData.indexOf(this.appProvider.info.name + '://')));
+      }
+    });
+
+    // Used at the startup of Copay
+    var argv = gui.App.argv;
+    if (argv && argv[0]) {
+      this.handleOpenUrl(argv[0]);
+    }
   }
 
   private handleDeepLinks() {
@@ -293,7 +330,7 @@ export class HomePage {
     }).catch((err: any) => {
       this.logger.error(err);
     });
-  }, 5000, {
+  }, 2000, {
       'leading': true
     });
 
@@ -306,7 +343,7 @@ export class HomePage {
     }).catch((err: any) => {
       this.logger.error(err);
     });
-  }, 5000, {
+  }, 2000, {
       'leading': true
     });
 
@@ -356,7 +393,6 @@ export class HomePage {
   }
 
   private checkUpdate(): void {
-    // TODO check if new update
     this.releaseProvider.getLatestAppVersion().toPromise()
       .then((version) => {
         this.logger.debug('Current app version:', version);
@@ -364,11 +400,11 @@ export class HomePage {
         this.logger.debug('Update available:', result.updateAvailable);
         if (result.updateAvailable) {
           this.newRelease = true;
-          this.updateText = 'There is a new version of ' + this.app.info.nameCase + ' available';
+          this.updateText = 'There is a new version of ' + this.appProvider.info.nameCase + ' available';
         }
       })
       .catch((err) => {
-        this.logger.warn('Error:', err);
+        this.logger.error('Error getLatestAppVersion', err);
       })
   }
 
@@ -377,8 +413,8 @@ export class HomePage {
     this.externalLinkProvider.open(url);
   }
 
-  public goToAddView(coin?: string): void {
-    this.navCtrl.push(AddPage, { coin });
+  public goToAddView(): void {
+    this.navCtrl.push(AddPage);
   }
 
   public goToWalletDetails(wallet: any): void {
@@ -431,7 +467,7 @@ export class HomePage {
     this.walletsBtc.splice(indexes.from, 1);
     this.walletsBtc.splice(indexes.to, 0, element);
     _.each(this.walletsBtc, (wallet: any, index: number) => {
-      this.profileProvider.setWalletOrder(wallet.id, index);
+      this.profileProvider.setWalletOrder(wallet.id, index, 'btc');
     });
   };
 
@@ -440,7 +476,7 @@ export class HomePage {
     this.walletsBch.splice(indexes.from, 1);
     this.walletsBch.splice(indexes.to, 0, element);
     _.each(this.walletsBch, (wallet: any, index: number) => {
-      this.profileProvider.setWalletOrder(wallet.id, index);
+      this.profileProvider.setWalletOrder(wallet.id, index, 'bch');
     });
   };
 

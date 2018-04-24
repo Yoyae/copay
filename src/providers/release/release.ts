@@ -36,10 +36,13 @@ export class ReleaseProvider {
     };
   }
 
-  public checkForUpdates(latestVersion: string, currentVersion?: string): {
-    updateAvailable: boolean | null,
-      availableVersion: string | null,
-      error: string | null
+  public checkForUpdates(
+    latestVersion: string,
+    currentVersion?: string
+  ): {
+    updateAvailable: boolean | null;
+    availableVersion: string | null;
+    error: string | null;
   } {
     if (!currentVersion) currentVersion = this.appVersion;
 

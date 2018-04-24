@@ -1,8 +1,12 @@
 import { Directive, Inject } from '@angular/core';
 import { DOCUMENT } from "@angular/platform-browser";
 import { Clipboard } from '@ionic-native/clipboard';
+import { TranslateService } from '@ngx-translate/core';
 import { ToastController } from 'ionic-angular';
+
+// providers
 import { Logger } from '../../providers/logger/logger';
+import { NodeWebkitProvider } from '../../providers/node-webkit/node-webkit';
 import { PlatformProvider } from '../../providers/platform/platform';
 
 @Directive({
@@ -24,7 +28,9 @@ export class CopyToClipboard {
     public toastCtrl: ToastController,
     public clipboard: Clipboard,
     public platform: PlatformProvider,
-    public logger: Logger
+    public logger: Logger,
+    public translate: TranslateService,
+    private nodeWebkitProvider: NodeWebkitProvider
   ) {
     this.logger.info('CopyToClipboardDirective initialized.');
     this.isCordova = this.platform.isCordova;
@@ -47,13 +53,15 @@ export class CopyToClipboard {
     if (this.isCordova) {
       this.clipboard.copy(this.value);
     } else if (this.isNW) {
-      // TODO: Node-webkit won't be supported
+      this.nodeWebkitProvider.writeToClipboard(this.value);
     } else {
       this.copyBrowser();
     }
     let showSuccess = this.toastCtrl.create({
-      message: 'Copied to clipboard',
+      message: this.translate.instant('Copied to clipboard'),
       duration: 1000,
+      position: 'top',
+      cssClass: this.platform.isIOS ? "iosToastAfterHeader" : "mdToastAfterHeader"
     });
     showSuccess.present();
   }
