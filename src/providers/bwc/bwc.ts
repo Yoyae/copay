@@ -2,12 +2,12 @@ import { Injectable } from '@angular/core';
 
 import { Logger } from '../../providers/logger/logger';
 
-import * as BWCBitcoin from 'bitcore-wallet-client';
-import * as BWCDash from 'bitcore-wallet-client-dash';
+import * as BWCBitcoin from 'bitcore-wallet-client-monoeci';
+import * as BWCDash from 'bitcore-wallet-client-monoeci';
 import * as BWCMonoeci from 'bitcore-wallet-client-monoeci';
-import * as BWCGoByte from 'bitcore-wallet-client-gobyte';
-import * as BWCColossusXT from 'bitcore-wallet-client-colx';
-import * as BWCPolis from 'bitcore-wallet-client-polis';
+import * as BWCGoByte from 'bitcore-wallet-client-monoeci';
+import * as BWCColossusXT from 'bitcore-wallet-client-monoeci';
+import * as BWCPolis from 'bitcore-wallet-client-monoeci';
 
 
 @Injectable()
