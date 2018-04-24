@@ -69,7 +69,7 @@ export class TxpDetailsPage {
     let config = this.configProvider.get().wallet;
     this.tx = this.navParams.data.tx;
     this.wallet = this.tx.wallet ? this.tx.wallet : this.profileProvider.getWallet(this.tx.walletId);
-    this.tx = this.txFormatProvider.processTx(this.wallet.coin, this.tx, this.walletProvider.useLegacyAddress());
+    this.tx = this.txFormatProvider.processTx(this.wallet.coin, this.tx);
     if (!this.tx.toAddress) this.tx.toAddress = this.tx.outputs[0].toAddress;
     this.isGlidera = this.navParams.data.isGlidera;
     this.GLIDERA_LOCK_TIME = 6 * 60 * 60;
@@ -82,26 +82,6 @@ export class TxpDetailsPage {
     this.canSign = this.wallet.canSign() || this.wallet.isPrivKeyExternal();
     this.color = this.wallet.color;
     this.contact();
-
-    // To test multiple outputs...
-
-    // var txp = {
-    //   message: 'test multi-output',
-    //   fee: 1000,
-    //   createdOn: Math.floor(Date.now() / 1000),
-    //   outputs: [],
-    // };
-    // for (let i = 0; i < 15; i++) {
-
-    //   txp.outputs.push({
-    //     amountStr: "600 BTC",
-    //     toAddress: '2N8bhEwbKtMvR2jqMRcTCQqzHP6zXGToXcK',
-    //     message: 'output #' + (Number(i) + 1)
-    //   });
-    // };
-    // this.tx = _.merge(this.tx, txp);
-    // this.tx.hasMultiplesOutputs = true;
-
   }
 
   ionViewWillEnter() {
@@ -302,7 +282,7 @@ export class TxpDetailsPage {
         copayerId: this.wallet.credentials.copayerId
       });
 
-      this.tx = this.txFormatProvider.processTx(this.wallet.coin, tx, this.walletProvider.useLegacyAddress());
+      this.tx = this.txFormatProvider.processTx(this.wallet.coin, tx);
 
       if (!action && tx.status == 'pending') this.tx.pendingForUs = true;
 

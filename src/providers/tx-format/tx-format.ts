@@ -10,7 +10,11 @@ import * as _ from "lodash";
 @Injectable()
 export class TxFormatProvider {
 
-  private bitcoreCash: any;
+  private bitcorePolis: any;
+  private bitcoreDash: any;
+  private bitcoreMonoeci: any;
+  private bitcoreGoByte: any;
+  private bitcoreColossusXT: any;
 
   // TODO: implement configService
   public pendingTxProposalsCountForUs: number
@@ -23,22 +27,12 @@ export class TxFormatProvider {
     private logger: Logger
   ) {
     this.logger.info('TxFormatProvider initialized.');
-    this.bitcoreCash = this.bwcProvider.getBitcoreCash();
-  }
+    this.bitcorePolis = this.bwcProvider.getBitcorePolis();
+    this.bitcoreDash = this.bwcProvider.getBitcoreDash();
+    this.bitcoreMonoeci = this.bwcProvider.getBitcoreMonoeci();
+    this.bitcoreGoByte = this.bwcProvider.getBitcoreGoByte();
+    this.bitcoreColossusXT = this.bwcProvider.getBitcoreColossusXT();
 
-  public toCashAddress(address: string, withPrefix?: boolean): string {
-    let cashAddr: string = (this.bitcoreCash.Address(address)).toCashAddress();
-
-    if (withPrefix) {
-      return cashAddr;
-    }
-
-    return cashAddr.split(':')[1]; // rm prefix
-  }
-
-  public toLegacyAddress(address: string): string {
-    let legacyAddr: string = this.bitcoreCash.Address(address);
-    return legacyAddr;
   }
 
   public formatAmount(satoshis: number, fullPrecision?: boolean): number {
@@ -50,7 +44,15 @@ export class TxFormatProvider {
     var opts = {
       fullPrecision: !!fullPrecision
     };
-    return this.bwcProvider.getUtils().formatAmount(satoshis, settings.unitCode, opts);
+
+	var coin = settings.unitCode;
+	if (settings.unitCode == 'bch' || settings.unitCode == 'bit'){
+		coin = 'btc';
+    }
+
+	var bwcUtils = this.bwcProvider.getUtils(coin);
+
+    return bwcUtils.formatAmount(satoshis, settings.unitCode, opts);
   }
 
   public formatAmountStr(coin: string, satoshis: number): string {
@@ -118,10 +120,6 @@ export class TxFormatProvider {
       }
       tx.toAddress = tx.outputs[0].toAddress;
 
-      // toDo: translate all tx.outputs[x].toAddress ?
-      if (tx.toAddress && coin == 'bch') {
-          tx.toAddress = useLegacyAddress ? this.toLegacyAddress(tx.toAddress) : this.toCashAddress(tx.toAddress);
-      }
     }
 
     tx.amountStr = this.formatAmountStr(coin, tx.amount);
@@ -131,10 +129,6 @@ export class TxFormatProvider {
     if (tx.amountStr) {
       tx.amountValueStr = tx.amountStr.split(' ')[0];
       tx.amountUnitStr = tx.amountStr.split(' ')[1];
-    }
-
-    if (tx.addressTo && coin == 'bch' ) {
-        tx.addressTo = useLegacyAddress ? this.toLegacyAddress(tx.addressTo) : this.toCashAddress(tx.addressTo);
     }
 
     return tx;
@@ -215,19 +209,19 @@ export class TxFormatProvider {
     var alternativeIsoCode = settings.alternativeIsoCode;
 
     // If fiat currency
-    if (currency != 'BCH' && currency != 'BTC' && currency != 'sat') {
+    if (currency != 'POLIS' && currency != 'DASH' && currency != 'MONOECI' && currency != 'GOBYTE' && currency != 'COLOSSUSXT' && currency != 'BTC' && currency != 'sat') {
       amountUnitStr = this.filter.formatFiatAmount(amount) + ' ' + currency;
       amountSat = Number(this.rate.fromFiat(amount, currency, coin).toFixed(0));
     } else if (currency == 'sat') {
       amountSat = Number(amount);
       amountUnitStr = this.formatAmountStr(coin, amountSat);
-      // convert sat to BTC or BCH
+      // convert sat to BTC or POLIS
       amount = (amountSat * satToBtc).toFixed(8);
       currency = (coin).toUpperCase();
     } else {
       amountSat = parseInt((amount * unitToSatoshi).toFixed(0), 10);
       amountUnitStr = this.formatAmountStr(coin, amountSat);
-      // convert unit to BTC or BCH
+      // convert unit to BTC or POLIS
       amount = (amountSat * satToBtc).toFixed(8);
       currency = (coin).toUpperCase();
     }

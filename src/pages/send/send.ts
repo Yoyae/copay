@@ -24,13 +24,31 @@ import { AmountPage } from './amount/amount';
 export class SendPage {
   public search: string = '';
   public walletsBtc: any;
-  public walletsBch: any;
-  public walletBchList: any;
   public walletBtcList: any;
+  public hasBtcWallets: boolean;
+  
+  public walletsPolis: any;
+  public walletPolisList: any;
+  public hasPolisWallets: boolean;
+  
+  public walletsDash: any;
+  public walletDashList: any;
+  public hasDashWallets: boolean;
+
+  public walletsMonoeci: any;
+  public walletMonoeciList: any;
+  public hasMonoeciWallets: boolean;
+  
+  public walletsGoByte: any;
+  public walletGoByteList: any;
+  public hasGoByteWallets: boolean;  
+  
+  public walletsColossusXT: any;
+  public walletColossusXTList: any;
+  public hasColossusXTWallets: boolean;
+  
   public contactsList: object[] = [];
   public filteredContactsList: object[] = [];
-  public hasBtcWallets: boolean;
-  public hasBchWallets: boolean;
   public hasContacts: boolean;
   public contactsShowMore: boolean;
   private CONTACTS_SHOW_LIMIT: number = 10;
@@ -59,9 +77,17 @@ export class SendPage {
 
   ionViewWillEnter() {
     this.walletsBtc = this.profileProvider.getWallets({ coin: 'btc' });
-    this.walletsBch = this.profileProvider.getWallets({ coin: 'bch' });
+    this.walletsPolis = this.profileProvider.getWallets({ coin: 'polis' });
+    this.walletsDash = this.profileProvider.getWallets({ coin: 'dash' });
+    this.walletsMonoeci = this.profileProvider.getWallets({ coin: 'xmcc' });
+    this.walletsGoByte = this.profileProvider.getWallets({ coin: 'gbx' });
+    this.walletsColossusXT = this.profileProvider.getWallets({ coin: 'colx' });
     this.hasBtcWallets = !(_.isEmpty(this.walletsBtc));
-    this.hasBchWallets = !(_.isEmpty(this.walletsBch));
+    this.hasPolisWallets = !(_.isEmpty(this.walletsPolis));
+    this.hasDashWallets = !(_.isEmpty(this.walletsDash));
+    this.hasMonoeciWallets = !(_.isEmpty(this.walletsMonoeci));
+    this.hasGoByteWallets = !(_.isEmpty(this.walletsGoByte));
+    this.hasColossusXTWallets = !(_.isEmpty(this.walletsColossusXT));
 
     this.events.subscribe('finishIncomingDataMenuEvent', (data) => {
       switch (data.redirTo) {
@@ -80,7 +106,11 @@ export class SendPage {
       }
     });
 
-    this.updateBchWalletsList();
+    this.updatePolisWalletsList();
+    this.updateDashWalletsList();
+    this.updateMonoeciWalletsList();
+    this.updateGoByteWalletsList();
+    this.updateColossusXTWalletsList();
     this.updateBtcWalletsList();
     this.updateContactsList();
   }
@@ -105,13 +135,129 @@ export class SendPage {
     this.navCtrl.push(PaperWalletPage, { privateKey });
   }
 
-  private updateBchWalletsList(): void {
-    this.walletBchList = [];
+  private updatePolisWalletsList(): void {
+    this.walletPolisList = [];
 
-    if (!this.hasBchWallets) return;
+    if (!this.hasPolisWallets) return;
 
-    _.each(this.walletsBch, (v: any) => {
-      this.walletBchList.push({
+    _.each(this.walletsPolis, (v: any) => {
+      this.walletPolisList.push({
+        color: v.color,
+        name: v.name,
+        recipientType: 'wallet',
+        coin: v.coin,
+        network: v.network,
+        m: v.credentials.m,
+        n: v.credentials.n,
+        isComplete: v.isComplete(),
+        needsBackup: v.needsBackup,
+        getAddress: (): Promise<any> => {
+          return new Promise((resolve, reject) => {
+            this.walletProvider.getAddress(v, false).then((addr) => {
+              return resolve(addr);
+            }).catch((err) => {
+              return reject(err);
+            });
+          });
+        }
+      });
+    });
+  }
+
+  private updateDashWalletsList(): void {
+    this.walletDashList = [];
+
+    if (!this.hasDashWallets) return;
+
+    _.each(this.walletsDash, (v: any) => {
+      this.walletDashList.push({
+        color: v.color,
+        name: v.name,
+        recipientType: 'wallet',
+        coin: v.coin,
+        network: v.network,
+        m: v.credentials.m,
+        n: v.credentials.n,
+        isComplete: v.isComplete(),
+        needsBackup: v.needsBackup,
+        getAddress: (): Promise<any> => {
+          return new Promise((resolve, reject) => {
+            this.walletProvider.getAddress(v, false).then((addr) => {
+              return resolve(addr);
+            }).catch((err) => {
+              return reject(err);
+            });
+          });
+        }
+      });
+    });
+  }
+
+  private updateMonoeciWalletsList(): void {
+    this.walletMonoeciList = [];
+
+    if (!this.hasMonoeciWallets) return;
+
+    _.each(this.walletsMonoeci, (v: any) => {
+      this.walletMonoeciList.push({
+        color: v.color,
+        name: v.name,
+        recipientType: 'wallet',
+        coin: v.coin,
+        network: v.network,
+        m: v.credentials.m,
+        n: v.credentials.n,
+        isComplete: v.isComplete(),
+        needsBackup: v.needsBackup,
+        getAddress: (): Promise<any> => {
+          return new Promise((resolve, reject) => {
+            this.walletProvider.getAddress(v, false).then((addr) => {
+              return resolve(addr);
+            }).catch((err) => {
+              return reject(err);
+            });
+          });
+        }
+      });
+    });
+  }
+  
+  private updateGoByteWalletsList(): void {
+    this.walletGoByteList = [];
+
+    if (!this.hasGoByteWallets) return;
+
+    _.each(this.walletsGoByte, (v: any) => {
+      this.walletGoByteList.push({
+        color: v.color,
+        name: v.name,
+        recipientType: 'wallet',
+        coin: v.coin,
+        network: v.network,
+        m: v.credentials.m,
+        n: v.credentials.n,
+        isComplete: v.isComplete(),
+        needsBackup: v.needsBackup,
+        getAddress: (): Promise<any> => {
+          return new Promise((resolve, reject) => {
+            this.walletProvider.getAddress(v, false).then((addr) => {
+              return resolve(addr);
+            }).catch((err) => {
+              return reject(err);
+            });
+          });
+        }
+      });
+    });
+  }  
+  
+  private updateColossusXTWalletsList(): void {
+    this.walletColossusXTList = [];
+
+    if (!this.hasColossusXTWallets) return;
+
+    _.each(this.walletsColossusXT, (v: any) => {
+      this.walletColossusXTList.push({
         color: v.color,
         name: v.name,
         recipientType: 'wallet',

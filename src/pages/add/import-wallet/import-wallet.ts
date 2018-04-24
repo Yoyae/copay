@@ -83,7 +83,7 @@ export class ImportWalletPage {
       filePassword: [null],
       derivationPath: [this.derivationPathByDefault, Validators.required],
       testnet: [false],
-      bwsURL: [this.defaults.bws.url],
+      bwsURL: [this.defaults.bws['xmcc']],
       coin: [null, Validators.required]
     });
   }
@@ -164,6 +164,11 @@ export class ImportWalletPage {
     this.testnetEnabled = info.network == 'testnet' ? true : false;
     this.importForm.controls['derivationPath'].setValue(info.derivationPath);
     this.importForm.controls['words'].setValue(info.data);
+  }
+  
+  public coinChange(coin: any): void {
+    this.importForm.controls['testnet'].setValue(false);
+    this.importForm.controls['bwsURL'].setValue(this.defaults.bws[coin]);
   }
 
   public setDerivationPath(): void {

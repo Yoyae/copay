@@ -56,7 +56,7 @@ export class JoinWalletPage {
     this.joinForm = this.form.group({
       myName: [null, Validators.required],
       invitationCode: [null, [Validators.required, Validators.pattern(regex)]], // invitationCode == secret
-      bwsURL: [this.defaults.bws.url],
+      bwsURL: [this.defaults.bws['xmcc']],
       selectedSeed: ['new'],
       recoveryPhrase: [null],
       derivationPath: [this.derivationPathByDefault],
@@ -90,6 +90,10 @@ export class JoinWalletPage {
     this.joinForm.controls['invitationCode'].setValue(data);
   }
 
+  public coinChange(coin: any): void {
+    this.joinForm.controls['bwsURL'].setValue(this.defaults.bws[coin]);
+  }
+  
   public seedOptionsChange(seed: any): void {
     if (seed === 'set') {
       this.joinForm.get('recoveryPhrase').setValidators([Validators.required]);

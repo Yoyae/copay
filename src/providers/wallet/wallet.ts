@@ -106,7 +106,7 @@ export class WalletProvider {
 
         lodash.each(txps, (tx: any) => {
 
-          tx = this.txFormatProvider.processTx(wallet.coin, tx, this.useLegacyAddress());
+          tx = this.txFormatProvider.processTx(wallet.coin, tx);
 
           // no future transactions...
           if (tx.createdOn > now)
@@ -329,15 +329,14 @@ export class WalletProvider {
   }
 
   public getAddressView(wallet: any, address: string): string {
-    if (wallet.coin != 'bch' || this.useLegacyAddress()) return address;
-    return this.txFormatProvider.toCashAddress(address);
+    return address;
   }
 
   public getProtoAddress(wallet: any, address: string) {
     let proto: string = this.getProtocolHandler(wallet.coin);
     let protoAddr: string = proto + ':' + address;
 
-    if (wallet.coin != 'bch' || this.useLegacyAddress()) {
+    if (wallet.coin != 'bch') {
       return protoAddr;
     } else {
       return protoAddr.toUpperCase();
@@ -649,7 +648,7 @@ export class WalletProvider {
     wallet.hasUnsafeConfirmed = false;
 
     lodash.each(txs, (tx: any) => {
-      tx = this.txFormatProvider.processTx(wallet.coin, tx, this.useLegacyAddress());
+      tx = this.txFormatProvider.processTx(wallet.coin, tx);
 
       // no future transactions...
       if (tx.time > now)
@@ -948,6 +947,14 @@ export class WalletProvider {
         return new Promise((resolve, reject) => {
           let wallet = clients.shift();
           if (!wallet) return resolve();
+
+		  prefs.unit = wallet.coin;
+
+		  // BWS Compatibility
+		  if ( wallet.coin === 'bch' ){
+		    prefs.unit = 'btc';
+		  }
+
           this.logger.debug('Saving remote preferences', wallet.credentials.walletName, prefs);
 
           wallet.savePreferences(prefs, (err: any) => {
@@ -974,8 +981,7 @@ export class WalletProvider {
       // Get current languge
       prefs.language = this.languageProvider.getCurrent();
 
-      // Set OLD wallet in bits to btc
-      prefs.unit = 'btc'; // DEPRECATED
+
 
       updateRemotePreferencesFor(lodash.clone(clients), prefs).then(() => {
         this.logger.debug('Remote preferences saved for' + lodash.map(clients, (x: any) => {
@@ -1329,16 +1335,31 @@ export class WalletProvider {
   }
 
   public getProtocolHandler(coin: string): string {
-    if (coin == 'bch') {
-      return 'bitcoincash';
-    } else {
+    if (coin == 'dash') {
+      return 'dash';
+    }
+    else if (coin == 'polis') {
+      return 'polis';
+    }
+    else if (coin == 'xmcc') {
+      return 'xmcc';
+    }
+	else if (coin == 'gbx') {
+      return 'gbx';
+    } 
+	else if (coin == 'colx') {
+      return 'colx';
+    } 	else {
       return 'bitcoin';
     }
   }
 
   public copyCopayers(wallet: any, newWallet: any): Promise<any> {
     return new Promise((resolve, reject) => {
-      let walletPrivKey = this.bwcProvider.getBitcore().PrivateKey.fromString(wallet.credentials.walletPrivKey);
+
+	  let bitcore = this.bwcProvider.getBitcore(wallet.coin);
+	  let walletPrivKey = bitcore.PrivateKey.fromString(wallet.credentials.walletPrivKey);
+
       let copayer = 1;
       let i = 0;
 

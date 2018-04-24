@@ -89,10 +89,10 @@ msgstr "고급"
 msgid "All addresses"
 msgstr ""
 
-msgid "All of your bitcoin wallet balance may not be available for immediate spending."
+msgid "All of your monoeci wallet balance may not be available for immediate spending."
 msgstr "모든 비트코인 지갑 잔액은 즉각적으로 지출할 수 없습니다."
 
-msgid "All signing devices must be added to this multisig wallet before bitcoin addresses can be created."
+msgid "All signing devices must be added to this multisig wallet before monoeci addresses can be created."
 msgstr "비트코인 주소 생성 전 모든 서명 기기를 이 multisig 지갑에 추가해야 합니다."
 
 msgid "Allow camera access"
@@ -119,13 +119,13 @@ msgstr "금액이 너무 큽니다"
 msgid "An update to this app is available. For your security, please update to the latest version."
 msgstr "이 앱의 업데이트 버전을 이용하실 수 있습니다. 보안을 위해, 최신 버전을 업데이트해주세요."
 
-msgid "Anyone with your backup phrase can access or spend your bitcoin."
+msgid "Anyone with your backup phrase can access or spend your monoeci."
 msgstr "귀하의 백업 문구를 가진 사람은 누구나 귀하의 비트코인에 액세스하고 사용할 수 있습니다."
 
 msgid "Apply changes"
 msgstr ""
 
-msgid "Approximate Bitcoin network fee to transfer wallet's balance (with normal priority)"
+msgid "Approximate Monoeci network fee to transfer wallet's balance (with normal priority)"
 msgstr "지갑 잔액을 이체하기 위한 대략적인 비트코인 네트워크 수수료 (보통 우선 순위)"
 
 msgid "Are you being watched?"
@@ -155,8 +155,8 @@ msgstr "이용 가능"
 msgid "Average confirmation time"
 msgstr "평균 확인 시간"
 
-msgid "BTC wallets"
-msgstr "BTC 지갑"
+msgid "XMCC wallets"
+msgstr "XMCC 지갑"
 
 msgid "Backup"
 msgstr "백업"
@@ -185,43 +185,49 @@ msgstr ""
 msgid "Be sure to store your recovery phrase in a secure place. If this app is deleted, your money cannot be recovered without it."
 msgstr "안전한 장소에 복원 문구를 보관하세요. 이 앱이 삭제될 경우, 복원 문구 없이 귀하의 화폐를 복구할 수 없습니다."
 
-msgid "Bitcoin (BTC) miner fees are high due to record demand for limited space on the Bitcoin network. BitPay does not receive and does not control bitcoin miner fees."
+msgid "Monoeci (XMCC) miner fees are high due to record demand for limited space on the Monoeci network. Monoeci does not receive and does not control monoeci miner fees."
 msgstr ""
 
-msgid "Bitcoin Address"
+msgid "Monoeci Address"
 msgstr "비트코인 주소"
 
-msgid "Bitcoin Cash Wallets"
+msgid "Polis Wallets"
 msgstr "비트코인 캐시 지갑"
 
-msgid "Bitcoin Network Fee Policy"
+msgid "Monoeci Wallets"
+msgstr "비트코인 캐시 지갑"
+
+msgid "Monoeci Network Fee Policy"
 msgstr "비트코인 네트워크 수수료 정책"
 
-msgid "Bitcoin Wallets"
+msgid "Monoeci Wallets"
 msgstr "비트코인 지갑"
 
-msgid "Bitcoin cash Payment"
+msgid "Polis Payment"
 msgstr "비트코인 현금 지불"
 
-msgid "Bitcoin is a currency."
+msgid "Monoeci Payment"
+msgstr "비트코인 현금 지불"
+
+msgid "Monoeci is a currency."
 msgstr "비트코인은 통화입니다."
 
-msgid "Bitcoin is different &ndash; it cannot be safely held with a bank or web service."
+msgid "Monoeci is different &ndash; it cannot be safely held with a bank or web service."
 msgstr "비트코인은 다릅니다 &ndash; 비트코인은 은행이나 웹 서비스로 안전하게 보관할 수 없습니다."
 
-msgid "Bitcoin is secure, digital money."
+msgid "Monoeci is secure, digital money."
 msgstr ""
 
-msgid "Bitcoin miner fee"
+msgid "Miner fee"
 msgstr ""
 
-msgid "Bitcoin miner fees unusually high"
+msgid "Monoeci miner fees unusually high"
 msgstr ""
 
-msgid "Bitcoin network fee policy"
+msgid "Monoeci network fee policy"
 msgstr ""
 
-msgid "Bitcoin transactions include a fee collected by miners on the network."
+msgid "Monoeci transactions include a fee collected by miners on the network."
 msgstr "비트코인 거래에는 마이너가 네트워크에서 수집한 수수료가 포함됩니다."
 
 msgid "Broadcast Payment"
@@ -236,7 +242,7 @@ msgstr ""
 msgid "Buy Gift Card"
 msgstr ""
 
-msgid "Buying Bitcoin..."
+msgid "Buying Monoeci..."
 msgstr "비트코인 구입 중..."
 
 msgid "Buying Gift Card..."
@@ -329,7 +335,7 @@ msgstr "확인"
 msgid "Confirming"
 msgstr "확인 중"
 
-msgid "Connect my BitPay Card"
+msgid "Connect my Monoeci Card"
 msgstr ""
 
 msgid "Connecting to Coinbase..."
@@ -353,8 +359,11 @@ msgstr "계속"
 msgid "Contribute translations"
 msgstr ""
 
-msgid "Copay only supports Bitcoin Cash using new version numbers addresses"
-msgstr "Copay는 오직 새로운 버전 번호 주소를 이용한 비트코인 캐시만 지원합니다"
+msgid "Monoeci only supports Polis using new version numbers addresses"
+msgstr "Monoeci는 오직 새로운 버전 번호 주소를 이용한 비트코인 캐시만 지원합니다"
+
+msgid "Monoeci only supports Monoeci using new version numbers addresses"
+msgstr "Monoeci는 오직 새로운 버전 번호 주소를 이용한 비트코인 캐시만 지원합니다"
 
 msgid "Copayer already in this wallet"
 msgstr "이미 이 지갑에 있는 코페이어"
@@ -467,7 +476,7 @@ msgstr "지갑을 업데이트할 수 없습니다"
 msgid "Create a new wallet"
 msgstr ""
 
-msgid "Create bitcoin wallet"
+msgid "Create monoeci wallet"
 msgstr "비트코인 지갑 만들기"
 
 msgid "Create personal wallet"
@@ -569,7 +578,7 @@ msgstr ""
 msgid "Duplicating wallet..."
 msgstr "지갑 복제 중..."
 
-msgid "Each bitcoin wallet can generate billions of addresses from your 12-word backup. A new address is automatically generated and shown each time you receive a payment."
+msgid "Each monoeci wallet can generate billions of addresses from your 12-word backup. A new address is automatically generated and shown each time you receive a payment."
 msgstr ""
 
 msgid "Economy"
@@ -653,8 +662,8 @@ msgstr "SendMax 정보 수신 오류"
 msgid "Error in Payment Protocol"
 msgstr "지불 프로토콜 오류"
 
-msgid "Error pairing BitPay Account"
-msgstr "BitPay 계좌 페어링 오류"
+msgid "Error pairing Monoeci Account"
+msgstr "Monoeci 계좌 페어링 오류"
 
 msgid "Error scanning funds:"
 msgstr "자금 스캔 오류:"
@@ -713,8 +722,8 @@ msgstr "수수료 레벨이 정의되지 않았습니다"
 msgid "Feedback could not be submitted. Please try again later."
 msgstr "피드백을 제출할 수 없습니다. 나중에 다시 시도해주세요."
 
-msgid "Fetching BitPay Account..."
-msgstr "BitPay 계좌 가져오는 중..."
+msgid "Fetching Monoeci Account..."
+msgstr "Monoeci 계좌 가져오는 중..."
 
 msgid "Fetching payment information"
 msgstr "지불 정보 가져오는 중"
@@ -731,8 +740,8 @@ msgstr "완료"
 msgid "From"
 msgstr "발신:"
 
-msgid "From BitPay account"
-msgstr "BitPay 계좌에서"
+msgid "From Monoeci account"
+msgstr "Monoeci 계좌에서"
 
 msgid "From the destination device, go to Add wallet > Import wallet and scan this QR code"
 msgstr ""
@@ -767,8 +776,8 @@ msgstr "새로운 주소 생성 중..."
 msgid "Get local cash anywhere you go, from any Visa&reg; compatible ATM. ATM bank fees may apply."
 msgstr ""
 
-msgid "Get news and updates from BitPay"
-msgstr "BitPay 뉴스 및 업데이트 소식을 받으세요"
+msgid "Get news and updates from Monoeci"
+msgstr "Monoeci 뉴스 및 업데이트 소식을 받으세요"
 
 msgid "Get started"
 msgstr "시작하기"
@@ -848,7 +857,7 @@ msgstr ""
 msgid "I understand"
 msgstr "이해합니다"
 
-msgid "I understand that if this app is moved to another device or deleted, my bitcoin can only be recovered with the backup phrase"
+msgid "I understand that if this app is moved to another device or deleted, my monoeci can only be recovered with the backup phrase"
 msgstr ""
 
 msgid "I understand that my funds are held securely on this device, not by a company"
@@ -857,7 +866,10 @@ msgstr ""
 msgid "I'm sure"
 msgstr ""
 
-msgid "If enabled, Bitcoin Cash addresses will be shown using Copay style address, and not the new cashaddr format."
+msgid "If enabled, Polis addresses will be shown using Monoeci style address, and not the new cashaddr format."
+msgstr ""
+
+msgid "If enabled, Monoeci addresses will be shown using Monoeci style address, and not the new cashaddr format."
 msgstr ""
 
 msgid "If enabled, all sensitive information (private key and recovery phrase) and actions (spending and exporting) associated with this wallet will be protected."
@@ -929,7 +941,7 @@ msgstr "정확합니까?"
 msgid "Is this email address correct?"
 msgstr "이 이메일 주소가 정확합니까?"
 
-msgid "It's a good idea to avoid reusing addresses - this both protects your privacy and keeps your bitcoins secure against hypothetical attacks by quantum computers."
+msgid "It's a good idea to avoid reusing addresses - this both protects your privacy and keeps your monoecis secure against hypothetical attacks by quantum computers."
 msgstr ""
 
 msgid "It's important that you write your backup phrase down correctly. If something happens to your wallet, you'll need this backup to recover your money. Please review your backup and try again."
@@ -1070,7 +1082,7 @@ msgstr ""
 msgid "No access key defined"
 msgstr "액세스 키가 정의되지 않았습니다"
 
-msgid "No backup, no bitcoin."
+msgid "No backup, no monoeci."
 msgstr "백업도, 비트코인도 없습니다."
 
 msgid "No contacts yet"
@@ -1109,7 +1121,10 @@ msgstr "자금을 수신하기 위해 이용 가능한 지갑이 없습니다"
 msgid "No wallets available to use ShapeShift"
 msgstr ""
 
-msgid "No wallets eligible for Bitcoin Cash support"
+msgid "No wallets eligible for Polis support"
+msgstr "비트코인 캐시 지원을 받을 수 있는 지갑이 없습니다"
+
+msgid "No wallets eligible for Monoeci support"
 msgstr "비트코인 캐시 지원을 받을 수 있는 지갑이 없습니다"
 
 msgid "No wallets with funds"
@@ -1118,8 +1133,8 @@ msgstr ""
 msgid "Non BIP44 wallet"
 msgstr "비 BIP44 지갑"
 
-msgid "Non eligible BTC wallets"
-msgstr "비적격 BTC 지갑"
+msgid "Non eligible XMCC wallets"
+msgstr "비적격 XMCC 지갑"
 
 msgid "Normal"
 msgstr "보통"
@@ -1130,8 +1145,8 @@ msgstr "승인되지 않음"
 msgid "Not enough funds for fee"
 msgstr "수수료에 대해 자금이 부족합니다"
 
-msgid "Not even BitPay can access it."
-msgstr "BitPay조차도 액세스할 수 없습니다."
+msgid "Not even Monoeci can access it."
+msgstr "Monoeci조차도 액세스할 수 없습니다."
 
 msgid "Not funds found"
 msgstr "발견된 자금이 없습니다"
@@ -1139,14 +1154,17 @@ msgstr "발견된 자금이 없습니다"
 msgid "Not now"
 msgstr "나중에"
 
-msgid "Not valid bitcoin address"
+msgid "Not valid monoeci address"
 msgstr ""
 
 msgid "Note"
 msgstr "알림"
 
-msgid "Note: if this BCH wallet was duplicated from a BTC wallet, they share the same recovery phrase."
-msgstr "알림: 이 BCH 지갑이 BCT 지갑으로부터 복제된 경우, 두 지갑은 동일한 복원 문구를 공유합니다."
+msgid "Note: if this MONOECI wallet was duplicated from a XMCC wallet, they share the same recovery phrase."
+msgstr "알림: 이 MONOECI 지갑이 BCT 지갑으로부터 복제된 경우, 두 지갑은 동일한 복원 문구를 공유합니다."
+
+msgid "Note: if this MONOECI wallet was duplicated from a XMCC wallet, they share the same recovery phrase."
+msgstr "알림: 이 MONOECI 지갑이 BCT 지갑으로부터 복제된 경우, 두 지갑은 동일한 복원 문구를 공유합니다."
 
 msgid "Notification"
 msgstr ""
@@ -1220,7 +1238,7 @@ msgstr "지갑 열기"
 msgid "Open website"
 msgstr "웹사이트 열기"
 
-msgid "Order the BitPay Card"
+msgid "Order the Monoeci Card"
 msgstr ""
 
 msgid "Ouch!"
@@ -1241,7 +1259,7 @@ msgstr ""
 msgid "Paste the backup plain text code"
 msgstr ""
 
-msgid "Pay 0% fees to turn bitcoin into dollars."
+msgid "Pay 0% fees to turn monoeci into dollars."
 msgstr "비트코인을 달러로 바꾸는데 0%의 수수료가 듭니다."
 
 msgid "Pay To"
@@ -1280,7 +1298,10 @@ msgstr "지불이 허용되었으나, 아직 브로드캐스트되지 않았습�
 msgid "Payment accepted. It will be broadcasted by Glidera. In case there is a problem, it can be deleted 6 hours after it was created."
 msgstr "지불이 허용되었으며, Glidera에 의해 브로드캐스트될 것입니다. 문제가 있을 경우를 대비하여, 생성 후 6시간 후에 삭제될 수 있습니다."
 
-msgid "Payment address was translated to new Bitcoin Cash address format: {{addr}}"
+msgid "Payment address was translated to new Polis address format: {{addr}}"
+msgstr ""
+
+msgid "Payment address was translated to new Monoeci address format: {{addr}}"
 msgstr ""
 
 msgid "Payment request"
@@ -1316,8 +1337,8 @@ msgstr ""
 msgid "Please tap each word in the correct order."
 msgstr "각 단어를 정확한 순서로 탭해주세요."
 
-msgid "Please upgrade Copay to perform this action"
-msgstr "이 작업을 수행하시려면 Copay를 업그레이드해주세요"
+msgid "Please upgrade Monoeci to perform this action"
+msgstr "이 작업을 수행하시려면 Monoeci를 업그레이드해주세요"
 
 msgid "Please wait..."
 msgstr ""
@@ -1514,7 +1535,7 @@ msgstr ""
 msgid "Search a contact"
 msgstr ""
 
-msgid "Search or enter bitcoin address"
+msgid "Search or enter monoeci address"
 msgstr "비트코인 주소를 검색 또는 입력해주세요"
 
 msgid "Search your currency"
@@ -1535,7 +1556,7 @@ msgstr "지갑 선택"
 msgid "Self-signed Certificate"
 msgstr "자체 서명 인증서"
 
-msgid "Selling Bitcoin..."
+msgid "Selling Monoeci..."
 msgstr "비트코인 판매 중..."
 
 msgid "Send"
@@ -1661,7 +1682,10 @@ msgstr ""
 msgid "Slide to send"
 msgstr ""
 
-msgid "Some of your wallets are not eligible for Bitcoin Cash support. You can try to access BCH funds from these wallets using the recovery tool"
+msgid "Some of your wallets are not eligible for Polis support. You can try to access MONOECI funds from these wallets using the recovery tool"
+msgstr ""
+
+msgid "Some of your wallets are not eligible for Monoeci support. You can try to access MONOECI funds from these wallets using the recovery tool"
 msgstr ""
 
 msgid "Specify Recovery Phrase"
@@ -1676,7 +1700,7 @@ msgstr "지출 제안을 찾을 수 없습니다"
 msgid "Spendable balance"
 msgstr ""
 
-msgid "Spending this balance will need significant Bitcoin network fees"
+msgid "Spending this balance will need significant Monoeci network fees"
 msgstr "이 잔액을 사용하려면 유효한 비트코인 네트워크 수수료가 필요합니다"
 
 msgid "Start"
@@ -1709,7 +1733,7 @@ msgstr "지갑 스윕 중..."
 msgid "THIS ACTION CANNOT BE REVERSED"
 msgstr "이 작업은 되돌릴 수 없습니다"
 
-msgid "Take control of your money, get started with bitcoin."
+msgid "Take control of your money, get started with monoeci."
 msgstr ""
 
 msgid "Tap and hold to show"
@@ -1739,13 +1763,13 @@ msgstr ""
 msgid "The Wallet Service URL"
 msgstr ""
 
-msgid "The amount of bitcoin immediately spendable from this wallet."
+msgid "The amount of monoeci immediately spendable from this wallet."
 msgstr "이 지갑에서 즉시 사용 가능한 비트코인 양."
 
-msgid "The amount of bitcoin stored in this wallet that is allocated as inputs to your pending transaction proposals. The amount is determined using unspent transaction outputs associated with this wallet and may be more than the actual amounts associated with your pending transaction proposals."
+msgid "The amount of monoeci stored in this wallet that is allocated as inputs to your pending transaction proposals. The amount is determined using unspent transaction outputs associated with this wallet and may be more than the actual amounts associated with your pending transaction proposals."
 msgstr "귀하의 보류 중인 거래 제안에 입금된 이 지갑에 저장된 비트코인 양. 이 양은 이 지갑과 관련된 미사용 거래 출금을 사용하여 결정되며 보류 중인 거래 제안과 관련된 실제 양보다 많을 수 있습니다."
 
-msgid "The amount of bitcoin stored in this wallet with less than 1 blockchain confirmation."
+msgid "The amount of monoeci stored in this wallet with less than 1 blockchain confirmation."
 msgstr "1 블록체인 확인 미만의 이 지갑에 저장된 비트코인 양."
 
 msgid "The derivation path"
@@ -1781,7 +1805,7 @@ msgstr ""
 msgid "The spend proposal is not pending"
 msgstr "보류 중인 지출 제안이 아닙니다"
 
-msgid "The total amount of bitcoin stored in this wallet."
+msgid "The total amount of monoeci stored in this wallet."
 msgstr "이 지갑에 저장된 비트코인 양 합계."
 
 msgid "The transaction history and every new incoming transaction are cached in the app. This feature clean this up and synchronizes again from the server"
@@ -1796,10 +1820,10 @@ msgstr ""
 msgid "This app is fantastic!"
 msgstr "이 앱은 환상적입니다!"
 
-msgid "This app stores your bitcoin with cutting-edge security."
+msgid "This app stores your monoeci with cutting-edge security."
 msgstr "이 앱은 최첨단 보안 기능으로 귀하의 비트코인을 저장합니다."
 
-msgid "This bitcoin payment request has expired."
+msgid "This monoeci payment request has expired."
 msgstr "이 비트코인 지불 요청은 만료되었습니다."
 
 msgid "This password is only for this device, and it cannot be recovered. To avoid losing funds, write your password down."
@@ -1808,7 +1832,7 @@ msgstr ""
 msgid "This recovery phrase was created with a password. To recover this wallet both the recovery phrase and password are needed."
 msgstr "이 복원 문구는 비밀번호와 함께 생성되었습니다. 이 지갑을 복원하시려면 복원 문구와 비밀번호 모두가 필요합니다."
 
-msgid "This transaction amount is too small compared to current Bitcoin network fees. Spending these funds will need a Bitcoin network fee cost comparable to the funds itself."
+msgid "This transaction amount is too small compared to current Monoeci network fees. Spending these funds will need a Monoeci network fee cost comparable to the funds itself."
 msgstr "이 거래 양은 현 비트코인 네트워크 수수료에 비해 너무 적습니다. 이러한 를 사용하시려면 자금 자체에 필적하는 비트코인 네트워크 수수료 비용이 필요합니다."
 
 msgid "This transaction could take a long time to confirm or could be dropped due to the low fees set by the sender"
@@ -1823,7 +1847,7 @@ msgstr "타임라인"
 msgid "To"
 msgstr "수신:"
 
-msgid "To get started, you'll need to create a bitcoin wallet and get some bitcoin."
+msgid "To get started, you'll need to create a monoeci wallet and get some monoeci."
 msgstr "시작하시려면, 비트코인 지갑을 생성하셔야 합니다."
 
 msgid "Top up in progress..."
@@ -1874,10 +1898,13 @@ msgstr ""
 msgid "Transactions without fee are not supported."
 msgstr "무수수료 거래는 지원되지 않습니다."
 
-msgid "Transfer to Bitcoin Cash Wallet"
+msgid "Transfer to Polis Wallet"
 msgstr ""
 
-msgid "Transfer to Bitcoin Wallet"
+msgid "Transfer to Monoeci Wallet"
+msgstr ""
+
+msgid "Transfer to Monoeci Wallet"
 msgstr ""
 
 msgid "Transfer to Contact"
@@ -1886,7 +1913,7 @@ msgstr ""
 msgid "Try again in {{expires}}"
 msgstr "{{expires}} 내에 다시 시도해주세요"
 
-msgid "Turn bitcoin into dollars, swipe anywhere Visa&reg; is accepted."
+msgid "Turn monoeci into dollars, swipe anywhere Visa&reg; is accepted."
 msgstr ""
 
 msgid "Type the recovery phrase (usually 12 words)"
@@ -1928,7 +1955,10 @@ msgstr "업데이트 중입니다... 기다려주세요"
 msgid "Urgent"
 msgstr "긴급"
 
-msgid "Use Bitcoin Cash Copay Style Addresses"
+msgid "Use Polis Monoeci Style Addresses"
+msgstr ""
+
+msgid "Use Monoeci Monoeci Style Addresses"
 msgstr ""
 
 msgid "Use Unconfirmed Funds"
@@ -2120,13 +2150,13 @@ msgstr "네"
 msgid "You can make contributions by signing up on our Crowdin community translation website. We’re looking forward to hearing from you!"
 msgstr "저희의 Crowdin 커뮤니티 번역 웹사이트에 가입하여 기여하실 수 있습니다. 귀하의 소식을 기다리겠습니다!"
 
-msgid "You can scan bitcoin addresses, payment requests, paper wallets, and more."
+msgid "You can scan monoeci addresses, payment requests, paper wallets, and more."
 msgstr "비트코인 주소, 지불 요청, 페이퍼 지갑 등을 스캔하실 수 있습니다."
 
 msgid "You can see the latest developments and contribute to this open source app by visiting our project on GitHub."
 msgstr "GitHub에서 저희의 프로젝트에 방문하여 이 오픈 소스 앱에 기여하시거나 최신 개발 사항을 확인하실 수 있습니다."
 
-msgid "You can spend bitcoin at millions of websites and stores worldwide."
+msgid "You can spend monoeci at millions of websites and stores worldwide."
 msgstr "전 세계 수백만 웹사이트 및 상점에서 비트코인을 사용하실 수 있습니다."
 
 msgid "You can still export it from Advanced &gt; Export."
@@ -2135,7 +2165,7 @@ msgstr "여전히 고급 &gt; 내보내기에서 내보내실 수 있습니다."
 msgid "You can trade it for other currencies like US Dollars, Euros, or Pounds."
 msgstr "US 달러, 유로 또는 파운드와 같은 다른 통화로 바꾸실 수 있습니다."
 
-msgid "You control your bitcoin."
+msgid "You control your monoeci."
 msgstr "귀하의 비트코인을 제어하실 수 있습니다."
 
 msgid "You could sign the transaction later in your wallet details"
@@ -2147,19 +2177,19 @@ msgstr "수수료를 {{maxFeeRecommended}} satoshis/byte보다 높게 설정하�
 msgid "You'll receive email notifications about payments sent and received from your wallets."
 msgstr "귀하의 지갑의 수신 및 발신 내역에 대해 이메일 알림을 받으시게 됩니다."
 
-msgid "Your BitPay Card is ready. Add funds to your card to start using it at stores and ATMs worldwide."
-msgstr "귀하의 BitPay 카드가 준비되었습니다. 전 세계 상점 및 ATM에서 이용하시려면 카드에 자금을 추가해주세요."
+msgid "Your Monoeci Card is ready. Add funds to your card to start using it at stores and ATMs worldwide."
+msgstr "귀하의 Monoeci 카드가 준비되었습니다. 전 세계 상점 및 ATM에서 이용하시려면 카드에 자금을 추가해주세요."
 
 msgid "Your Gift Cards"
 msgstr "귀하의 기프트 카드"
 
-msgid "Your bitcoin wallet is backed up!"
+msgid "Your monoeci wallet is backed up!"
 msgstr "귀하의 비트코인 지갑이 백업되었습니다!"
 
-msgid "Your bitcoin wallet is ready!"
+msgid "Your monoeci wallet is ready!"
 msgstr "귀하의 비트코인 지갑이 준비되었습니다!"
 
-msgid "Your extended private keys are all that is needed to access your bitcoin funds. Be sure to protect your private keys and store them only on secure devices. BitPay does not have access to your private keys, so you alone are responsible for your keys. If you share key access with external services, you take responsibility for the risk of theft or breach. Only advanced users should handle extended private keys directly."
+msgid "Your extended private keys are all that is needed to access your monoeci funds. Be sure to protect your private keys and store them only on secure devices. Monoeci does not have access to your private keys, so you alone are responsible for your keys. If you share key access with external services, you take responsibility for the risk of theft or breach. Only advanced users should handle extended private keys directly."
 msgstr ""
 
 msgid "Your fee is lower than recommended."
@@ -2183,8 +2213,8 @@ msgstr "[숨겨진 잔액]"
 msgid "[Scanning Funds]"
 msgstr "[자금 스캔 중]"
 
-msgid "add your BitPay Visa card(s)"
-msgstr "귀하의 BitPay Visa 카드 추가"
+msgid "add your Monoeci Visa card(s)"
+msgstr "귀하의 Monoeci Visa 카드 추가"
 
 msgid "me"
 msgstr "나"
@@ -2198,7 +2228,7 @@ msgstr ""
 msgid "preparing..."
 msgstr "준비 중..."
 
-msgid "{{appName}} depends on Bitcore Wallet Service (BWS) for blockchain information, networking and Copayer synchronization. The default configuration points to https://bws.bitpay.com (BitPay's public BWS instance)."
+msgid "{{appName}} depends on Bitcore Wallet Service (BWS) for blockchain information, networking and Copayer synchronization. The default configuration points to https://bws.monoeci.io (Monoeci's public BWS instance)."
 msgstr ""
 
 msgid "{{btx.feeRateStr}} of the total amount"

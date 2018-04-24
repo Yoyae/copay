@@ -32,7 +32,11 @@ export class ConfirmPage {
   @ViewChild('slideButton') slideButton;
 
   private bitcore: any;
-  private bitcoreCash: any;
+  private bitcorePolis: any;
+  private bitcoreDash: any;
+  private bitcoreMonoeci: any;
+  private bitcoreGoByte: any;
+  private bitcoreColossusXT: any;
 
   public countDown = null;
   public CONFIRM_LIMIT_USD: number;
@@ -84,7 +88,11 @@ export class ConfirmPage {
     private externalLinkProvider: ExternalLinkProvider
   ) {
     this.bitcore = this.bwcProvider.getBitcore();
-    this.bitcoreCash = this.bwcProvider.getBitcoreCash();
+    this.bitcorePolis = this.bwcProvider.getBitcorePolis();
+    this.bitcoreDash = this.bwcProvider.getBitcoreDash();
+    this.bitcoreMonoeci = this.bwcProvider.getBitcoreMonoeci();
+    this.bitcoreGoByte = this.bwcProvider.getBitcoreGoByte();
+    this.bitcoreColossusXT = this.bwcProvider.getBitcoreColossusXT();
     this.CONFIRM_LIMIT_USD = 20;
     this.FEE_TOO_HIGH_LIMIT_PER = 15;
     this.config = this.configProvider.get();
@@ -97,26 +105,46 @@ export class ConfirmPage {
   }
 
   ionViewWillEnter() {
-    this.navCtrl.swipeBackEnabled = false;
-    this.isOpenSelector = false;
-    let B = this.navParams.data.coin == 'bch' ? this.bitcoreCash : this.bitcore;
-    let networkName;
+  this.navCtrl.swipeBackEnabled = false;
+  this.isOpenSelector = false;
+  let B = this.navParams.data.coin == 'polis' ? this.bitcorePolis : this.bitcore;
+  let C = this.navParams.data.coin == 'dash' ? this.bitcoreDash : this.bitcore;
+  let D = this.navParams.data.coin == 'xmcc' ? this.bitcoreMonoeci : this.bitcore;
+  let E = this.navParams.data.coin == 'gbx' ? this.bitcoreGoByte : this.bitcore;
+  let F = this.navParams.data.coin == 'clox' ? this.bitcoreColossusXT : this.bitcore;
+  let networkName;
+  try {
+    networkName = (new B.Address(this.navParams.data.toAddress)).network.name;
+  } catch (e) {
     try {
-      networkName = (new B.Address(this.navParams.data.toAddress)).network.name;
+      networkName = (new C.Address(this.navParams.data.toAddress)).network.name;
     } catch (e) {
-      var message = this.translate.instant('Copay only supports Bitcoin Cash using new version numbers addresses');
-      var backText = this.translate.instant('Go back');
-      var learnText = this.translate.instant('Learn more');
-      this.popupProvider.ionicConfirm(null, message, backText, learnText).then((back) => {
-        if (!back) {
-          var url = 'https://support.bitpay.com/hc/en-us/articles/115004671663';
-          this.externalLinkProvider.open(url);
-        }
-        this.navCtrl.pop();
-      });
-      return;
+      try{
+        networkName = (new D.Address(this.navParams.data.toAddress)).network.name;
+      } catch(e) {
+		try{
+          networkName = (new E.Address(this.navParams.data.toAddress)).network.name;
+        } catch(e) { 
+          try{
+            networkName = (new F.Address(this.navParams.data.toAddress)).network.name;
+          } catch(e) {		
+		  
+            var message = this.translate.instant('Copay only supports Polis using new version numbers addresses');
+            var backText = this.translate.instant('Go back');
+            var learnText = this.translate.instant('Learn more');
+            this.popupProvider.ionicConfirm(null, message, backText, learnText).then((back) => {
+              if (!back) {
+                var url = 'https://support.bitpay.com/hc/en-us/articles/115004671663';
+                this.externalLinkProvider.open(url);
+              }
+              this.navCtrl.pop();
+            });
+            return;
+		  }
+		}
+      }
     }
-
+  }
     this.tx = {
       toAddress: this.navParams.data.toAddress,
       amount: parseInt(this.navParams.data.amount, 10),
@@ -140,12 +168,36 @@ export class ConfirmPage {
       this.usingMerchantFee = true;
       this.tx.feeRate = +this.navParams.data.requiredFeeRate;
     } else {
-      this.tx.feeLevel = (this.tx.coin && this.tx.coin == 'bch') ? 'normal ' : this.configFeeLevel;
+      this.tx.feeLevel = (this.tx.coin && this.tx.coin == 'polis') ? 'normal ' : this.configFeeLevel;
+      this.tx.feeLevel = (this.tx.coin && this.tx.coin == 'dash') ? 'normal ' : this.configFeeLevel;
+      this.tx.feeLevel = (this.tx.coin && this.tx.coin == 'xmcc') ? 'normal ' : this.configFeeLevel;
+      this.tx.feeLevel = (this.tx.coin && this.tx.coin == 'gbx') ? 'normal ' : this.configFeeLevel;
+      this.tx.feeLevel = (this.tx.coin && this.tx.coin == 'colx') ? 'normal ' : this.configFeeLevel;
     }
 
-    if (this.tx.coin && this.tx.coin == 'bch') {
+    if (this.tx.coin && this.tx.coin == 'polis') {
       // Use legacy address
-      this.tx.toAddress = this.bitcoreCash.Address(this.tx.toAddress).toString();
+      this.tx.toAddress = this.bitcorePolis.Address(this.tx.toAddress).toString();
+    }
+
+    if (this.tx.coin && this.tx.coin == 'dash') {
+      // Use legacy address
+      this.tx.toAddress = this.bitcoreDash.Address(this.tx.toAddress).toString();
+    }
+
+    if (this.tx.coin && this.tx.coin == 'xmcc') {
+      // Use legacy address
+      this.tx.toAddress = this.bitcoreMonoeci.Address(this.tx.toAddress).toString();
+    }
+
+    if (this.tx.coin && this.tx.coin == 'gbx') {
+      // Use legacy address
+      this.tx.toAddress = this.bitcoreGoByte.Address(this.tx.toAddress).toString();
+    }
+
+    if (this.tx.coin && this.tx.coin == 'colx') {
+      // Use legacy address
+      this.tx.toAddress = this.bitcoreColossusXT.Address(this.tx.toAddress).toString();
     }
 
     this.tx.feeLevelName = this.feeProvider.feeOpts[this.tx.feeLevel];
@@ -258,7 +310,19 @@ export class ConfirmPage {
     this.tx.coin = this.wallet.coin;
 
     if (!this.usingCustomFee && !this.usingMerchantFee) {
-      this.tx.feeLevel = wallet.coin == 'bch' ? 'normal' : this.configFeeLevel;
+      this.tx.feeLevel = wallet.coin == 'polis' ? 'normal' : this.configFeeLevel;
+    }
+    if (!this.usingCustomFee && !this.usingMerchantFee) {
+      this.tx.feeLevel = wallet.coin == 'dash' ? 'normal' : this.configFeeLevel;
+    }
+    if (!this.usingCustomFee && !this.usingMerchantFee) {
+      this.tx.feeLevel = wallet.coin == 'xmcc' ? 'normal' : this.configFeeLevel;
+    } 
+	if (!this.usingCustomFee && !this.usingMerchantFee) {
+      this.tx.feeLevel = wallet.coin == 'gbx' ? 'normal' : this.configFeeLevel;
+    }
+	if (!this.usingCustomFee && !this.usingMerchantFee) {
+      this.tx.feeLevel = wallet.coin == 'colx' ? 'normal' : this.configFeeLevel;
     }
 
     this.setButtonText(this.wallet.credentials.m > 1, !!this.tx.paypro);
@@ -328,7 +392,11 @@ export class ConfirmPage {
 
       let maxAllowedMerchantFee = {
         btc: 'urgent',
-        bch: 'normal',
+        polis: 'normal',
+        dash: 'normal',
+        xmcc: 'normal',
+        gbx: 'normal',
+        colx: 'normal',
       }
 
       this.onGoingProcessProvider.set('calculatingFee');
@@ -692,7 +760,11 @@ export class ConfirmPage {
 
   public chooseFeeLevel(): void {
 
-    if (this.tx.coin == 'bch') return;
+    if (this.tx.coin == 'polis') return;
+    if (this.tx.coin == 'dash') return;
+    if (this.tx.coin == 'xmcc') return;
+    if (this.tx.coin == 'gbx') return;
+    if (this.tx.coin == 'colx') return;
     if (this.usingMerchantFee) return; // ToDo: should we allow overwride?
 
     let txObject: any = {};

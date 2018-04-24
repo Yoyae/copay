@@ -89,10 +89,10 @@ msgstr "進階"
 msgid "All addresses"
 msgstr "所有地址"
 
-msgid "All of your bitcoin wallet balance may not be available for immediate spending."
+msgid "All of your monoeci wallet balance may not be available for immediate spending."
 msgstr "所有您的比特币的钱包余额可能无法用于直接支出。"
 
-msgid "All signing devices must be added to this multisig wallet before bitcoin addresses can be created."
+msgid "All signing devices must be added to this multisig wallet before monoeci addresses can be created."
 msgstr "比特币地址可以创建之前，签名的所有设备都必须都添加到这个对数钱包。"
 
 msgid "Allow camera access"
@@ -119,13 +119,13 @@ msgstr "量太大"
 msgid "An update to this app is available. For your security, please update to the latest version."
 msgstr "本程序有一个可用的更新。为了您的安全，请更新到最新版本。"
 
-msgid "Anyone with your backup phrase can access or spend your bitcoin."
+msgid "Anyone with your backup phrase can access or spend your monoeci."
 msgstr "任何人只要持有你的备份短语，就可以访问或者花掉你的比特币。"
 
 msgid "Apply changes"
 msgstr "应用更改"
 
-msgid "Approximate Bitcoin network fee to transfer wallet's balance (with normal priority)"
+msgid "Approximate Monoeci network fee to transfer wallet's balance (with normal priority)"
 msgstr "转移钱包余额大约需要的比特币网络费用（正常优先级）"
 
 msgid "Are you being watched?"
@@ -155,7 +155,7 @@ msgstr "可用空间"
 msgid "Average confirmation time"
 msgstr "平均确认时间"
 
-msgid "BTC wallets"
+msgid "XMCC wallets"
 msgstr "比特币钱包"
 
 msgid "Backup"
@@ -185,43 +185,49 @@ msgstr "隐藏余额"
 msgid "Be sure to store your recovery phrase in a secure place. If this app is deleted, your money cannot be recovered without it."
 msgstr "请务必将您的恢复短语存储在一个安全的地方。如果这个程序被删除，不能没有它恢复你的钱。"
 
-msgid "Bitcoin (BTC) miner fees are high due to record demand for limited space on the Bitcoin network. BitPay does not receive and does not control bitcoin miner fees."
+msgid "Monoeci (XMCC) miner fees are high due to record demand for limited space on the Monoeci network. Monoeci does not receive and does not control monoeci miner fees."
 msgstr ""
 
-msgid "Bitcoin Address"
+msgid "Monoeci Address"
 msgstr "比特币地址"
 
-msgid "Bitcoin Cash Wallets"
+msgid "Polis Wallets"
 msgstr "比特币现金钱包"
 
-msgid "Bitcoin Network Fee Policy"
+msgid "Monoeci Wallets"
+msgstr "比特币现金钱包"
+
+msgid "Monoeci Network Fee Policy"
 msgstr "比特币网络手续费策略"
 
-msgid "Bitcoin Wallets"
+msgid "Monoeci Wallets"
 msgstr "比特币钱包"
 
-msgid "Bitcoin cash Payment"
+msgid "Polis Payment"
 msgstr "比特币现金支付"
 
-msgid "Bitcoin is a currency."
+msgid "Monoeci Payment"
+msgstr "比特币现金支付"
+
+msgid "Monoeci is a currency."
 msgstr "比特币是一种货币。"
 
-msgid "Bitcoin is different &ndash; it cannot be safely held with a bank or web service."
+msgid "Monoeci is different &ndash; it cannot be safely held with a bank or web service."
 msgstr "比特币是不同 — — 它不能安全地举行以银行或 web 服务。"
 
-msgid "Bitcoin is secure, digital money."
+msgid "Monoeci is secure, digital money."
 msgstr "比特币是安全的数字货币。"
 
-msgid "Bitcoin miner fee"
+msgid "Miner fee"
 msgstr ""
 
-msgid "Bitcoin miner fees unusually high"
+msgid "Monoeci miner fees unusually high"
 msgstr ""
 
-msgid "Bitcoin network fee policy"
+msgid "Monoeci network fee policy"
 msgstr ""
 
-msgid "Bitcoin transactions include a fee collected by miners on the network."
+msgid "Monoeci transactions include a fee collected by miners on the network."
 msgstr "比特币交易包括在网络上被矿工所收取的费用。"
 
 msgid "Broadcast Payment"
@@ -236,7 +242,7 @@ msgstr ""
 msgid "Buy Gift Card"
 msgstr ""
 
-msgid "Buying Bitcoin..."
+msgid "Buying Monoeci..."
 msgstr "正在发送 比特币..."
 
 msgid "Buying Gift Card..."
@@ -329,7 +335,7 @@ msgstr "确认"
 msgid "Confirming"
 msgstr "确认"
 
-msgid "Connect my BitPay Card"
+msgid "Connect my Monoeci Card"
 msgstr ""
 
 msgid "Connecting to Coinbase..."
@@ -353,8 +359,11 @@ msgstr "继续"
 msgid "Contribute translations"
 msgstr ""
 
-msgid "Copay only supports Bitcoin Cash using new version numbers addresses"
-msgstr "Copay只支持新版本的比特币现金地址"
+msgid "Monoeci only supports Polis using new version numbers addresses"
+msgstr "Monoeci只支持新版本的比特币现金地址"
+
+msgid "Monoeci only supports Monoeci using new version numbers addresses"
+msgstr "Monoeci只支持新版本的比特币现金地址"
 
 msgid "Copayer already in this wallet"
 msgstr "Copayer 已经在这个钱包里"
@@ -467,7 +476,7 @@ msgstr "无法更新钱包"
 msgid "Create a new wallet"
 msgstr ""
 
-msgid "Create bitcoin wallet"
+msgid "Create monoeci wallet"
 msgstr "创建比特币的钱包"
 
 msgid "Create personal wallet"
@@ -569,7 +578,7 @@ msgstr ""
 msgid "Duplicating wallet..."
 msgstr "正在复制钱包……"
 
-msgid "Each bitcoin wallet can generate billions of addresses from your 12-word backup. A new address is automatically generated and shown each time you receive a payment."
+msgid "Each monoeci wallet can generate billions of addresses from your 12-word backup. A new address is automatically generated and shown each time you receive a payment."
 msgstr ""
 
 msgid "Economy"
@@ -653,8 +662,8 @@ msgstr "获取SendMax信息时出错。"
 msgid "Error in Payment Protocol"
 msgstr "付款协议中的错误"
 
-msgid "Error pairing BitPay Account"
-msgstr "错误配对 BitPay 帐户"
+msgid "Error pairing Monoeci Account"
+msgstr "错误配对 Monoeci 帐户"
 
 msgid "Error scanning funds:"
 msgstr "错误扫描资金︰"
@@ -713,8 +722,8 @@ msgstr "未定义收费等级。。"
 msgid "Feedback could not be submitted. Please try again later."
 msgstr "无法提交反馈。请稍后再试。"
 
-msgid "Fetching BitPay Account..."
-msgstr "正在获取 BitPay 帐户..."
+msgid "Fetching Monoeci Account..."
+msgstr "正在获取 Monoeci 帐户..."
 
 msgid "Fetching payment information"
 msgstr "获取付款信息"
@@ -731,8 +740,8 @@ msgstr "完成"
 msgid "From"
 msgstr "来自"
 
-msgid "From BitPay account"
-msgstr "从 BitPay 帐户"
+msgid "From Monoeci account"
+msgstr "从 Monoeci 帐户"
 
 msgid "From the destination device, go to Add wallet > Import wallet and scan this QR code"
 msgstr ""
@@ -767,8 +776,8 @@ msgstr "正在生成新的地址..."
 msgid "Get local cash anywhere you go, from any Visa&reg; compatible ATM. ATM bank fees may apply."
 msgstr ""
 
-msgid "Get news and updates from BitPay"
-msgstr "从 BitPay 获取新闻和更新"
+msgid "Get news and updates from Monoeci"
+msgstr "从 Monoeci 获取新闻和更新"
 
 msgid "Get started"
 msgstr "马上体验"
@@ -848,7 +857,7 @@ msgstr ""
 msgid "I understand"
 msgstr "我知道了"
 
-msgid "I understand that if this app is moved to another device or deleted, my bitcoin can only be recovered with the backup phrase"
+msgid "I understand that if this app is moved to another device or deleted, my monoeci can only be recovered with the backup phrase"
 msgstr ""
 
 msgid "I understand that my funds are held securely on this device, not by a company"
@@ -857,7 +866,10 @@ msgstr ""
 msgid "I'm sure"
 msgstr ""
 
-msgid "If enabled, Bitcoin Cash addresses will be shown using Copay style address, and not the new cashaddr format."
+msgid "If enabled, Polis addresses will be shown using Monoeci style address, and not the new cashaddr format."
+msgstr ""
+
+msgid "If enabled, Monoeci addresses will be shown using Monoeci style address, and not the new cashaddr format."
 msgstr ""
 
 msgid "If enabled, all sensitive information (private key and recovery phrase) and actions (spending and exporting) associated with this wallet will be protected."
@@ -929,7 +941,7 @@ msgstr "这是正确的吗？"
 msgid "Is this email address correct?"
 msgstr "此电子邮件地址是正确的？"
 
-msgid "It's a good idea to avoid reusing addresses - this both protects your privacy and keeps your bitcoins secure against hypothetical attacks by quantum computers."
+msgid "It's a good idea to avoid reusing addresses - this both protects your privacy and keeps your monoecis secure against hypothetical attacks by quantum computers."
 msgstr ""
 
 msgid "It's important that you write your backup phrase down correctly. If something happens to your wallet, you'll need this backup to recover your money. Please review your backup and try again."
@@ -1070,7 +1082,7 @@ msgstr ""
 msgid "No access key defined"
 msgstr "授权密钥未定义"
 
-msgid "No backup, no bitcoin."
+msgid "No backup, no monoeci."
 msgstr "没有备份，没有比特币。"
 
 msgid "No contacts yet"
@@ -1109,7 +1121,10 @@ msgstr "没有可用于接收资金的钱包"
 msgid "No wallets available to use ShapeShift"
 msgstr ""
 
-msgid "No wallets eligible for Bitcoin Cash support"
+msgid "No wallets eligible for Polis support"
+msgstr "没有錢包合乎支持小比特幣資格"
+
+msgid "No wallets eligible for Monoeci support"
 msgstr "没有錢包合乎支持小比特幣資格"
 
 msgid "No wallets with funds"
@@ -1118,7 +1133,7 @@ msgstr ""
 msgid "Non BIP44 wallet"
 msgstr "非BIP44錢包"
 
-msgid "Non eligible BTC wallets"
+msgid "Non eligible XMCC wallets"
 msgstr "非合格比特幣錢包"
 
 msgid "Normal"
@@ -1130,8 +1145,8 @@ msgstr "尚未授权"
 msgid "Not enough funds for fee"
 msgstr "费用的资金不足"
 
-msgid "Not even BitPay can access it."
-msgstr "甚至没有 BitPay 可以访问它。"
+msgid "Not even Monoeci can access it."
+msgstr "甚至没有 Monoeci 可以访问它。"
 
 msgid "Not funds found"
 msgstr "没有资金发现"
@@ -1139,13 +1154,16 @@ msgstr "没有资金发现"
 msgid "Not now"
 msgstr "不是现在"
 
-msgid "Not valid bitcoin address"
+msgid "Not valid monoeci address"
 msgstr ""
 
 msgid "Note"
 msgstr "备注"
 
-msgid "Note: if this BCH wallet was duplicated from a BTC wallet, they share the same recovery phrase."
+msgid "Note: if this MONOECI wallet was duplicated from a XMCC wallet, they share the same recovery phrase."
+msgstr "注意: 如此比特幣錢包由小比特幣复制，他們共享相同恢復短語"
+
+msgid "Note: if this MONOECI wallet was duplicated from a XMCC wallet, they share the same recovery phrase."
 msgstr "注意: 如此比特幣錢包由小比特幣复制，他們共享相同恢復短語"
 
 msgid "Notification"
@@ -1220,7 +1238,7 @@ msgstr "打开钱包"
 msgid "Open website"
 msgstr "打开网站"
 
-msgid "Order the BitPay Card"
+msgid "Order the Monoeci Card"
 msgstr ""
 
 msgid "Ouch!"
@@ -1241,7 +1259,7 @@ msgstr "密码不匹配"
 msgid "Paste the backup plain text code"
 msgstr ""
 
-msgid "Pay 0% fees to turn bitcoin into dollars."
+msgid "Pay 0% fees to turn monoeci into dollars."
 msgstr "0%付费以比特币变成美元。"
 
 msgid "Pay To"
@@ -1280,7 +1298,10 @@ msgstr "支付已被接受，但尚未广播"
 msgid "Payment accepted. It will be broadcasted by Glidera. In case there is a problem, it can be deleted 6 hours after it was created."
 msgstr "支付以被接受。它将由 Glidera 广播。如果出现问题，它可以在创建后的 6 个小时内删除。"
 
-msgid "Payment address was translated to new Bitcoin Cash address format: {{addr}}"
+msgid "Payment address was translated to new Polis address format: {{addr}}"
+msgstr ""
+
+msgid "Payment address was translated to new Monoeci address format: {{addr}}"
 msgstr ""
 
 msgid "Payment request"
@@ -1316,8 +1337,8 @@ msgstr ""
 msgid "Please tap each word in the correct order."
 msgstr "请点击每个单词按照正确的顺序。"
 
-msgid "Please upgrade Copay to perform this action"
-msgstr "请升级 Copay 以执行此操作"
+msgid "Please upgrade Monoeci to perform this action"
+msgstr "请升级 Monoeci 以执行此操作"
 
 msgid "Please wait..."
 msgstr ""
@@ -1514,7 +1535,7 @@ msgstr ""
 msgid "Search a contact"
 msgstr ""
 
-msgid "Search or enter bitcoin address"
+msgid "Search or enter monoeci address"
 msgstr "搜索或输入比特币地址"
 
 msgid "Search your currency"
@@ -1535,7 +1556,7 @@ msgstr "选择钱包"
 msgid "Self-signed Certificate"
 msgstr "自签名证书"
 
-msgid "Selling Bitcoin..."
+msgid "Selling Monoeci..."
 msgstr "出售比特币......"
 
 msgid "Send"
@@ -1661,7 +1682,10 @@ msgstr ""
 msgid "Slide to send"
 msgstr ""
 
-msgid "Some of your wallets are not eligible for Bitcoin Cash support. You can try to access BCH funds from these wallets using the recovery tool"
+msgid "Some of your wallets are not eligible for Polis support. You can try to access MONOECI funds from these wallets using the recovery tool"
+msgstr ""
+
+msgid "Some of your wallets are not eligible for Monoeci support. You can try to access MONOECI funds from these wallets using the recovery tool"
 msgstr ""
 
 msgid "Specify Recovery Phrase"
@@ -1676,7 +1700,7 @@ msgstr "找不到花费提议"
 msgid "Spendable balance"
 msgstr ""
 
-msgid "Spending this balance will need significant Bitcoin network fees"
+msgid "Spending this balance will need significant Monoeci network fees"
 msgstr "这笔交易将需要非常高的比特币网络手续费"
 
 msgid "Start"
@@ -1709,7 +1733,7 @@ msgstr "正在导出钱包"
 msgid "THIS ACTION CANNOT BE REVERSED"
 msgstr "此操作无法撤消"
 
-msgid "Take control of your money, get started with bitcoin."
+msgid "Take control of your money, get started with monoeci."
 msgstr ""
 
 msgid "Tap and hold to show"
@@ -1739,13 +1763,13 @@ msgstr ""
 msgid "The Wallet Service URL"
 msgstr ""
 
-msgid "The amount of bitcoin immediately spendable from this wallet."
+msgid "The amount of monoeci immediately spendable from this wallet."
 msgstr "比特币立即可从这个钱包的金额。"
 
-msgid "The amount of bitcoin stored in this wallet that is allocated as inputs to your pending transaction proposals. The amount is determined using unspent transaction outputs associated with this wallet and may be more than the actual amounts associated with your pending transaction proposals."
+msgid "The amount of monoeci stored in this wallet that is allocated as inputs to your pending transaction proposals. The amount is determined using unspent transaction outputs associated with this wallet and may be more than the actual amounts associated with your pending transaction proposals."
 msgstr "比特币存储在分配作为你挂起的事务建议的输入这个钱包中的金额。量确定使用未用余额交易记录输出与这个钱包关联，可能会与您挂起的事务建议相关联的实际数额超过。"
 
-msgid "The amount of bitcoin stored in this wallet with less than 1 blockchain confirmation."
+msgid "The amount of monoeci stored in this wallet with less than 1 blockchain confirmation."
 msgstr "比特币存储在与小于 1 blockchain 确认这个钱包中的金额。"
 
 msgid "The derivation path"
@@ -1781,7 +1805,7 @@ msgstr ""
 msgid "The spend proposal is not pending"
 msgstr "花费提议不是未决"
 
-msgid "The total amount of bitcoin stored in this wallet."
+msgid "The total amount of monoeci stored in this wallet."
 msgstr "比特币存储在这个钱包的总量。"
 
 msgid "The transaction history and every new incoming transaction are cached in the app. This feature clean this up and synchronizes again from the server"
@@ -1796,10 +1820,10 @@ msgstr ""
 msgid "This app is fantastic!"
 msgstr "这个应用程序太棒了 ！"
 
-msgid "This app stores your bitcoin with cutting-edge security."
+msgid "This app stores your monoeci with cutting-edge security."
 msgstr "此应用程序商店你比特币与尖端的安全。"
 
-msgid "This bitcoin payment request has expired."
+msgid "This monoeci payment request has expired."
 msgstr "这比特币付款请求已过期。"
 
 msgid "This password is only for this device, and it cannot be recovered. To avoid losing funds, write your password down."
@@ -1808,7 +1832,7 @@ msgstr ""
 msgid "This recovery phrase was created with a password. To recover this wallet both the recovery phrase and password are needed."
 msgstr "此恢复短语是用密码创建。为了恢复此钱包，需要恢复短语和密码。"
 
-msgid "This transaction amount is too small compared to current Bitcoin network fees. Spending these funds will need a Bitcoin network fee cost comparable to the funds itself."
+msgid "This transaction amount is too small compared to current Monoeci network fees. Spending these funds will need a Monoeci network fee cost comparable to the funds itself."
 msgstr "相对于当前比特币网络费，这笔交易金额太小。手续费相当于这笔交易金额本身。"
 
 msgid "This transaction could take a long time to confirm or could be dropped due to the low fees set by the sender"
@@ -1823,7 +1847,7 @@ msgstr "时间轴"
 msgid "To"
 msgstr "发送到"
 
-msgid "To get started, you'll need to create a bitcoin wallet and get some bitcoin."
+msgid "To get started, you'll need to create a monoeci wallet and get some monoeci."
 msgstr "若要开始，您将需要创建一个比特币的钱包，并获得一些比特币。"
 
 msgid "Top up in progress..."
@@ -1874,10 +1898,13 @@ msgstr ""
 msgid "Transactions without fee are not supported."
 msgstr "不支持无率交易"
 
-msgid "Transfer to Bitcoin Cash Wallet"
+msgid "Transfer to Polis Wallet"
 msgstr ""
 
-msgid "Transfer to Bitcoin Wallet"
+msgid "Transfer to Monoeci Wallet"
+msgstr ""
+
+msgid "Transfer to Monoeci Wallet"
 msgstr ""
 
 msgid "Transfer to Contact"
@@ -1886,7 +1913,7 @@ msgstr ""
 msgid "Try again in {{expires}}"
 msgstr "在 {{expires}} 中再试一次"
 
-msgid "Turn bitcoin into dollars, swipe anywhere Visa&reg; is accepted."
+msgid "Turn monoeci into dollars, swipe anywhere Visa&reg; is accepted."
 msgstr ""
 
 msgid "Type the recovery phrase (usually 12 words)"
@@ -1928,7 +1955,10 @@ msgstr "更新中… 请等待"
 msgid "Urgent"
 msgstr "非常快"
 
-msgid "Use Bitcoin Cash Copay Style Addresses"
+msgid "Use Polis Monoeci Style Addresses"
+msgstr ""
+
+msgid "Use Monoeci Monoeci Style Addresses"
 msgstr ""
 
 msgid "Use Unconfirmed Funds"
@@ -2120,13 +2150,13 @@ msgstr "是"
 msgid "You can make contributions by signing up on our Crowdin community translation website. We’re looking forward to hearing from you!"
 msgstr "您可以通过签约我们 Crowdin 社区翻译网站作出贡献。我们期待你的听力 ！"
 
-msgid "You can scan bitcoin addresses, payment requests, paper wallets, and more."
+msgid "You can scan monoeci addresses, payment requests, paper wallets, and more."
 msgstr "您可以扫描比特币地址、 付款申请、 纸钱包和更多。"
 
 msgid "You can see the latest developments and contribute to this open source app by visiting our project on GitHub."
 msgstr "你可以看到最新的事态发展和贡献这个开放源码应用程序通过在 GitHub 上访问我们的项目。"
 
-msgid "You can spend bitcoin at millions of websites and stores worldwide."
+msgid "You can spend monoeci at millions of websites and stores worldwide."
 msgstr "你可以花比特币在数以百万计的网站和世界各地的商店。"
 
 msgid "You can still export it from Advanced &gt; Export."
@@ -2135,7 +2165,7 @@ msgstr "你仍然可以将其导出从高级 &gt; 出口。"
 msgid "You can trade it for other currencies like US Dollars, Euros, or Pounds."
 msgstr "你可以换其他货币，如美元、 欧元或英镑。"
 
-msgid "You control your bitcoin."
+msgid "You control your monoeci."
 msgstr "您可以控制您的比特币。"
 
 msgid "You could sign the transaction later in your wallet details"
@@ -2147,19 +2177,19 @@ msgstr "你不应设置高于 {{maxFeeRecommended}} satoshis/字节 的交易手
 msgid "You'll receive email notifications about payments sent and received from your wallets."
 msgstr "在您的钱包进行付款操作时发送通知。"
 
-msgid "Your BitPay Card is ready. Add funds to your card to start using it at stores and ATMs worldwide."
-msgstr "您的 BitPay 卡是准备好了。添加到您的卡开始使用它在商店和自动取款机全球基金。"
+msgid "Your Monoeci Card is ready. Add funds to your card to start using it at stores and ATMs worldwide."
+msgstr "您的 Monoeci 卡是准备好了。添加到您的卡开始使用它在商店和自动取款机全球基金。"
 
 msgid "Your Gift Cards"
 msgstr "礼品卡"
 
-msgid "Your bitcoin wallet is backed up!"
+msgid "Your monoeci wallet is backed up!"
 msgstr "你的比特币钱包被备份 ！"
 
-msgid "Your bitcoin wallet is ready!"
+msgid "Your monoeci wallet is ready!"
 msgstr "你的比特币钱包是准备好了 ！"
 
-msgid "Your extended private keys are all that is needed to access your bitcoin funds. Be sure to protect your private keys and store them only on secure devices. BitPay does not have access to your private keys, so you alone are responsible for your keys. If you share key access with external services, you take responsibility for the risk of theft or breach. Only advanced users should handle extended private keys directly."
+msgid "Your extended private keys are all that is needed to access your monoeci funds. Be sure to protect your private keys and store them only on secure devices. Monoeci does not have access to your private keys, so you alone are responsible for your keys. If you share key access with external services, you take responsibility for the risk of theft or breach. Only advanced users should handle extended private keys directly."
 msgstr ""
 
 msgid "Your fee is lower than recommended."
@@ -2183,8 +2213,8 @@ msgstr "[隐藏余额]"
 msgid "[Scanning Funds]"
 msgstr "[正在掃描資金]"
 
-msgid "add your BitPay Visa card(s)"
-msgstr "添加您的 BitPay 签证卡"
+msgid "add your Monoeci Visa card(s)"
+msgstr "添加您的 Monoeci 签证卡"
 
 msgid "me"
 msgstr "我"
@@ -2198,7 +2228,7 @@ msgstr ""
 msgid "preparing..."
 msgstr "准备中..."
 
-msgid "{{appName}} depends on Bitcore Wallet Service (BWS) for blockchain information, networking and Copayer synchronization. The default configuration points to https://bws.bitpay.com (BitPay's public BWS instance)."
+msgid "{{appName}} depends on Bitcore Wallet Service (BWS) for blockchain information, networking and Copayer synchronization. The default configuration points to https://bws.monoeci.io (Monoeci's public BWS instance)."
 msgstr ""
 
 msgid "{{btx.feeRateStr}} of the total amount"

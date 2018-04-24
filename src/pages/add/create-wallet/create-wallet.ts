@@ -84,7 +84,7 @@ export class CreateWalletPage implements OnInit {
       myName: [null],
       totalCopayers: [1],
       requiredCopayers: [1],
-      bwsURL: [this.defaults.bws.url],
+      bwsURL: [this.defaults.bws['xmcc']],
       selectedSeed: ['new'],
       recoveryPhrase: [null],
       derivationPath: [this.derivationPathByDefault],
@@ -130,6 +130,11 @@ export class CreateWalletPage implements OnInit {
     this.createForm.controls['selectedSeed'].setValue(this.seedOptions[0].id); // new or set
   };
 
+  public coinChange(coin: any): void {
+    this.createForm.controls['testnetEnabled'].setValue(false);
+    this.createForm.controls['bwsURL'].setValue(this.defaults.bws[coin]);
+  }
+  
   public seedOptionsChange(seed: any): void {
     if (seed === 'set') {
       this.createForm.get('recoveryPhrase').setValidators([Validators.required]);

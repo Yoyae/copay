@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
-import { App, Events, NavControllerBase } from 'ionic-angular';
+import { App, Events, NavController } from 'ionic-angular';
 import { Logger } from '../../providers/logger/logger';
 
 // providers
@@ -44,22 +44,6 @@ export class IncomingDataProvider {
     // TODO Injecting NavController in constructor of service fails with no provider error
     this.navCtrl = this.app.getActiveNav();
 
-    // data extensions for Payment Protocol with non-backwards-compatible request
-    if ((/^bitcoin(cash)?:\?r=[\w+]/).exec(data)) {
-      let coin = 'btc';
-      if (data.indexOf('bitcoincash') === 0) coin = 'bch';
-
-      data = decodeURIComponent(data.replace(/bitcoin(cash)?:\?r=/, ''));
-
-      this.payproProvider.getPayProDetails(data, coin).then((details) => {
-        this.handlePayPro(details, coin);
-      }).catch((err) => {
-        this.popupProvider.ionicAlert(this.translate.instant('Error'), err);
-      });
-
-      return true;
-    }
-
     data = this.sanitizeUri(data);
     let amount: string;
     let message: string;
@@ -87,17 +71,12 @@ export class IncomingDataProvider {
         this.goSend(addr, amount, message, coin);
       }
       return true;
-      // Cash URI
-    } else if (this.bwcProvider.getBitcoreCash().URI.isValid(data)) {
-      this.logger.debug('Handling Bitcoin Cash URI');
-      coin = 'bch';
-      parsed = this.bwcProvider.getBitcoreCash().URI(data);
+      // Polis URI
+    } else if (this.bwcProvider.getBitcorePolis().URI.isValid(data)) {
+      this.logger.debug('Handling Polis URI');
+      coin = 'polis';
+      parsed = this.bwcProvider.getBitcorePolis().URI(data);
       addr = parsed.address ? parsed.address.toString() : '';
-
-      // keep address in original format
-      if (parsed.address && data.indexOf(addr) < 0) {
-        addr = parsed.address.toCashAddress();
-      };
 
       message = parsed.message;
       amount = parsed.amount ? parsed.amount : '';
@@ -117,45 +96,103 @@ export class IncomingDataProvider {
       }
       return true;
 
-      // Cash URI with bitcoin core address version number?
-    } else if (this.bwcProvider.getBitcore().URI.isValid(data.replace(/^bitcoincash:/, 'bitcoin:'))) {
-      this.logger.debug('Handling bitcoincash URI with legacy address');
-      coin = 'bch';
-      parsed = this.bwcProvider.getBitcore().URI(data.replace(/^bitcoincash:/, 'bitcoin:'));
+    } // Dash URI
+    else if (this.bwcProvider.getBitcoreDash().URI.isValid(data)) {
+      this.logger.debug('Handling Dash URI');
+      coin = 'dash';
+      parsed = this.bwcProvider.getBitcoreDash().URI(data);
+      addr = parsed.address ? parsed.address.toString() : '';
 
-      let oldAddr = parsed.address ? parsed.address.toString() : '';
-      if (!oldAddr) return false;
+      message = parsed.message;
+      amount = parsed.amount ? parsed.amount : '';
 
-      addr = '';
-
-      let a = this.bwcProvider.getBitcore().Address(oldAddr).toObject();
-      addr = this.bwcProvider.getBitcoreCash().Address.fromObject(a).toString();
-
-      // Translate address
-      this.logger.debug('address transalated to:' + addr);
-      let title = this.translate.instant('Bitcoin cash Payment');
-      let msg = this.translate.instant('Payment address was translated to new Bitcoin Cash address format: {{addr}}', { addr });
-      this.popupProvider.ionicConfirm(title, msg).then((res: boolean) => {
-        if (!res) return false;
-
-        message = parsed.message;
-        amount = parsed.amount ? parsed.amount : '';
-
-        // paypro not yet supported on cash
-        if (parsed.r) {
-          this.payproProvider.getPayProDetails(parsed.r, coin).then((details) => {
-            this.handlePayPro(details, coin);
-          }).catch((err) => {
-            if (addr && amount)
-              this.goSend(addr, amount, message, coin);
-            else
-              this.popupProvider.ionicAlert(this.translate.instant('Error'), err);
-          });
-        } else {
-          this.goSend(addr, amount, message, coin);
-        }
-      });
+      // paypro not yet supported on cash
+      if (parsed.r) {
+        this.payproProvider.getPayProDetails(parsed.r, coin).then((details: any) => {
+          this.handlePayPro(details, coin);
+        }).catch((err: string) => {
+          if (addr && amount)
+            this.goSend(addr, amount, message, coin);
+          else
+            this.popupProvider.ionicAlert(this.translate.instant('Error'), err);
+        });
+      } else {
+        this.goSend(addr, amount, message, coin);
+      }
       return true;
+      // XMCC URI
+    } else if (this.bwcProvider.getBitcoreMonoeci().URI.isValid(data)) {
+      this.logger.debug('Handling Monoeci URI');
+      coin = 'xmcc';
+      parsed = this.bwcProvider.getBitcoreMonoeci().URI(data);
+      addr = parsed.address ? parsed.address.toString() : '';
+
+      message = parsed.message;
+      amount = parsed.amount ? parsed.amount : '';
+
+      // paypro not yet supported on cash
+      if (parsed.r) {
+        this.payproProvider.getPayProDetails(parsed.r, coin).then((details: any) => {
+          this.handlePayPro(details, coin);
+        }).catch((err: string) => {
+          if (addr && amount)
+            this.goSend(addr, amount, message, coin);
+          else
+            this.popupProvider.ionicAlert(this.translate.instant('Error'), err);
+        });
+      } else {
+        this.goSend(addr, amount, message, coin);
+      }
+      return true;
+      // GBX URI
+    } else if (this.bwcProvider.getBitcoreGoByte().URI.isValid(data)) {
+      this.logger.debug('Handling GoByte URI');
+      coin = 'gbx';
+      parsed = this.bwcProvider.getBitcoreGoByte().URI(data);
+      addr = parsed.address ? parsed.address.toString() : '';
+
+      message = parsed.message;
+      amount = parsed.amount ? parsed.amount : '';
+
+      // paypro not yet supported on cash
+      if (parsed.r) {
+        this.payproProvider.getPayProDetails(parsed.r, coin).then((details: any) => {
+          this.handlePayPro(details, coin);
+        }).catch((err: string) => {
+          if (addr && amount)
+            this.goSend(addr, amount, message, coin);
+          else
+            this.popupProvider.ionicAlert(this.translate.instant('Error'), err);
+        });
+      } else {
+        this.goSend(addr, amount, message, coin);
+      }
+      return true;
+      // COLX URI
+    } else if (this.bwcProvider.getBitcoreColossusXT().URI.isValid(data)) {
+      this.logger.debug('Handling ColossusXT URI');
+      coin = 'colx';
+      parsed = this.bwcProvider.getBitcoreColossusXT().URI(data);
+      addr = parsed.address ? parsed.address.toString() : '';
+
+      message = parsed.message;
+      amount = parsed.amount ? parsed.amount : '';
+
+      // paypro not yet supported on cash
+      if (parsed.r) {
+        this.payproProvider.getPayProDetails(parsed.r, coin).then((details: any) => {
+          this.handlePayPro(details, coin);
+        }).catch((err: string) => {
+          if (addr && amount)
+            this.goSend(addr, amount, message, coin);
+          else
+            this.popupProvider.ionicAlert(this.translate.instant('Error'), err);
+        });
+      } else {
+        this.goSend(addr, amount, message, coin);
+      }
+      return true;
+
     } else if (/^https?:\/\//.test(data)) {
       // Plain URL
       this.logger.debug('Handling Plain URL');
@@ -185,16 +222,64 @@ export class IncomingDataProvider {
         let coin = 'btc';
         this.goToAmountPage(data, coin);
       }
-    } else if (this.bwcProvider.getBitcoreCash().Address.isValid(data, 'livenet') || this.bwcProvider.getBitcoreCash().Address.isValid(data, 'testnet')) {
-      this.logger.debug('Handling Bitcoin Cash Plain Address');
+	} else if (this.bwcProvider.getBitcorePolis().Address.isValid(data, 'livenet') || this.bwcProvider.getBitcorePolis().Address.isValid(data, 'testnet')) {
+      this.logger.debug('Handling Polis Plain Address');
       if (this.navCtrl.getActive().name === 'ScanPage') {
         this.showMenu({
           data,
           type: 'bitcoinAddress',
-          coin: 'bch',
+          coin: 'polis',
         });
       } else {
-        let coin = 'bch';
+        let coin = 'polis';
+        this.goToAmountPage(data, coin);
+      }
+    } else if (this.bwcProvider.getBitcoreDash().Address.isValid(data, 'livenet') || this.bwcProvider.getBitcoreDash().Address.isValid(data, 'testnet')) {
+        this.logger.debug('Handling Dash Plain Address');
+        if (this.navCtrl.getActive().name === 'ScanPage') {
+          this.showMenu({
+            data,
+            type: 'bitcoinAddress',
+            coin: 'dash',
+          });
+        } else {
+          let coin = 'dash';
+          this.goToAmountPage(data, coin);
+        }
+    } else if (this.bwcProvider.getBitcoreMonoeci().Address.isValid(data, 'livenet') || this.bwcProvider.getBitcoreMonoeci().Address.isValid(data, 'testnet')) {
+      this.logger.debug('Handling Monoeci Plain Address');
+      if (this.navCtrl.getActive().name === 'ScanPage') {
+        this.showMenu({
+          data,
+          type: 'bitcoinAddress',
+          coin: 'xmcc',
+        });
+      } else {
+        let coin = 'xmcc';
+        this.goToAmountPage(data, coin);
+      }
+    } else if (this.bwcProvider.getBitcoreGoByte().Address.isValid(data, 'livenet') || this.bwcProvider.getBitcoreGoByte().Address.isValid(data, 'testnet')) {
+      this.logger.debug('Handling GoByte Plain Address');
+      if (this.navCtrl.getActive().name === 'ScanPage') {
+        this.showMenu({
+          data,
+          type: 'bitcoinAddress',
+          coin: 'gbx',
+        });
+      } else {
+        let coin = 'gbx';
+        this.goToAmountPage(data, coin);
+      }
+    } else if (this.bwcProvider.getBitcoreColossusXT().Address.isValid(data, 'livenet') || this.bwcProvider.getBitcoreColossusXT().Address.isValid(data, 'testnet')) {
+      this.logger.debug('Handling ColossusXT Plain Address');
+      if (this.navCtrl.getActive().name === 'ScanPage') {
+        this.showMenu({
+          data,
+          type: 'bitcoinAddress',
+          coin: 'colx',
+        });
+      } else {
+        let coin = 'colx';
         this.goToAmountPage(data, coin);
       }
     } else if (data && data.indexOf(this.appProvider.info.name + '://glidera') === 0) {

@@ -89,11 +89,11 @@ msgstr "Zaawansowane"
 msgid "All addresses"
 msgstr ""
 
-msgid "All of your bitcoin wallet balance may not be available for immediate spending."
-msgstr "Wszystkie salda portfela bitcoin mogą nie być dostępne do natychmiastowego wydania."
+msgid "All of your monoeci wallet balance may not be available for immediate spending."
+msgstr "Wszystkie salda portfela monoeci mogą nie być dostępne do natychmiastowego wydania."
 
-msgid "All signing devices must be added to this multisig wallet before bitcoin addresses can be created."
-msgstr "Wszystkie podpisane urządzenia muszą zostać dodane do tego portfela przed utworzeniem adresów bitcoin."
+msgid "All signing devices must be added to this multisig wallet before monoeci addresses can be created."
+msgstr "Wszystkie podpisane urządzenia muszą zostać dodane do tego portfela przed utworzeniem adresów monoeci."
 
 msgid "Allow camera access"
 msgstr ""
@@ -119,14 +119,14 @@ msgstr "Zbyt duża kwota"
 msgid "An update to this app is available. For your security, please update to the latest version."
 msgstr "Dostępna jest aktualizacja aplikacji. Ze względów bezpieczeństwa należy zaktualizować do najnowszej wersji."
 
-msgid "Anyone with your backup phrase can access or spend your bitcoin."
-msgstr "Każdy, kto ma Twoją kluczową frazę może uzyskać dostęp lub wydać Twoje bitcoiny."
+msgid "Anyone with your backup phrase can access or spend your monoeci."
+msgstr "Każdy, kto ma Twoją kluczową frazę może uzyskać dostęp lub wydać Twoje monoeciy."
 
 msgid "Apply changes"
 msgstr ""
 
-msgid "Approximate Bitcoin network fee to transfer wallet's balance (with normal priority)"
-msgstr "Szacunkowe opłaty sieci Bitcoin do przeniesienia salda portfela (normalny priorytet)"
+msgid "Approximate Monoeci network fee to transfer wallet's balance (with normal priority)"
+msgstr "Szacunkowe opłaty sieci Monoeci do przeniesienia salda portfela (normalny priorytet)"
 
 msgid "Are you being watched?"
 msgstr "Czy jesteś obserwowany?"
@@ -155,8 +155,8 @@ msgstr "Dostępne"
 msgid "Average confirmation time"
 msgstr "Spodziewany czas potwierdzania"
 
-msgid "BTC wallets"
-msgstr "Portfele BTC"
+msgid "XMCC wallets"
+msgstr "Portfele XMCC"
 
 msgid "Backup"
 msgstr "Kopia zapasowa"
@@ -185,44 +185,50 @@ msgstr ""
 msgid "Be sure to store your recovery phrase in a secure place. If this app is deleted, your money cannot be recovered without it."
 msgstr "Pamiętaj aby przechowywać swoją kluczową frazę w bezpiecznym miejscu. Jeśli ta aplikacja zostanie usunięta, nie będziesz mógł bez niej odzyskać swoich pieniędzy."
 
-msgid "Bitcoin (BTC) miner fees are high due to record demand for limited space on the Bitcoin network. BitPay does not receive and does not control bitcoin miner fees."
+msgid "Monoeci (XMCC) miner fees are high due to record demand for limited space on the Monoeci network. Monoeci does not receive and does not control monoeci miner fees."
 msgstr ""
 
-msgid "Bitcoin Address"
-msgstr "Adres bitcoin"
+msgid "Monoeci Address"
+msgstr "Adres monoeci"
 
-msgid "Bitcoin Cash Wallets"
-msgstr "Płatność Bitcoin Cash"
+msgid "Polis Wallets"
+msgstr "Płatność Polis"
 
-msgid "Bitcoin Network Fee Policy"
-msgstr "Polityka prowizji sieci bitcoin"
+msgid "Monoeci Wallets"
+msgstr "Płatność Monoeci"
 
-msgid "Bitcoin Wallets"
-msgstr "Portfele Bitcoin"
+msgid "Monoeci Network Fee Policy"
+msgstr "Polityka prowizji sieci monoeci"
 
-msgid "Bitcoin cash Payment"
-msgstr "Płatność Bitcoin Cash"
+msgid "Monoeci Wallets"
+msgstr "Portfele Monoeci"
 
-msgid "Bitcoin is a currency."
-msgstr "Bitcoin jest walutą."
+msgid "Polis Payment"
+msgstr "Płatność Polis"
 
-msgid "Bitcoin is different &ndash; it cannot be safely held with a bank or web service."
-msgstr "Bitcoin jest inny &ndash; nie może być bezpiecznie przechowywany w banku lub usłudze internetowej."
+msgid "Monoeci Payment"
+msgstr "Płatność Monoeci"
 
-msgid "Bitcoin is secure, digital money."
+msgid "Monoeci is a currency."
+msgstr "Monoeci jest walutą."
+
+msgid "Monoeci is different &ndash; it cannot be safely held with a bank or web service."
+msgstr "Monoeci jest inny &ndash; nie może być bezpiecznie przechowywany w banku lub usłudze internetowej."
+
+msgid "Monoeci is secure, digital money."
 msgstr ""
 
-msgid "Bitcoin miner fee"
+msgid "Miner fee"
 msgstr ""
 
-msgid "Bitcoin miner fees unusually high"
+msgid "Monoeci miner fees unusually high"
 msgstr ""
 
-msgid "Bitcoin network fee policy"
+msgid "Monoeci network fee policy"
 msgstr ""
 
-msgid "Bitcoin transactions include a fee collected by miners on the network."
-msgstr "Transakcje Bitcoin obejmują prowizję pobieraną przez górników w sieci."
+msgid "Monoeci transactions include a fee collected by miners on the network."
+msgstr "Transakcje Monoeci obejmują prowizję pobieraną przez górników w sieci."
 
 msgid "Broadcast Payment"
 msgstr "Przekaż płatność"
@@ -236,8 +242,8 @@ msgstr ""
 msgid "Buy Gift Card"
 msgstr ""
 
-msgid "Buying Bitcoin..."
-msgstr "Zakup bitcoinów..."
+msgid "Buying Monoeci..."
+msgstr "Zakup monoeciów..."
 
 msgid "Buying Gift Card..."
 msgstr ""
@@ -329,7 +335,7 @@ msgstr "Potwierdzenia"
 msgid "Confirming"
 msgstr "Potwierdzający"
 
-msgid "Connect my BitPay Card"
+msgid "Connect my Monoeci Card"
 msgstr ""
 
 msgid "Connecting to Coinbase..."
@@ -353,8 +359,11 @@ msgstr "Dalej"
 msgid "Contribute translations"
 msgstr ""
 
-msgid "Copay only supports Bitcoin Cash using new version numbers addresses"
-msgstr "Copay obsługuje tylko Bitcoin gotówki za pomocą nowej wersji numery adresy"
+msgid "Monoeci only supports Polis using new version numbers addresses"
+msgstr "Monoeci obsługuje tylko Monoeci gotówki za pomocą nowej wersji numery adresy"
+
+msgid "Monoeci only supports Monoeci using new version numbers addresses"
+msgstr "Monoeci obsługuje tylko Monoeci gotówki za pomocą nowej wersji numery adresy"
 
 msgid "Copayer already in this wallet"
 msgstr "Użytkownik jest już w tym portfelu"
@@ -467,8 +476,8 @@ msgstr "Nie można zaktualizować portfela"
 msgid "Create a new wallet"
 msgstr ""
 
-msgid "Create bitcoin wallet"
-msgstr "Utwórz portfel bitcoin"
+msgid "Create monoeci wallet"
+msgstr "Utwórz portfel monoeci"
 
 msgid "Create personal wallet"
 msgstr ""
@@ -569,7 +578,7 @@ msgstr ""
 msgid "Duplicating wallet..."
 msgstr "Duplikowanie portfela..."
 
-msgid "Each bitcoin wallet can generate billions of addresses from your 12-word backup. A new address is automatically generated and shown each time you receive a payment."
+msgid "Each monoeci wallet can generate billions of addresses from your 12-word backup. A new address is automatically generated and shown each time you receive a payment."
 msgstr ""
 
 msgid "Economy"
@@ -653,7 +662,7 @@ msgstr "Wystąpił błąd podczas uzyskiwania informacji SendMax"
 msgid "Error in Payment Protocol"
 msgstr "Błąd w protokole płatności"
 
-msgid "Error pairing BitPay Account"
+msgid "Error pairing Monoeci Account"
 msgstr "Błąd parowania konta Bitpay"
 
 msgid "Error scanning funds:"
@@ -713,8 +722,8 @@ msgstr "Poziom opłaty nie jest zdefiniowany"
 msgid "Feedback could not be submitted. Please try again later."
 msgstr "Twój komentarz nie może zostać wysłany. Spróbuj ponownie później."
 
-msgid "Fetching BitPay Account..."
-msgstr "Odzyskiwanie konta BitPay..."
+msgid "Fetching Monoeci Account..."
+msgstr "Odzyskiwanie konta Monoeci..."
 
 msgid "Fetching payment information"
 msgstr "Pobieranie informacji o płatności"
@@ -731,8 +740,8 @@ msgstr "Zakończ"
 msgid "From"
 msgstr "Z"
 
-msgid "From BitPay account"
-msgstr "Z konta BitPay"
+msgid "From Monoeci account"
+msgstr "Z konta Monoeci"
 
 msgid "From the destination device, go to Add wallet > Import wallet and scan this QR code"
 msgstr ""
@@ -767,8 +776,8 @@ msgstr "Generowanie nowego adresu..."
 msgid "Get local cash anywhere you go, from any Visa&reg; compatible ATM. ATM bank fees may apply."
 msgstr ""
 
-msgid "Get news and updates from BitPay"
-msgstr "Otrzymywanie wiadomości i aktualizacji z BitPay"
+msgid "Get news and updates from Monoeci"
+msgstr "Otrzymywanie wiadomości i aktualizacji z Monoeci"
 
 msgid "Get started"
 msgstr "Zacznij"
@@ -848,7 +857,7 @@ msgstr ""
 msgid "I understand"
 msgstr "Rozumiem"
 
-msgid "I understand that if this app is moved to another device or deleted, my bitcoin can only be recovered with the backup phrase"
+msgid "I understand that if this app is moved to another device or deleted, my monoeci can only be recovered with the backup phrase"
 msgstr ""
 
 msgid "I understand that my funds are held securely on this device, not by a company"
@@ -857,7 +866,10 @@ msgstr ""
 msgid "I'm sure"
 msgstr ""
 
-msgid "If enabled, Bitcoin Cash addresses will be shown using Copay style address, and not the new cashaddr format."
+msgid "If enabled, Polis addresses will be shown using Monoeci style address, and not the new cashaddr format."
+msgstr ""
+
+msgid "If enabled, Monoeci addresses will be shown using Monoeci style address, and not the new cashaddr format."
 msgstr ""
 
 msgid "If enabled, all sensitive information (private key and recovery phrase) and actions (spending and exporting) associated with this wallet will be protected."
@@ -929,7 +941,7 @@ msgstr "Czy dane są poprawne?"
 msgid "Is this email address correct?"
 msgstr "Czy ten adres e-mail jest poprawny?"
 
-msgid "It's a good idea to avoid reusing addresses - this both protects your privacy and keeps your bitcoins secure against hypothetical attacks by quantum computers."
+msgid "It's a good idea to avoid reusing addresses - this both protects your privacy and keeps your monoecis secure against hypothetical attacks by quantum computers."
 msgstr ""
 
 msgid "It's important that you write your backup phrase down correctly. If something happens to your wallet, you'll need this backup to recover your money. Please review your backup and try again."
@@ -1070,8 +1082,8 @@ msgstr ""
 msgid "No access key defined"
 msgstr "Klucz dostępu nie jest zdefiniowany"
 
-msgid "No backup, no bitcoin."
-msgstr "Nie ma kopii zapasowej - nie ma bitcoinów."
+msgid "No backup, no monoeci."
+msgstr "Nie ma kopii zapasowej - nie ma monoeciów."
 
 msgid "No contacts yet"
 msgstr "Brak kontaktów"
@@ -1109,8 +1121,11 @@ msgstr "Brak portfeli do otrzymania środków"
 msgid "No wallets available to use ShapeShift"
 msgstr ""
 
-msgid "No wallets eligible for Bitcoin Cash support"
-msgstr "Brak portfeli wspierających Bitcoin Cash"
+msgid "No wallets eligible for Polis support"
+msgstr "Brak portfeli wspierających Polis"
+
+msgid "No wallets eligible for Monoeci support"
+msgstr "Brak portfeli wspierających Monoeci"
 
 msgid "No wallets with funds"
 msgstr ""
@@ -1118,7 +1133,7 @@ msgstr ""
 msgid "Non BIP44 wallet"
 msgstr "Nie BIP44 portfel"
 
-msgid "Non eligible BTC wallets"
+msgid "Non eligible XMCC wallets"
 msgstr ""
 
 msgid "Normal"
@@ -1130,8 +1145,8 @@ msgstr "Brak autoryzacji"
 msgid "Not enough funds for fee"
 msgstr "Brak środków na opłacenie prowizji"
 
-msgid "Not even BitPay can access it."
-msgstr "Nawet BitPay nie ma do niego dostępu."
+msgid "Not even Monoeci can access it."
+msgstr "Nawet Monoeci nie ma do niego dostępu."
 
 msgid "Not funds found"
 msgstr "Nie znaleziono środków"
@@ -1139,14 +1154,17 @@ msgstr "Nie znaleziono środków"
 msgid "Not now"
 msgstr "Nie teraz"
 
-msgid "Not valid bitcoin address"
+msgid "Not valid monoeci address"
 msgstr ""
 
 msgid "Note"
 msgstr "Notatka"
 
-msgid "Note: if this BCH wallet was duplicated from a BTC wallet, they share the same recovery phrase."
-msgstr "Uwaga: Jeśli ten portfel BCH został zduplikowany z portfela BTC, będą one współdzielić ten sam zwrot odzyskiwania."
+msgid "Note: if this MONOECI wallet was duplicated from a XMCC wallet, they share the same recovery phrase."
+msgstr "Uwaga: Jeśli ten portfel MONOECI został zduplikowany z portfela XMCC, będą one współdzielić ten sam zwrot odzyskiwania."
+
+msgid "Note: if this MONOECI wallet was duplicated from a XMCC wallet, they share the same recovery phrase."
+msgstr "Uwaga: Jeśli ten portfel MONOECI został zduplikowany z portfela XMCC, będą one współdzielić ten sam zwrot odzyskiwania."
 
 msgid "Notification"
 msgstr ""
@@ -1220,7 +1238,7 @@ msgstr "Otwórz portfel"
 msgid "Open website"
 msgstr "Otwórz stronę"
 
-msgid "Order the BitPay Card"
+msgid "Order the Monoeci Card"
 msgstr ""
 
 msgid "Ouch!"
@@ -1241,8 +1259,8 @@ msgstr ""
 msgid "Paste the backup plain text code"
 msgstr ""
 
-msgid "Pay 0% fees to turn bitcoin into dollars."
-msgstr "Zapłać 0% prowizji za wymianę bitcoinów na dolary."
+msgid "Pay 0% fees to turn monoeci into dollars."
+msgstr "Zapłać 0% prowizji za wymianę monoeciów na dolary."
 
 msgid "Pay To"
 msgstr "Zapłać"
@@ -1280,7 +1298,10 @@ msgstr "Wypłata zaakceptowana, ale jeszcze nie nadana"
 msgid "Payment accepted. It will be broadcasted by Glidera. In case there is a problem, it can be deleted 6 hours after it was created."
 msgstr "Wypłata zaakceptowana. Będzie nadana przez Glidera. W przypadku wystąpienia problemu, może być usunięta 6 godzin po utworzeniu."
 
-msgid "Payment address was translated to new Bitcoin Cash address format: {{addr}}"
+msgid "Payment address was translated to new Polis address format: {{addr}}"
+msgstr ""
+
+msgid "Payment address was translated to new Monoeci address format: {{addr}}"
 msgstr ""
 
 msgid "Payment request"
@@ -1316,8 +1337,8 @@ msgstr ""
 msgid "Please tap each word in the correct order."
 msgstr "Proszę wpisać każde słowo we właściwej kolejności."
 
-msgid "Please upgrade Copay to perform this action"
-msgstr "Proszę uaktualnić Copay, by móc wykonać tę operację"
+msgid "Please upgrade Monoeci to perform this action"
+msgstr "Proszę uaktualnić Monoeci, by móc wykonać tę operację"
 
 msgid "Please wait..."
 msgstr ""
@@ -1514,8 +1535,8 @@ msgstr ""
 msgid "Search a contact"
 msgstr ""
 
-msgid "Search or enter bitcoin address"
-msgstr "Wyszukaj lub wpisz adres bitcoin"
+msgid "Search or enter monoeci address"
+msgstr "Wyszukaj lub wpisz adres monoeci"
 
 msgid "Search your currency"
 msgstr "Znajdź swoją walutę"
@@ -1535,8 +1556,8 @@ msgstr "Wybierz portfel"
 msgid "Self-signed Certificate"
 msgstr "Certyfikat z podpisem własnym"
 
-msgid "Selling Bitcoin..."
-msgstr "Sprzedawanie bitcoinów..."
+msgid "Selling Monoeci..."
+msgstr "Sprzedawanie monoeciów..."
 
 msgid "Send"
 msgstr "Wyślij"
@@ -1661,7 +1682,10 @@ msgstr ""
 msgid "Slide to send"
 msgstr ""
 
-msgid "Some of your wallets are not eligible for Bitcoin Cash support. You can try to access BCH funds from these wallets using the recovery tool"
+msgid "Some of your wallets are not eligible for Polis support. You can try to access MONOECI funds from these wallets using the recovery tool"
+msgstr ""
+
+msgid "Some of your wallets are not eligible for Monoeci support. You can try to access MONOECI funds from these wallets using the recovery tool"
 msgstr ""
 
 msgid "Specify Recovery Phrase"
@@ -1676,7 +1700,7 @@ msgstr "Wniosek wypłaty nie został znaleziony"
 msgid "Spendable balance"
 msgstr ""
 
-msgid "Spending this balance will need significant Bitcoin network fees"
+msgid "Spending this balance will need significant Monoeci network fees"
 msgstr ""
 
 msgid "Start"
@@ -1709,7 +1733,7 @@ msgstr "Sczytywanie portfela..."
 msgid "THIS ACTION CANNOT BE REVERSED"
 msgstr "TEJ CZYNNOŚCI NIE MOŻNA COFNĄĆ"
 
-msgid "Take control of your money, get started with bitcoin."
+msgid "Take control of your money, get started with monoeci."
 msgstr ""
 
 msgid "Tap and hold to show"
@@ -1739,14 +1763,14 @@ msgstr ""
 msgid "The Wallet Service URL"
 msgstr ""
 
-msgid "The amount of bitcoin immediately spendable from this wallet."
+msgid "The amount of monoeci immediately spendable from this wallet."
 msgstr "Możliwa jest natychmiastowa wypłata wszystkich środków z tego portfela."
 
-msgid "The amount of bitcoin stored in this wallet that is allocated as inputs to your pending transaction proposals. The amount is determined using unspent transaction outputs associated with this wallet and may be more than the actual amounts associated with your pending transaction proposals."
-msgstr "Kwota bitcoinów przechowywana w tym portfelu, przydzielona jako wejście dla oczekujących wniosków wypłat. Kwota ta jest ustalana za pomocą niewykorzystanych wyjść transakcji związanych z tym portfelem i może przekroczyć kwoty związane z proponowanymi wnioskami wypłat."
+msgid "The amount of monoeci stored in this wallet that is allocated as inputs to your pending transaction proposals. The amount is determined using unspent transaction outputs associated with this wallet and may be more than the actual amounts associated with your pending transaction proposals."
+msgstr "Kwota monoeciów przechowywana w tym portfelu, przydzielona jako wejście dla oczekujących wniosków wypłat. Kwota ta jest ustalana za pomocą niewykorzystanych wyjść transakcji związanych z tym portfelem i może przekroczyć kwoty związane z proponowanymi wnioskami wypłat."
 
-msgid "The amount of bitcoin stored in this wallet with less than 1 blockchain confirmation."
-msgstr "Ilość bitcoinów przechowywana w tym portfel z mniej niż jednym potwierdzeniem w blockchainie."
+msgid "The amount of monoeci stored in this wallet with less than 1 blockchain confirmation."
+msgstr "Ilość monoeciów przechowywana w tym portfel z mniej niż jednym potwierdzeniem w blockchainie."
 
 msgid "The derivation path"
 msgstr "Ścieżka derywacji"
@@ -1781,8 +1805,8 @@ msgstr ""
 msgid "The spend proposal is not pending"
 msgstr "Wniosek o wypłatę nie jest w oczekujących"
 
-msgid "The total amount of bitcoin stored in this wallet."
-msgstr "Łączna ilość bitcoinów przechowywana w tym portfelu."
+msgid "The total amount of monoeci stored in this wallet."
+msgstr "Łączna ilość monoeciów przechowywana w tym portfelu."
 
 msgid "The transaction history and every new incoming transaction are cached in the app. This feature clean this up and synchronizes again from the server"
 msgstr ""
@@ -1796,10 +1820,10 @@ msgstr ""
 msgid "This app is fantastic!"
 msgstr "Ta aplikacja jest fantastyczna!"
 
-msgid "This app stores your bitcoin with cutting-edge security."
-msgstr "Ta aplikacja przechowuje Twoje bitcoiny z zaawansowanymi zabezpieczeniami."
+msgid "This app stores your monoeci with cutting-edge security."
+msgstr "Ta aplikacja przechowuje Twoje monoeciy z zaawansowanymi zabezpieczeniami."
 
-msgid "This bitcoin payment request has expired."
+msgid "This monoeci payment request has expired."
 msgstr "Ten wniosek płatności wygasł."
 
 msgid "This password is only for this device, and it cannot be recovered. To avoid losing funds, write your password down."
@@ -1808,7 +1832,7 @@ msgstr ""
 msgid "This recovery phrase was created with a password. To recover this wallet both the recovery phrase and password are needed."
 msgstr "Ta kluczowa fraza został utworzona przy użyciu hasła. Aby odzyskać portfel potrzebna jest kluczowa fraza i hasło."
 
-msgid "This transaction amount is too small compared to current Bitcoin network fees. Spending these funds will need a Bitcoin network fee cost comparable to the funds itself."
+msgid "This transaction amount is too small compared to current Monoeci network fees. Spending these funds will need a Monoeci network fee cost comparable to the funds itself."
 msgstr ""
 
 msgid "This transaction could take a long time to confirm or could be dropped due to the low fees set by the sender"
@@ -1823,8 +1847,8 @@ msgstr "Historia"
 msgid "To"
 msgstr "Do"
 
-msgid "To get started, you'll need to create a bitcoin wallet and get some bitcoin."
-msgstr "Aby rozpocząć należy utworzyć portfel i dostać trochę bitcoinów."
+msgid "To get started, you'll need to create a monoeci wallet and get some monoeci."
+msgstr "Aby rozpocząć należy utworzyć portfel i dostać trochę monoeciów."
 
 msgid "Top up in progress..."
 msgstr ""
@@ -1874,10 +1898,13 @@ msgstr ""
 msgid "Transactions without fee are not supported."
 msgstr "Transakcje bez opłaty nie są obsługiwane."
 
-msgid "Transfer to Bitcoin Cash Wallet"
+msgid "Transfer to Polis Wallet"
 msgstr ""
 
-msgid "Transfer to Bitcoin Wallet"
+msgid "Transfer to Monoeci Wallet"
+msgstr ""
+
+msgid "Transfer to Monoeci Wallet"
 msgstr ""
 
 msgid "Transfer to Contact"
@@ -1886,7 +1913,7 @@ msgstr ""
 msgid "Try again in {{expires}}"
 msgstr "Spróbuj ponownie w {{expires}}"
 
-msgid "Turn bitcoin into dollars, swipe anywhere Visa&reg; is accepted."
+msgid "Turn monoeci into dollars, swipe anywhere Visa&reg; is accepted."
 msgstr ""
 
 msgid "Type the recovery phrase (usually 12 words)"
@@ -1928,7 +1955,10 @@ msgstr "Aktualizacja... Proszę czekać"
 msgid "Urgent"
 msgstr "Pilna"
 
-msgid "Use Bitcoin Cash Copay Style Addresses"
+msgid "Use Polis Monoeci Style Addresses"
+msgstr ""
+
+msgid "Use Monoeci Monoeci Style Addresses"
 msgstr ""
 
 msgid "Use Unconfirmed Funds"
@@ -2120,14 +2150,14 @@ msgstr "Tak"
 msgid "You can make contributions by signing up on our Crowdin community translation website. We’re looking forward to hearing from you!"
 msgstr "Możesz przyczynić się do rozwoju aplikacji rejestrując się na Crowdin - naszej stronie dla tłumaczy. Będziemy wdzięczni za kontakt!"
 
-msgid "You can scan bitcoin addresses, payment requests, paper wallets, and more."
-msgstr "Możesz zeskanować adresy bitcoin, wnioski płatności, portfele papierowe i wiele innych."
+msgid "You can scan monoeci addresses, payment requests, paper wallets, and more."
+msgstr "Możesz zeskanować adresy monoeci, wnioski płatności, portfele papierowe i wiele innych."
 
 msgid "You can see the latest developments and contribute to this open source app by visiting our project on GitHub."
 msgstr "Możesz zobaczyć postępy prac i przyczynić się do rozwoju tej aplikacji open source odwiedzając nasz projekt na GitHub."
 
-msgid "You can spend bitcoin at millions of websites and stores worldwide."
-msgstr "Bitcoiny możesz wydać w milionach sklepów i stron internetowych na całym świecie."
+msgid "You can spend monoeci at millions of websites and stores worldwide."
+msgstr "Monoeciy możesz wydać w milionach sklepów i stron internetowych na całym świecie."
 
 msgid "You can still export it from Advanced &gt; Export."
 msgstr "Nadal możesz go wyeksportować w Zaawansowane &gt; Eksport."
@@ -2135,8 +2165,8 @@ msgstr "Nadal możesz go wyeksportować w Zaawansowane &gt; Eksport."
 msgid "You can trade it for other currencies like US Dollars, Euros, or Pounds."
 msgstr "Możesz je wymienić na inne waluty, takie jak dolary amerykańskie, euro lub funty."
 
-msgid "You control your bitcoin."
-msgstr "Ty kontrolujesz swoje bitcoiny."
+msgid "You control your monoeci."
+msgstr "Ty kontrolujesz swoje monoeciy."
 
 msgid "You could sign the transaction later in your wallet details"
 msgstr ""
@@ -2147,19 +2177,19 @@ msgstr "Nie należy ustawiać opłatę wyższą niż {{maxFeeRecommended}} satos
 msgid "You'll receive email notifications about payments sent and received from your wallets."
 msgstr "Będziesz otrzymywać powiadomienia e-mail o płatności wysyłanych i odbieranych ze swoich portfeli."
 
-msgid "Your BitPay Card is ready. Add funds to your card to start using it at stores and ATMs worldwide."
-msgstr "Twoja karta BitPay jest gotowa. Zasil kartę, aby zacząć ją używać w sklepach i bankomatach na całym świecie."
+msgid "Your Monoeci Card is ready. Add funds to your card to start using it at stores and ATMs worldwide."
+msgstr "Twoja karta Monoeci jest gotowa. Zasil kartę, aby zacząć ją używać w sklepach i bankomatach na całym świecie."
 
 msgid "Your Gift Cards"
 msgstr "Twoje karty podarunkowe"
 
-msgid "Your bitcoin wallet is backed up!"
+msgid "Your monoeci wallet is backed up!"
 msgstr "Kopia zapasowa portfela została utworzona!"
 
-msgid "Your bitcoin wallet is ready!"
+msgid "Your monoeci wallet is ready!"
 msgstr "Twój portfel jest gotowy!"
 
-msgid "Your extended private keys are all that is needed to access your bitcoin funds. Be sure to protect your private keys and store them only on secure devices. BitPay does not have access to your private keys, so you alone are responsible for your keys. If you share key access with external services, you take responsibility for the risk of theft or breach. Only advanced users should handle extended private keys directly."
+msgid "Your extended private keys are all that is needed to access your monoeci funds. Be sure to protect your private keys and store them only on secure devices. Monoeci does not have access to your private keys, so you alone are responsible for your keys. If you share key access with external services, you take responsibility for the risk of theft or breach. Only advanced users should handle extended private keys directly."
 msgstr ""
 
 msgid "Your fee is lower than recommended."
@@ -2183,8 +2213,8 @@ msgstr "[Balans ukryty]"
 msgid "[Scanning Funds]"
 msgstr ""
 
-msgid "add your BitPay Visa card(s)"
-msgstr "dodaj swoje karty BitPay Visa"
+msgid "add your Monoeci Visa card(s)"
+msgstr "dodaj swoje karty Monoeci Visa"
 
 msgid "me"
 msgstr "ja"
@@ -2198,7 +2228,7 @@ msgstr ""
 msgid "preparing..."
 msgstr "Przygotowywanie..."
 
-msgid "{{appName}} depends on Bitcore Wallet Service (BWS) for blockchain information, networking and Copayer synchronization. The default configuration points to https://bws.bitpay.com (BitPay's public BWS instance)."
+msgid "{{appName}} depends on Bitcore Wallet Service (BWS) for blockchain information, networking and Copayer synchronization. The default configuration points to https://bws.monoeci.io (Monoeci's public BWS instance)."
 msgstr ""
 
 msgid "{{btx.feeRateStr}} of the total amount"

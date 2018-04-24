@@ -25,7 +25,7 @@ export class BackupProvider {
       let ew = this.walletExport(password, opts, walletId);
       if (!ew) return reject('Could not create backup');
 
-      let walletName = (wallet.alias || '') + (wallet.alias ? '-' : '') + wallet.credentials.walletName;
+      let walletName = (wallet.alias || '') + (wallet.alias ? '-' : wallet.credentials.coin + '-' ) + wallet.credentials.walletName;
       if (opts.noSign) walletName = walletName + '-noSign'
       let filename = walletName + '-' + this.appProvider.info.nameCase + 'backup.aes.json';
       this._download(ew, filename).then(() => {

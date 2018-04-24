@@ -30,7 +30,12 @@ interface Config {
   };
 
   bws: {
-    url: string;
+    btc: string;
+    polis: string;
+    dash: string;
+    xmcc: string;
+    gbx: string;
+    colx: string;
   };
 
   download: {
@@ -99,7 +104,11 @@ interface Config {
 
   blockExplorerUrl: {
     btc: string;
-    bch: string;
+    polis: string;
+    dash: string;
+    xmcc: string;
+    gbx: string;
+    colx: string;
   }
 };
 
@@ -119,10 +128,10 @@ const configDefault: Config = {
     reconnectDelay: 5000,
     idleDurationMin: 4,
     settings: {
-      unitName: 'BTC',
+      unitName: 'XMCC',
       unitToSatoshi: 100000000,
       unitDecimals: 8,
-      unitCode: 'btc',
+      unitCode: 'xmcc',
       alternativeName: 'US Dollar',
       alternativeIsoCode: 'USD',
       defaultLanguage: '',
@@ -132,7 +141,12 @@ const configDefault: Config = {
 
   // Bitcore wallet service URL
   bws: {
-    url: 'https://bws.bitpay.com/bws/api'
+    btc: 'https://bws.monoeci.io/bws/api', //For backward Compatibility
+    polis: '',
+    dash: '',
+    xmcc: 'https://bws-xmcc.polispay.org/bws/api', //For test
+    gbx: '',
+    colx: ''
   },
 
   download: {
@@ -169,16 +183,16 @@ const configDefault: Config = {
   },
 
   showIntegration: {
-    coinbase: true,
-    glidera: true,
-    debitcard: true,
-    amazon: true,
-    mercadolibre: true,
-    shapeshift: true
+    coinbase: false,
+    glidera: false,
+    debitcard: false,
+    amazon: false,
+    mercadolibre: false,
+    shapeshift: false
   },
 
   rates: {
-    url: 'https://insight.bitpay.com:443/api/rates'
+    url: 'https://insight-btc.monoeci.io:443/api/rates'
   },
 
   release: {
@@ -201,8 +215,12 @@ const configDefault: Config = {
   },
 
   blockExplorerUrl: {
-    btc: 'insight.bitpay.com',
-    bch: 'bch-insight.bitpay.com/#'
+    btc: 'insight.monoeci.io/insight', //For backward Compatibility
+    polis: '',//Not used
+    dash: '', //Not used
+    xmcc: 'insight.monoeci.io/insight',
+    gbx: '',  //Not used
+    colx: ''  //Not used
   }
 };
 
@@ -228,9 +246,9 @@ export class ConfigProvider {
           this.configCache = _.clone(configDefault);
         }
         resolve();
-      }).catch(err => {
-        this.logger.error('Error Loading Config');
-        reject(err);
+      }).catch((err) => {
+        this.logger.error(err);
+        reject();
       });
     });
   }

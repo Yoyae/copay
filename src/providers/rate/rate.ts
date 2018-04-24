@@ -7,25 +7,44 @@ import { Logger } from '../../providers/logger/logger';
 export class RateProvider {
   private rates: any;
   private alternatives: any[];
-  private ratesBCH: any;
+  private ratesPOLIS: any;
+  private ratesDASH: any;
+  private ratesMONOECI: any;
+  private ratesGOBYTE: any;
+  private ratesCOLOSSUSXT: any;
   private ratesAvailable: boolean;
 
   private SAT_TO_BTC: number;
   private BTC_TO_SAT: number;
 
   private rateServiceUrl = 'https://bitpay.com/api/rates';
-  private bchRateServiceUrl = 'https://bitpay.com/api/rates/bch';
+  private polisRateServiceUrl = 'https://cors-anywhere.herokuapp.com/api.coinmarketcap.com/v1/ticker/polis';
+  private dashRateServiceUrl = 'https://cors-anywhere.herokuapp.com/api.coinmarketcap.com/v1/ticker/dash';
+  private monoeciRateServiceUrl = 'https://cors-anywhere.herokuapp.com/api.coinmarketcap.com/v1/ticker/monacocoin';
+  private gobyteRateServiceUrl = 'https://cors-anywhere.herokuapp.com/api.coinmarketcap.com/v1/ticker/gobyte';
+  private colossusxtRateServiceUrl = 'https://cors-anywhere.herokuapp.com/api.coinmarketcap.com/v1/ticker/colossusxt';
 
-  constructor(private http: HttpClient, private logger: Logger) {
+  constructor(
+    private http: HttpClient,
+    private logger: Logger
+  ) {
     this.logger.info('RateProvider initialized.');
     this.rates = {};
     this.alternatives = [];
-    this.ratesBCH = {};
+    this.ratesPOLIS = {};
+    this.ratesDASH = {};
+    this.ratesMONOECI = {};
+    this.ratesGOBYTE = {};
+    this.ratesCOLOSSUSXT = {};
     this.SAT_TO_BTC = 1 / 1e8;
     this.BTC_TO_SAT = 1e8;
     this.ratesAvailable = false;
     this.updateRatesBtc();
-    this.updateRatesBch();
+    this.updateRatesPolis();
+    this.updateRatesDash();
+    this.updateRatesMonoeci();
+    this.updateRatesGoByte();
+    this.updateRatesColossusXT();
   }
 
   public updateRatesBtc(): Promise<any> {
@@ -39,30 +58,128 @@ export class RateProvider {
               isoCode: currency.code,
               rate: currency.rate
             });
-          });
-          this.ratesAvailable = true;
-          resolve();
-        })
-        .catch((errorBTC: any) => {
-          this.logger.error(errorBTC);
-          reject(errorBTC);
         });
+        this.ratesAvailable = true;
+        resolve();
+      }).catch((errorBTC: any) => {
+        this.logger.error(errorBTC);
+        reject(errorBTC);
+      });
     });
   }
 
-  public updateRatesBch(): Promise<any> {
+  public updateRatesPolis(): Promise<any> {
     return new Promise((resolve, reject) => {
-      this.getBCH()
-        .then((dataBCH: any) => {
-          _.each(dataBCH, (currency: any) => {
-            this.ratesBCH[currency.code] = currency.rate;
-          });
-          resolve();
-        })
-        .catch((errorBCH: any) => {
-          this.logger.error(errorBCH);
-          reject(errorBCH);
+      this.getPOLIS().then((dataPOLIS: any) => {
+        _.each(dataPOLIS, (currency: any) => {
+          this.ratesPOLIS[currency.symbol] = 1;
+		  if (this.isAvailable()) {
+			_.each(this.alternatives,  (alternative: any) => {
+			   this.ratesPOLIS[alternative.isoCode] = currency.price_btc * alternative.rate;
+			});
+		  }
+          this.ratesPOLIS['USD'] = currency.price_usd;
+          this.ratesPOLIS['BTC'] = currency.price_btc;
         });
+
+
+        resolve();
+      }).catch((errorPOLIS: any) => {
+        this.logger.error(errorPOLIS);
+        reject(errorPOLIS);
+      });
+    });
+  }
+
+  public updateRatesDash(): Promise<any> {
+    return new Promise((resolve, reject) => {
+      this.getDASH().then((dataDASH: any) => {
+        _.each(dataDASH, (currency: any) => {
+          this.ratesDASH[currency.symbol] = 1;
+		  if (this.isAvailable()) {
+			_.each(this.alternatives,  (alternative: any) => {
+			   this.ratesDASH[alternative.isoCode] = currency.price_btc * alternative.rate;
+			});
+		  }
+          this.ratesDASH['USD'] = currency.price_usd;
+          this.ratesDASH['BTC'] = currency.price_btc;
+        });
+
+
+        resolve();
+      }).catch((errorDASH: any) => {
+        this.logger.error(errorDASH);
+        reject(errorDASH);
+      });
+    });
+  }
+
+  public updateRatesMonoeci(): Promise<any> {
+    return new Promise((resolve, reject) => {
+      this.getMONOECI().then((dataMONOECI: any) => {
+        _.each(dataMONOECI, (currency: any) => {
+          this.ratesMONOECI[currency.symbol] = 1;
+      if (this.isAvailable()) {
+      _.each(this.alternatives,  (alternative: any) => {
+         this.ratesMONOECI[alternative.isoCode] = currency.price_btc * alternative.rate;
+      });
+      }
+          this.ratesMONOECI['USD'] = currency.price_usd;
+          this.ratesMONOECI['BTC'] = currency.price_btc;
+        });
+
+
+        resolve();
+      }).catch((errorMONOECI: any) => {
+        this.logger.error(errorMONOECI);
+        reject(errorMONOECI);
+      });
+    });
+  }
+
+  public updateRatesGoByte(): Promise<any> {
+    return new Promise((resolve, reject) => {
+      this.getGOBYTE().then((dataGOBYTE: any) => {
+        _.each(dataGOBYTE, (currency: any) => {
+          this.ratesGOBYTE[currency.symbol] = 1;
+      if (this.isAvailable()) {
+      _.each(this.alternatives,  (alternative: any) => {
+         this.ratesGOBYTE[alternative.isoCode] = currency.price_btc * alternative.rate;
+      });
+      }
+          this.ratesGOBYTE['USD'] = currency.price_usd;
+          this.ratesGOBYTE['BTC'] = currency.price_btc;
+        });
+
+
+        resolve();
+      }).catch((errorGOBYTE: any) => {
+        this.logger.error(errorGOBYTE);
+        reject(errorGOBYTE);
+      });
+    });
+  }
+
+  public updateRatesColossusXT(): Promise<any> {
+    return new Promise((resolve, reject) => {
+      this.getCOLOSSUSXT().then((dataCOLOSSUSXT: any) => {
+        _.each(dataCOLOSSUSXT, (currency: any) => {
+          this.ratesCOLOSSUSXT[currency.symbol] = 1;
+      if (this.isAvailable()) {
+      _.each(this.alternatives,  (alternative: any) => {
+         this.ratesCOLOSSUSXT[alternative.isoCode] = currency.price_btc * alternative.rate;
+      });
+      }
+          this.ratesCOLOSSUSXT['USD'] = currency.price_usd;
+          this.ratesCOLOSSUSXT['BTC'] = currency.price_btc;
+        });
+
+
+        resolve();
+      }).catch((errorCOLOSSUSXT: any) => {
+        this.logger.error(errorCOLOSSUSXT);
+        reject(errorCOLOSSUSXT);
+      });
     });
   }
 
@@ -74,17 +191,55 @@ export class RateProvider {
     });
   }
 
-  public getBCH(): Promise<any> {
+  public getPOLIS(): Promise<any> {
     return new Promise((resolve, reject) => {
-      this.http.get(this.bchRateServiceUrl).subscribe((data: any) => {
+      this.http.get(this.polisRateServiceUrl).subscribe((data: any) => {
+        resolve(data);
+      });
+    });
+  }
+  public getDASH(): Promise<any> {
+    return new Promise((resolve, reject) => {
+      this.http.get(this.dashRateServiceUrl).subscribe((data: any) => {
+        resolve(data);
+      });
+    });
+  }
+  public getMONOECI(): Promise<any> {
+    return new Promise((resolve, reject) => {
+      this.http.get(this.monoeciRateServiceUrl).subscribe((data: any) => {
+        resolve(data);
+      });
+    });
+  }
+  public getGOBYTE(): Promise<any> {
+    return new Promise((resolve, reject) => {
+      this.http.get(this.gobyteRateServiceUrl).subscribe((data: any) => {
+        resolve(data);
+      });
+    });
+  }
+  public getCOLOSSUSXT(): Promise<any> {
+    return new Promise((resolve, reject) => {
+      this.http.get(this.colossusxtRateServiceUrl).subscribe((data: any) => {
         resolve(data);
       });
     });
   }
 
   public getRate(code: string, chain?: string): number {
-    if (chain == 'bch') return this.ratesBCH[code];
-    else return this.rates[code];
+    if (chain == 'polis')
+      return this.ratesPOLIS[code];
+    else if (chain == 'dash')
+        return this.ratesDASH[code];
+    else if (chain == 'xmcc')
+        return this.ratesMONOECI[code];
+    else if (chain == 'gbx')
+        return this.ratesGOBYTE[code];
+    else if (chain == 'colx')
+        return this.ratesCOLOSSUSXT[code];
+    else
+      return this.rates[code];
   }
 
   public getAlternatives(): any[] {

@@ -243,7 +243,7 @@ export class WalletExportPage {
       duration: 1000,
     });
     showSuccess.present();
-    let name = (this.wallet.credentials.walletName || this.wallet.credentials.walletId);
+    let name = (this.wallet.credentials.walletName || this.wallet.credentials.walletId) + '-' + this.wallet.credentials.coin;
     if (this.wallet.alias) {
       name = this.wallet.alias + ' [' + name + ']';
     }

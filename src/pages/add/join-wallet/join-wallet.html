@@ -23,9 +23,8 @@
 
     <ion-item>
       <ion-label stacked>{{'Coin' | translate}}</ion-label>
-      <ion-select placeholder="{{'Select a coin' | translate}}" formControlName="coin">
-        <ion-option value="btc">BTC</ion-option>
-        <ion-option value="bch">BCH</ion-option>
+      <ion-select placeholder="{{'Select a coin' | translate}}" formControlName="coin" (ionChange)="coinChange(joinForm.value.coin)">
+        <ion-option value="xmcc">XMCC</ion-option>
       </ion-select>
     </ion-item>
 

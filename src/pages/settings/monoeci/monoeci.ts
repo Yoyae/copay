@@ -16,12 +16,12 @@ import { TxFormatProvider } from "../../../providers/tx-format/tx-format";
 import { WalletProvider } from "../../../providers/wallet/wallet";
 
 @Component({
-  selector: 'page-bitcoin-cash',
-  templateUrl: 'bitcoin-cash.html',
+  selector: 'page-monoeci',
+  templateUrl: 'monoeci.html',
 })
-export class BitcoinCashPage {
+export class MonoeciPage {
   private walletsBTC: any[];
-  private walletsBCH: any[];
+  private walletsMonoeci: any[];
   private errors: any;
 
   public availableWallets: any[];
@@ -44,7 +44,7 @@ export class BitcoinCashPage {
     private events: Events
   ) {
     this.walletsBTC = [];
-    this.walletsBCH = [];
+    this.walletsMonoeci = [];
     this.availableWallets = [];
     this.nonEligibleWallets = [];
     this.errors = this.bwcProvider.getErrors();
@@ -59,12 +59,12 @@ export class BitcoinCashPage {
     });
 
     // Filter out already duplicated wallets
-    this.walletsBCH = this.profileProvider.getWallets({
-      coin: 'bch',
+    this.walletsMonoeci = this.profileProvider.getWallets({
+      coin: 'xmcc',
       network: 'livenet'
     });
 
-    let xPubKeyIndex = lodash.keyBy(this.walletsBCH, "credentials.xPubKey");
+    let xPubKeyIndex = lodash.keyBy(this.walletsMonoeci, "credentials.xPubKey");
 
     this.walletsBTC = lodash.filter(this.walletsBTC, w => {
       return !xPubKeyIndex[w.credentials.xPubKey];
@@ -86,8 +86,8 @@ export class BitcoinCashPage {
     });
 
     lodash.each(this.availableWallets, (wallet) => {
-      this.walletProvider.getBalance(wallet, { coin: 'bch' }).then((balance) => {
-        wallet.bchBalance = this.txFormatProvider.formatAmountStr('bch', balance.availableAmount);
+      this.walletProvider.getBalance(wallet, { coin: 'xmcc' }).then((balance) => {
+        wallet.bchBalance = this.txFormatProvider.formatAmountStr('xmcc', balance.availableAmount);
         wallet.error = null;
       }).catch((err) => {
         wallet.error = (err === 'WALLET_NOT_REGISTERED') ? this.translate.instant('Wallet not registered') : this.bwcErrorProvider.msg(err);
@@ -107,22 +107,22 @@ export class BitcoinCashPage {
   }
 
   public duplicate(wallet: any) {
-    this.logger.debug('Duplicating wallet for BCH: ' + wallet.id + ': ' + wallet.name);
+    this.logger.debug('Duplicating wallet for MONOECI: ' + wallet.id + ': ' + wallet.name);
 
     let opts: any = {
-      name: wallet.name + '[BCH]',
+      name: wallet.name + '[MONOECI]',
       m: wallet.m,
       n: wallet.n,
       myName: wallet.credentials.copayerName,
       networkName: wallet.network,
-      coin: 'bch',
+      coin: 'xmcc',
       walletPrivKey: wallet.credentials.walletPrivKey,
       compliantDerivation: wallet.credentials.compliantDerivation,
     };
 
     let setErr = (err) => {
       this.bwcErrorProvider.cb(err, 'Could not duplicate').then((errorMsg) => {
-        this.logger.warn('Duplicate BCH', errorMsg);
+        this.logger.warn(errorMsg);
         this.popupProvider.ionicAlert(errorMsg, null, 'OK');
         return;
       });
@@ -158,7 +158,7 @@ export class BitcoinCashPage {
       if (!isNew) return cb();
       if (wallet.n == 1) return cb();
 
-      this.logger.info('Adding copayers for BCH wallet config:' + wallet.m + '-' + wallet.n);
+      this.logger.info('Adding copayers for MONOECI wallet config:' + wallet.m + '-' + wallet.n);
 
       this.walletProvider.copyCopayers(wallet, newWallet, (err) => {
         if (err) {
@@ -177,7 +177,6 @@ export class BitcoinCashPage {
 
         this.walletProvider.updateRemotePreferences(newWallet);
         this.pushNotificationsProvider.updateSubscription(newWallet);
-        this.profileProvider.setWalletOrder(newWallet.credentials.walletId, null, newWallet.coin);
 
         addCopayers(newWallet, isNew, (err) => {
           this.onGoingProcessProvider.clear();

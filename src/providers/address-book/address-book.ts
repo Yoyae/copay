@@ -23,10 +23,30 @@ export class AddressBookProvider {
     try {
       network = (this.bwcProvider.getBitcore().Address(address)).network.name;
     } catch (e) {
-      this.logger.warn('No valid bitcoin address. Trying bitcoin cash...');
-      network = (this.bwcProvider.getBitcoreCash().Address(address)).network.name;
+      try {
+        this.logger.warn('No valid bitcoin address. Trying Polis...');
+        network = (this.bwcProvider.getBitcorePolis().Address(address)).network.name;
+      } catch (e) {
+        try {
+          this.logger.warn('No valid bitcoin address. Trying Dash...');
+          network = (this.bwcProvider.getBitcoreDash().Address(address)).network.name;
+        } catch (e) {
+		  try {
+            this.logger.warn('No valid bitcoin address. Trying Monoeci...');
+            network = (this.bwcProvider.getBitcoreMonoeci().Address(address)).network.name;
+		  } catch (e) {
+			try {
+			  this.logger.warn('No valid bitcoin address. Trying GoByte...');
+              network = (this.bwcProvider.getBitcoreGoByte().Address(address)).network.name;  
+			} catch (e) {
+			  this.logger.warn('No valid bitcoin address. Trying ColossusXT...');
+              network = (this.bwcProvider.getBitcoreColossusXT().Address(address)).network.name;  
+			}			
+		  }
+        }
+      }
     }
-    return network;
+	return network;
   };
 
   public get(addr: string): Promise<any> {

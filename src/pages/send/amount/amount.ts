@@ -156,11 +156,35 @@ export class AmountPage {
       id: 'btc',
       shortName: 'BTC',
     });
-
+       
     this.availableUnits.push({
-      name: 'Bitcoin Cash',
-      id: 'bch',
-      shortName: 'BCH',
+      name: 'Polis',
+      id: 'polis',
+      shortName: 'POLIS',
+    });
+       
+    this.availableUnits.push({
+      name: 'Dash',
+      id: 'dash',
+      shortName: 'DASH',
+    });
+       
+    this.availableUnits.push({
+      name: 'Xmcc',
+      id: 'xmcc',
+      shortName: 'XMCC',
+    });
+	
+    this.availableUnits.push({
+      name: 'Gbx',
+      id: 'gbx',
+      shortName: 'GBX',
+    });
+       
+    this.availableUnits.push({
+      name: 'Colx',
+      id: 'colx',
+      shortName: 'COLX',
     });
 
     this.unitIndex = 0;

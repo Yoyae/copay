@@ -28,11 +28,15 @@ import { AboutPage } from './about/about';
 import { AddressbookPage } from './addressbook/addressbook';
 import { AdvancedPage } from './advanced/advanced';
 import { AltCurrencyPage } from './alt-currency/alt-currency';
-import { BitcoinCashPage } from './bitcoin-cash/bitcoin-cash';
+import { DashPage } from './dash/dash';
 import { FeePolicyPage } from './fee-policy/fee-policy';
 import { LanguagePage } from './language/language';
 import { LockPage } from './lock/lock';
+import { MonoeciPage } from './monoeci/monoeci';
+import { GoBytePage } from './gobyte/gobyte';
+import { ColossusXTPage } from './colossusxt/colossusxt';
 import { NotificationsPage } from './notifications/notifications';
+import { PolisPage } from './polis/polis';
 import { WalletSettingsPage } from './wallet-settings/wallet-settings';
 
 @Component({
@@ -44,7 +48,11 @@ export class SettingsPage {
   public currentLanguageName: string;
   public languages: any[];
   public walletsBtc: any[];
-  public walletsBch: any[];
+  public walletsPolis: any[];
+  public walletsDash: any[];
+  public walletsMonoeci: any[];
+  public walletsGoByte: any[];
+  public walletsColossusXT: any[];
   public config: any;
   public selectedAlternative: any;
   public isCordova: boolean;
@@ -67,7 +75,11 @@ export class SettingsPage {
     private translate: TranslateService
   ) {
     this.appName = this.app.info.nameCase;
-    this.walletsBch = [];
+    this.walletsPolis = [];
+    this.walletsDash = [];
+    this.walletsMonoeci = [];
+    this.walletsGoByte = [];
+    this.walletsColossusXT = [];
     this.walletsBtc = [];
     this.isCordova = this.platformProvider.isCordova;
   }
@@ -81,8 +93,20 @@ export class SettingsPage {
     this.walletsBtc = this.profileProvider.getWallets({
       coin: 'btc'
     });
-    this.walletsBch = this.profileProvider.getWallets({
-      coin: 'bch'
+    this.walletsPolis = this.profileProvider.getWallets({
+      coin: 'polis'
+    });
+    this.walletsDash = this.profileProvider.getWallets({
+      coin: 'dash'
+    });
+    this.walletsMonoeci = this.profileProvider.getWallets({
+      coin: 'xmcc'
+    });    
+	this.walletsGoByte = this.profileProvider.getWallets({
+      coin: 'gbx'
+    });    
+	this.walletsColossusXT = this.profileProvider.getWallets({
+      coin: 'colx'
     });
     this.config = this.configProvider.get();
     this.selectedAlternative = {
@@ -111,8 +135,24 @@ export class SettingsPage {
     });
   }
 
-  public openBitcoinCashPage(): void {
-    this.navCtrl.push(BitcoinCashPage);
+  public openPolisPage(): void {
+    this.navCtrl.push(PolisPage);
+  }
+
+  public openDashPage(): void {
+    this.navCtrl.push(DashPage);
+  }
+
+  public openMonoeciPage(): void {
+    this.navCtrl.push(MonoeciPage);
+  }
+
+  public openGoBytePage(): void {
+    this.navCtrl.push(GoBytePage);
+  }
+
+  public openColossusXTPage(): void {
+    this.navCtrl.push(ColossusXTPage);
   }
 
   public openAltCurrencyPage(): void {

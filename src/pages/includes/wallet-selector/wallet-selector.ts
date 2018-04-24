@@ -10,7 +10,11 @@ export class WalletSelectorPage {
   public showWalletsSelector: boolean;
   public wallets: any[];
   public walletsBtc: any[];
-  public walletsBch: any[];
+  public walletsPolis: any[];
+  public walletsDash: any[];
+  public walletsMonoeci: any[];
+  public walletsGoByte: any[];
+  public walletsColossusXT: any[];
   public showSlideEffect: boolean;
   public title: string;
   public selectedWalletId: string;
@@ -50,12 +54,20 @@ export class WalletSelectorPage {
 
   private separeWallets(): void {
     this.walletsBtc = [];
-    this.walletsBch = [];
+    this.walletsPolis = [];
+    this.walletsDash = [];
+    this.walletsMonoeci = [];
+    this.walletsGoByte = [];
+    this.walletsColossusXT = [];
     if (this.wallets.length == 0) return;
     for (var i = 0; i <= this.wallets.length; i++) {
       if (this.wallets[i]) {
         if (this.wallets[i].coin == 'btc') this.walletsBtc.push(this.wallets[i]);
-        else this.walletsBch.push(this.wallets[i]);
+        else if (this.wallets[i].coin == 'polis') this.walletsPolis.push(this.wallets[i]);
+        else if (this.wallets[i].coin == 'dash') this.walletsDash.push(this.wallets[i]);
+        else if (this.wallets[i].coin == 'xmcc') this.walletsMonoeci.push(this.wallets[i]);
+        else if (this.wallets[i].coin == 'gbx') this.walletsGoByte.push(this.wallets[i]);
+        else if (this.wallets[i].coin == 'colx') this.walletsColossusXT.push(this.wallets[i]);
       }
     }
   }

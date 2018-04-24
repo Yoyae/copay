@@ -1,0 +1,25 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>Buy or Sell Monoeci</ion-title>
+  </ion-navbar>
+</ion-header>
+<ion-content>
+  <div class="list">
+    <div class="explain">
+      <i class="icon buy-and-sell-icon">
+        <img src="../assets/img/monoeci-logo.svg"/>
+      </i>
+      <div class="explain-heading">Connect an Exchange</div>
+      <div class="explain-description">Buy or sell monoeci directly from your wallet by connecting your exchange accounts.</div>
+    </div>
+
+    <div class="item item-divider"></div>
+
+    <div *ngFor="let service of services">
+      <div class="item item-icon-right" (click)="openMarket(service.url)">
+        <span>{{ service.caption }}</span>
+        <span class="forward-arrow"><ion-icon name="ios-arrow-forward"></ion-icon></span>
+      </div>
+    </div>
+  </div>
+</ion-content>

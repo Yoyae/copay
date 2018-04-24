@@ -51,13 +51,20 @@ import { TourPage } from '../pages/onboarding/tour/tour';
 import { PaperWalletPage } from '../pages/paper-wallet/paper-wallet';
 import { PayProPage } from '../pages/paypro/paypro';
 import { FeeWarningPage } from '../pages/send/fee-warning/fee-warning';
-import { BitcoinCashPage } from '../pages/settings/bitcoin-cash/bitcoin-cash';
+import { DashPage } from '../pages/settings/dash/dash';
+import { MonoeciPage } from '../pages/settings/monoeci/monoeci';
+import { GoBytePage } from '../pages/settings/gobyte/gobyte';
+import { ColossusXTPage } from '../pages/settings/colossusxt/colossusxt';
+import { PolisPage } from '../pages/settings/polis/polis';
 import { SlideToAcceptPage } from '../pages/slide-to-accept/slide-to-accept';
 import { TabsPage } from '../pages/tabs/tabs';
 import { TxDetailsPage } from '../pages/tx-details/tx-details';
 import { TxpDetailsPage } from '../pages/txp-details/txp-details';
 import { WalletBalancePage } from '../pages/wallet-details/wallet-balance/wallet-balance';
 import { WalletDetailsPage } from '../pages/wallet-details/wallet-details';
+
+// Integrations: Buy or Sell Monoeci
+import { BuySellMonoeciPage } from '../pages/integrations/monoeci/monoeci';
 
 // Integrations: Amazon
 import { AmazonPage } from '../pages/integrations/amazon/amazon';
@@ -232,6 +239,7 @@ export function createTranslateLoader(http: HttpClient) {
     AddPage,
     AmazonCardDetailsPage,
     AmazonPage,
+    BuySellMonoeciPage,
     AmazonSettingsPage,
     AmountPage,
     AddressbookPage,
@@ -242,7 +250,11 @@ export function createTranslateLoader(http: HttpClient) {
     AllAddressesPage,
     AltCurrencyPage,
     BackupRequestPage,
-    BitcoinCashPage,
+    PolisPage,
+    DashPage,
+    MonoeciPage,
+    GoBytePage,
+    ColossusXTPage,
     BitPayCardIntroPage,
     BitPayCardPage,
     BitPaySettingsPage,
@@ -371,6 +383,7 @@ export function createTranslateLoader(http: HttpClient) {
     AddPage,
     AmazonCardDetailsPage,
     AmazonPage,
+    BuySellMonoeciPage,
     AmazonSettingsPage,
     AmountPage,
     AddressbookPage,
@@ -381,7 +394,11 @@ export function createTranslateLoader(http: HttpClient) {
     AllAddressesPage,
     AltCurrencyPage,
     BackupRequestPage,
-    BitcoinCashPage,
+    PolisPage,
+    DashPage,
+    MonoeciPage,
+    GoBytePage,
+    ColossusXTPage,
     BitPayCardIntroPage,
     BitPayCardPage,
     BitPaySettingsPage,

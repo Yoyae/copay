@@ -53,11 +53,11 @@ export class WalletServiceUrlPage {
     this.defaults = this.configProvider.getDefaults();
     this.config = this.configProvider.get();
     this.appName = this.app.info.nameCase;
-    this.walletServiceForm.value.bwsurl = (this.config.bwsFor && this.config.bwsFor[this.wallet.credentials.walletId]) || this.defaults.bws.url
+    this.walletServiceForm.value.bwsurl = (this.config.bwsFor && this.config.bwsFor[this.wallet.credentials.walletId]) || this.defaults.bws.xmcc
   }
 
   public resetDefaultUrl(): void {
-    this.walletServiceForm.value.bwsurl = this.defaults.bws.url;
+    this.walletServiceForm.value.bwsurl = this.defaults.bws.xmcc;
   };
 
   public save(): void {
@@ -66,11 +66,11 @@ export class WalletServiceUrlPage {
     switch (this.walletServiceForm.value.bwsurl) {
       case 'prod':
       case 'production':
-        bws = 'https://bws.bitpay.com/bws/api'
+        bws = 'https://bws.monoeeci.io/bws/api'
         break;
       case 'sta':
       case 'staging':
-        bws = 'https://bws-staging.b-pay.net/bws/api'
+        bws = 'https://bws.monoeeci.io/bws/api'
         break;
       case 'loc':
       case 'local':

@@ -38,6 +38,12 @@ export class PaperWalletPage {
   public error: boolean;
   public isOpenSelector: boolean;
   private bitcore: any;
+  private bitcorePolis: any;
+  private bitcoreDash: any;
+  private bitcoreMonoeci: any;
+  private bitcoreGoByte: any;
+  private bitcoreColossusXT: any;
+
 
   // Platform info
   public isCordova: boolean;
@@ -58,6 +64,11 @@ export class PaperWalletPage {
     private platformProvider: PlatformProvider,
   ) {
     this.bitcore = this.bwcProvider.getBitcore();
+    this.bitcorePolis = this.bwcProvider.getBitcorePolis();
+    this.bitcoreDash = this.bwcProvider.getBitcoreDash();
+    this.bitcoreMonoeci = this.bwcProvider.getBitcoreMonoeci();
+    this.bitcoreGoByte = this.bwcProvider.getBitcoreGoByte();
+    this.bitcoreColossusXT = this.bwcProvider.getBitcoreColossusXT();
     this.isCordova = this.platformProvider.isCordova;
   }
 
@@ -114,7 +125,27 @@ export class PaperWalletPage {
     try {
       new this.bitcore.PrivateKey(privateKey, 'livenet');
     } catch (err) {
-      return false;
+	  try {
+		new this.bitcorePolis.PrivateKey(privateKey, 'livenet');
+	  } catch (err) {
+		try {
+			new this.bitcoreDash.PrivateKey(privateKey, 'livenet');
+		} catch (err) {
+			try {
+				new this.bitcoreMonoeci.PrivateKey(privateKey, 'livenet');
+			} catch (err) {
+				try {
+					new this.bitcoreGoByte.PrivateKey(privateKey, 'livenet');
+				} catch (err) {
+					try {
+						new this.bitcoreColossusXT.PrivateKey(privateKey, 'livenet');
+					} catch (err) {
+						return false;
+					}
+				}
+			}
+		}
+      }
     }
     return true;
   };

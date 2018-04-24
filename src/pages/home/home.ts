@@ -12,6 +12,7 @@ import { BitPayCardIntroPage } from '../integrations/bitpay-card/bitpay-card-int
 import { CoinbasePage } from '../integrations/coinbase/coinbase';
 import { GlideraPage } from '../integrations/glidera/glidera';
 import { MercadoLibrePage } from '../integrations/mercado-libre/mercado-libre';
+import { BuySellMonoeciPage } from '../integrations/monoeci/monoeci';
 import { ShapeshiftPage } from '../integrations/shapeshift/shapeshift';
 import { TxDetailsPage } from '../tx-details/tx-details';
 import { TxpDetailsPage } from '../txp-details/txp-details';
@@ -48,7 +49,11 @@ import * as moment from 'moment';
 export class HomePage {
   public wallets: any;
   public walletsBtc: any;
-  public walletsBch: any;
+  public walletsPolis: any;
+  public walletsDash: any;
+  public walletsMonoeci: any;
+  public walletsGoByte: any;
+  public walletsColossusXT: any;
   public cachedBalanceUpdateOn: string;
   public recentTransactionsEnabled: boolean;
   public txps: any;
@@ -67,7 +72,11 @@ export class HomePage {
   public showRateCard: boolean;
   public homeTip: boolean;
   public showReorderBtc: boolean;
-  public showReorderBch: boolean;
+  public showReorderPolis: boolean;
+  public showReorderDash: boolean;
+  public showReorderMonoeci: boolean;
+  public showReorderGoByte: boolean;
+  public showReorderColossusXT: boolean;
   public showIntegration: any;
 
   private isNW: boolean;
@@ -104,7 +113,11 @@ export class HomePage {
     this.cachedBalanceUpdateOn = '';
     this.isNW = this.platformProvider.isNW;
     this.showReorderBtc = false;
-    this.showReorderBch = false;
+    this.showReorderPolis = false;
+    this.showReorderDash = false;
+    this.showReorderMonoeci = false;
+    this.showReorderGoByte = false;
+    this.showReorderColossusXT = false;
     this.zone = new NgZone({ enableLongStackTrace: false });
   }
 
@@ -163,7 +176,17 @@ export class HomePage {
 
     // Show integrations
     let integrations = _.filter(this.homeIntegrationsProvider.get(), { 'show': true });
+    
+    let monoeciIntegration = {
+      name: 'monoeci',
+      title: 'Buy or Sell Monoeci',
+      icon: 'assets/img/monoeci-logo.svg',
+      page: 'MonoeciPage',
+      show: true
+    };
 
+    integrations.push(monoeciIntegration);
+    
     // Hide BitPay if linked
     setTimeout(() => {
       this.homeIntegrations = _.remove(_.clone(integrations), (x) => {
@@ -175,7 +198,7 @@ export class HomePage {
     // Only BitPay Wallet
     this.bitPayCardProvider.get({}, (err, cards) => {
       this.zone.run(() => {
-        this.showBitPayCard = this.appProvider.info._enabledExtensions.debitcard ? true : false;
+        this.showBitPayCard = this.app.info._enabledExtensions.debitcard ? true : false;
         this.bitpayCardItems = cards;
       });
     });
@@ -258,7 +281,11 @@ export class HomePage {
   private setWallets = _.debounce(() => {
     this.wallets = this.profileProvider.getWallets();
     this.walletsBtc = this.profileProvider.getWallets({ coin: 'btc' });
-    this.walletsBch = this.profileProvider.getWallets({ coin: 'bch' });
+    this.walletsPolis = this.profileProvider.getWallets({ coin: 'polis' });
+    this.walletsDash = this.profileProvider.getWallets({ coin: 'dash' });
+    this.walletsMonoeci = this.profileProvider.getWallets({ coin: 'xmcc' });
+    this.walletsGoByte = this.profileProvider.getWallets({ coin: 'gbx' });
+    this.walletsColossusXT = this.profileProvider.getWallets({ coin: 'colx' });
     this.updateAllWallets();
   }, 5000, {
       'leading': true
@@ -355,8 +382,24 @@ export class HomePage {
       wallets.push(wBtc);
     });
 
-    _.each(this.walletsBch, (wBch) => {
-      wallets.push(wBch);
+    _.each(this.walletsPolis, (wPolis) => {
+      wallets.push(wPolis);
+    });
+
+    _.each(this.walletsDash, (wDash) => {
+      wallets.push(wDash);
+    });
+
+    _.each(this.walletsMonoeci, (wMonoeci) => {
+      wallets.push(wMonoeci);
+    });
+	
+    _.each(this.walletsGoByte, (wGoByte) => {
+      wallets.push(wGoByte);
+    });
+	
+    _.each(this.walletsColossusXT, (wColossusXT) => {
+      wallets.push(wColossusXT);
     });
 
     if (_.isEmpty(wallets)) return;
@@ -393,6 +436,7 @@ export class HomePage {
   }
 
   private checkUpdate(): void {
+    // TODO check if new update
     this.releaseProvider.getLatestAppVersion().toPromise()
       .then((version) => {
         this.logger.debug('Current app version:', version);
@@ -418,7 +462,7 @@ export class HomePage {
   }
 
   public goToWalletDetails(wallet: any): void {
-    if (this.showReorderBtc || this.showReorderBch) return;
+    if (this.showReorderBtc || this.showReorderPolis || this.showReorderDash || this.showReorderMonoeci || this.showReorderGoByte || this.showReorderColossusXT) return;
     if (!wallet.isComplete()) {
       this.navCtrl.push(CopayersPage, { walletId: wallet.credentials.walletId });
       return;
@@ -458,8 +502,23 @@ export class HomePage {
     this.showReorderBtc = !this.showReorderBtc;
   }
 
-  public reorderBch(): void {
-    this.showReorderBch = !this.showReorderBch;
+  public reorderPolis(): void {
+    this.showReorderPolis = !this.showReorderPolis;
+  }
+  public reorderDash(): void {
+    this.showReorderDash = !this.showReorderDash;
+  }
+
+  public reorderMonoeci(): void {
+    this.showReorderMonoeci = !this.showReorderMonoeci;
+  }
+  
+  public reorderGoByte(): void {
+    this.showReorderGoByte = !this.showReorderGoByte;
+  }
+  
+  public reorderColossusXT(): void {
+    this.showReorderColossusXT = !this.showReorderColossusXT;
   }
 
   public reorderWalletsBtc(indexes): void {
@@ -471,17 +530,53 @@ export class HomePage {
     });
   };
 
-  public reorderWalletsBch(indexes): void {
-    let element = this.walletsBch[indexes.from];
-    this.walletsBch.splice(indexes.from, 1);
-    this.walletsBch.splice(indexes.to, 0, element);
-    _.each(this.walletsBch, (wallet: any, index: number) => {
-      this.profileProvider.setWalletOrder(wallet.id, index, 'bch');
+  public reorderWalletsPolis(indexes): void {
+    let element = this.walletsPolis[indexes.from];
+    this.walletsPolis.splice(indexes.from, 1);
+    this.walletsPolis.splice(indexes.to, 0, element);
+    _.each(this.walletsPolis, (wallet: any, index: number) => {
+      this.profileProvider.setWalletOrder(wallet.id, index, 'polis');
+    });
+  };
+
+  public reorderWalletsDash(indexes): void {
+    let element = this.walletsDash[indexes.from];
+    this.walletsDash.splice(indexes.from, 1);
+    this.walletsDash.splice(indexes.to, 0, element);
+    _.each(this.walletsDash, (wallet: any, index: number) => {
+      this.profileProvider.setWalletOrder(wallet.id, index, 'dash');
+    });
+  };
+
+  public reorderWalletsMonoeci(indexes): void {
+    let element = this.walletsMonoeci[indexes.from];
+    this.walletsMonoeci.splice(indexes.from, 1);
+    this.walletsMonoeci.splice(indexes.to, 0, element);
+    _.each(this.walletsMonoeci, (wallet: any, index: number) => {
+      this.profileProvider.setWalletOrder(wallet.id, index, 'xmcc');
+    });
+  };
+  
+  public reorderWalletsGoByte(indexes): void {
+    let element = this.walletsGoByte[indexes.from];
+    this.walletsGoByte.splice(indexes.from, 1);
+    this.walletsGoByte.splice(indexes.to, 0, element);
+    _.each(this.walletsGoByte, (wallet: any, index: number) => {
+      this.profileProvider.setWalletOrder(wallet.id, index, 'gbx');
+    });
+  };
+  
+  public reorderWalletsColossusXT(indexes): void {
+    let element = this.walletsColossusXT[indexes.from];
+    this.walletsColossusXT.splice(indexes.from, 1);
+    this.walletsColossusXT.splice(indexes.to, 0, element);
+    _.each(this.walletsColossusXT, (wallet: any, index: number) => {
+      this.profileProvider.setWalletOrder(wallet.id, index, 'colx');
     });
   };
 
   public goToDownload(): void {
-    let url = 'https://github.com/bitpay/copay/releases/latest';
+    let url = 'https://github.com/yoyae/copay-monoeci/releases/latest';
     let optIn = true;
     let title = this.translate.instant('Update Available');
     let message = this.translate.instant('An update to this app is available. For your security, please update to the latest version.');
@@ -522,6 +617,9 @@ export class HomePage {
         break;
       case 'ShapeshiftPage':
         this.navCtrl.push(ShapeshiftPage);
+        break;
+      case 'MonoeciPage':
+        this.navCtrl.push(BuySellMonoeciPage);
         break;
     }
   }
