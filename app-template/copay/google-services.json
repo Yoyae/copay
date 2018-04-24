@@ -1,27 +1,27 @@
 {
   "project_info": {
-    "project_number": "149194066736",
-    "firebase_url": "https://bitpay-wallet.firebaseio.com",
-    "project_id": "bitpay-wallet",
-    "storage_bucket": "bitpay-wallet.appspot.com"
+    "project_number": "1068866645927",
+    "firebase_url": "https://monoeci-copay.firebaseio.com",
+    "project_id": "monoeci-copay",
+    "storage_bucket": "monoeci-copay.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:149194066736:android:6de8942b48fea047",
+        "mobilesdk_app_id": "1:1068866645927:android:ac6f88bb4a8ae77f",
         "android_client_info": {
-          "package_name": "com.bitpay.copay"
+          "package_name": "com.monoeci.copay"
         }
       },
       "oauth_client": [
         {
-          "client_id": "149194066736-1gf0d9nk288dke5jdiuj8unkplhl8nco.apps.googleusercontent.com",
+          "client_id": "1068866645927-3p5l2a4sintfdegi5idj01pb6k0n8ehv.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyCZ8nyjRBe-0Lyur0LjO-SOkjv32uNQKy0"
+          "current_key": "AIzaSyALf3M8LFZPSa99Lw24djCsiVWENIzJXzE"
         }
       ],
       "services": {
