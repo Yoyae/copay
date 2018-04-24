@@ -12,12 +12,20 @@ export class AddressValidator {
   isValid(control: FormControl): any {
 
     let b = AddressValidator.bitcore.getBitcore();
-    let c = AddressValidator.bitcore.getBitcoreCash();
+    let c = AddressValidator.bitcore.getBitcorePolis();
+    let d = AddressValidator.bitcore.getBitcoreDash();
+    let e = AddressValidator.bitcore.getBitcoreMonoeci();
+    let f = AddressValidator.bitcore.getBitcoreGoByte();
+    let g = AddressValidator.bitcore.getBitcoreColossusXT();
+
 
     let URI = b.URI;
     let Address = b.Address;
-    let URICash = c.URI;
-    let AddressCash = c.Address;
+    let AddressPolis = c.Address;
+    let AddressDash = d.Address;
+    let AddressMonoeci = e.Address;
+    let AddressGoByte = f.Address;
+    let AddressColossusXT = g.Address;
 
     // Regular url
     if (/^https?:\/\//.test(control.value)) {
@@ -36,22 +44,17 @@ export class AddressValidator {
       if (isUriValid && (isAddressValidLivenet || isAddressValidTestnet)) {
         return null;
       }
-    } else if (/^bitcoincash:/.test(control.value)) {
-      let isUriValid = URICash.isValid(control.value);
-      if (isUriValid) {
-        uri = new URICash(control.value);
-        isAddressValidLivenet = AddressCash.isValid(uri.address.toString(), 'livenet')
-      }
-      if (isUriValid && isAddressValidLivenet) {
-        return null;
-      }
     }
-
-    // Regular Address: try Bitcoin and Bitcoin Cash
+	
+    // Regular Address: try Bitcoin and Polis
     let regularAddressLivenet = Address.isValid(control.value, 'livenet');
     let regularAddressTestnet = Address.isValid(control.value, 'testnet');
-    let regularAddressCashLivenet = AddressCash.isValid(control.value, 'livenet');
-    if (regularAddressLivenet || regularAddressTestnet || regularAddressCashLivenet) {
+    let regularAddressPolisLivenet = AddressPolis.isValid(control.value, 'livenet');
+    let regularAddressDashLivenet = AddressDash.isValid(control.value, 'livenet');
+    let regularAddressMonoeciLivenet = AddressMonoeci.isValid(control.value, 'livenet');
+    let regularAddressGoByteLivenet = AddressGoByte.isValid(control.value, 'livenet');
+    let regularAddressColossusXTLivenet = AddressColossusXT.isValid(control.value, 'livenet');
+    if (regularAddressLivenet || regularAddressTestnet || regularAddressPolisLivenet || regularAddressDashLivenet || regularAddressMonoeciLivenet || regularAddressGoByteLivenet || regularAddressColossusXTLivenet) {
       return null;
     }
 

@@ -3,12 +3,20 @@ import { Injectable } from '@angular/core';
 import { Logger } from '../../providers/logger/logger';
 
 import * as BWCBitcoin from 'bitcore-wallet-client-monoeci';
-import * as BWCDash from 'bitcore-wallet-client-monoeci';
+/*import * as BWCDash from 'bitcore-wallet-client-monoeci';
 import * as BWCMonoeci from 'bitcore-wallet-client-monoeci';
 import * as BWCGoByte from 'bitcore-wallet-client-monoeci';
 import * as BWCColossusXT from 'bitcore-wallet-client-monoeci';
 import * as BWCPolis from 'bitcore-wallet-client-monoeci';
+import * as BWCCash from 'bitcore-wallet-client-monoeci';*/
 
+//Coins implementation - Actually not needed
+var BWCDash = BWCBitcoin;
+var BWCMonoeci = BWCBitcoin;
+var BWCGoByte = BWCBitcoin;
+var BWCColossusXT = BWCBitcoin;
+var BWCPolis = BWCBitcoin;
+var BWCCash = BWCBitcoin;
 
 @Injectable()
 export class BwcProvider {
@@ -30,7 +38,10 @@ export class BwcProvider {
       return BWCGoByte.Bitcore;
     } else if ( coin === 'colx' ){
       return BWCColossusXT.Bitcore;
+    } else if ( coin === 'bch' ){
+      return BWCCash.Bitcore;
     }
+	
     return BWCBitcoin.Bitcore;
   }
 
@@ -44,6 +55,10 @@ export class BwcProvider {
 
   public getBitcoreMonoeci(): any {
     return BWCMonoeci.Bitcore;
+  }  
+  
+  public getBitcoreCash(): any {
+    return BWCCash.Bitcore;
   }
   
   public getBitcoreGoByte(): any {
@@ -55,11 +70,11 @@ export class BwcProvider {
   }
 
   public getErrors(): any { // No bitcore connections - just a lib of errors - Polis bitcore has specific errors (InstantSend, ..)
-    return BWCPolis.errors;
+    return BWCMonoeci.errors;
   }
 
   public getSJCL(): any { // No bitcore connections - Just a descriptor of crypto words
-    return BWCPolis.sjcl;
+    return BWCMonoeci.sjcl;
   }
 
 
@@ -74,6 +89,8 @@ export class BwcProvider {
       return BWCGoByte.Utils;
     } else if ( coin === 'colx' ){
       return BWCColossusXT.Utils;
+    } else if ( coin === 'bch' ){
+      return BWCCash.Utils;
     }
     return BWCPolis.Utils;
   }
@@ -92,6 +109,10 @@ export class BwcProvider {
 
   public parseSecretMonoeci(opts): any {
   return BWCMonoeci.parseSecret(opts);
+  }  
+  
+  public parseSecretCash(opts): any {
+  return BWCCash.parseSecret(opts);
   }
   
   public parseSecretGoByte(opts): any {
@@ -154,6 +175,15 @@ export class BwcProvider {
     // note opts use `bwsurl` all lowercase;
     bwc = new BWCColossusXT({
       baseUrl: opts.bwsurl || 'https://bws-colx.monoeci.io/bws/api',
+      verbose: opts.verbose,
+      timeout: 100000,
+      transports: ['polling'],
+    });
+  } 
+  else if ( coin === 'bch' ) {
+    // note opts use `bwsurl` all lowercase;
+    bwc = new BWCCash({
+      baseUrl: opts.bwsurl || 'https://bws-bch.monoeci.io/bws/api',
       verbose: opts.verbose,
       timeout: 100000,
       transports: ['polling'],

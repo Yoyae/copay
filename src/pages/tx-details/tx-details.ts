@@ -148,7 +148,7 @@ export class TxDetailsPage {
     this.walletProvider.getTx(this.wallet, this.txId).then((tx: any) => {
       if (!opts.hideLoading) this.onGoingProcess.clear();
 
-      this.btx = this.txFormatProvider.processTx(this.wallet.coin, tx, this.walletProvider.useLegacyAddress());
+      this.btx = this.txFormatProvider.processTx(this.wallet.coin, tx);
       let v: string = this.txFormatProvider.formatAlternativeStr(this.wallet.coin, tx.fees);
       this.btx.feeFiatStr = v;
       this.btx.feeRateStr = (this.btx.fees / (this.btx.amount + this.btx.fees) * 100).toFixed(2) + '%';

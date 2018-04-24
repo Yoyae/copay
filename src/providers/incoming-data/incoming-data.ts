@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
-import { App, Events, NavController } from 'ionic-angular';
+import { App, Events, NavControllerBase} from 'ionic-angular';
 import { Logger } from '../../providers/logger/logger';
 
 // providers
