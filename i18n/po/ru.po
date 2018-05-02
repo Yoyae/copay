@@ -230,7 +230,7 @@ msgstr "Доступно обновление. Для вашей же безоп
 
 #: www/views/backupWarning.html:14
 msgid "Anyone with your backup phrase can access or spend your monoeci."
-msgstr "Любой, у кого есть доступ к вашему ключевому словосочетанию, может потратить ваши биткойны."
+msgstr "Любой, у кого есть доступ к вашему ключевому словосочетанию, может потратить ваши Monoeci."
 
 #: www/views/addresses.html:94
 msgid "Approximate Monoeci network fee to transfer wallet's balance (with normal priority)"
@@ -242,7 +242,7 @@ msgstr "За вами сейчас кто-нибудь смотрит?"
 
 #: src/js/controllers/preferencesExternal.js:15
 msgid "Are you being watched? Anyone with your recovery phrase can access or spend your monoeci."
-msgstr "За вами подглядывают? Любой у кого есть ваша фраза восстановления может получить или потратить ваши биткойны."
+msgstr "За вами подглядывают? Любой у кого есть ваша фраза восстановления может получить или потратить ваши Monoeci."
 
 #: src/js/controllers/copayers.js:56
 msgid "Are you sure you want to cancel and delete this wallet?"
@@ -355,7 +355,7 @@ msgstr "Monoeci Visa® картыllllll"
 #: www/views/addressbook.add.html:38
 #: www/views/includes/incomingDataMenu.html:29
 msgid "Monoeci Address"
-msgstr "Биткойн-адрес"
+msgstr "Monoeci-адрес"
 
 #: www/views/includes/walletSelector.html:42
 #: www/views/tab-home.html:112
@@ -367,7 +367,7 @@ msgstr ""
 #: www/views/preferencesFee.html:4
 #: www/views/tab-settings.html:83
 msgid "Monoeci Network Fee Policy"
-msgstr "Политика комиссии сети Биткойн"
+msgstr "Политика комиссии сети Monoeci"
 
 #: www/views/includes/walletSelector.html:11
 #: www/views/tab-home.html:97
@@ -381,7 +381,7 @@ msgstr ""
 
 #: www/views/onboarding/tour.html:31
 msgid "Monoeci is a currency."
-msgstr "Биткойн - это валюта."
+msgstr "Monoeci - это валюта."
 
 #: www/views/onboarding/disclaimer.html:15
 msgid "Monoeci is different &ndash; it cannot be safely held with a bank or web service."
@@ -389,7 +389,7 @@ msgstr "Monoeci is different &ndash; it cannot be safely held with a bank or web
 
 #: www/views/onboarding/tour.html:18
 msgid "Monoeci is secure,<br>digital money."
-msgstr "Биткойн это безопасные,<br>цифровые деньги."
+msgstr "Monoeci это безопасные,<br>цифровые деньги."
 
 #: www/views/preferencesFee.html:11
 msgid "Monoeci transactions include a fee collected by miners on the network."
@@ -423,11 +423,11 @@ msgstr "Купить"
 
 #: www/views/includes/buyAndSellCard.html:3
 msgid "Buy &amp; Sell Monoeci"
-msgstr "Купить &amp; продать биткойн"
+msgstr "Купить &amp; продать Monoeci"
 
 #: www/views/tab-send.html:40
 msgid "Buy Monoeci"
-msgstr "Купить биткойн"
+msgstr "Купить Monoeci"
 
 #: www/views/mercadoLibre.html:22
 #: www/views/mercadoLibre.html:50
@@ -440,7 +440,7 @@ msgstr "Купить"
 
 #: src/js/services/onGoingProcess.js:40
 msgid "Buying Monoeci..."
-msgstr "Покупка биткойн..."
+msgstr "Покупка Monoeci..."
 
 #: src/js/services/onGoingProcess.js:12
 msgid "Calculating fee"
@@ -814,7 +814,7 @@ msgstr "Создать общий кошелёк"
 #: www/views/tab-home.html:89
 #: www/views/tab-send.html:41
 msgid "Create monoeci wallet"
-msgstr "Создать биткойн-кошелёк"
+msgstr "Создать Monoeci-кошелёк"
 
 #: www/views/tab-create-personal.html:131
 msgid "Create new wallet"
@@ -940,7 +940,7 @@ msgstr ""
 
 #: www/views/addresses.html:19
 msgid "Each monoeci wallet can generate billions of addresses from your 12-word backup. A new address is automatically generated and shown each time you receive a payment."
-msgstr "Любой биткойн-кошелёк может создать миллиарды адресов из вашей ключевой фразы. Новый адрес автоматически генерируется каждый раз, когда вы получаете платеж."
+msgstr "Любой Monoeci-кошелёк может создать миллиарды адресов из вашей ключевой фразы. Новый адрес автоматически генерируется каждый раз, когда вы получаете платеж."
 
 #: src/js/services/feeService.js:13
 msgid "Economy"
@@ -1477,7 +1477,7 @@ msgstr "Я понимаю"
 
 #: www/views/onboarding/disclaimer.html:21
 msgid "I understand that if this app is moved to another device or deleted, my monoeci can only be recovered with the backup phrase."
-msgstr "Я осознаю, что если {{appName}} будет перемещён на другое устройство, или удален, мои биткойны будут восстановимы только с помощью ключевого словосочетания."
+msgstr "Я осознаю, что если {{appName}} будет перемещён на другое устройство, или удален, мои Monoeci будут восстановимы только с помощью ключевого словосочетания."
 
 #: www/views/onboarding/disclaimer.html:18
 msgid "I understand that my funds are held securely on this device, not by a company."
@@ -1635,7 +1635,7 @@ msgstr "Это правильный email?"
 
 #: www/views/addresses.html:25
 msgid "It's a good idea to avoid reusing addresses - this both protects your privacy and keeps your monoecis secure against hypothetical attacks by quantum computers."
-msgstr "Не используйте адреса повторно - это защитит вашу конфиденциальность и сохранит ваши биткойны в безопасности от возможных атак на квантовых компьютерах."
+msgstr "Не используйте адреса повторно - это защитит вашу конфиденциальность и сохранит ваши Monoeci в безопасности от возможных атак на квантовых компьютерах."
 
 #: src/js/controllers/backup.js:76
 msgid "It's important that you write your backup phrase down correctly. If something happens to your wallet, you'll need this backup to recover your money. Please review your backup and try again."
@@ -1851,7 +1851,7 @@ msgstr ""
 
 #: www/views/onboarding/backupRequest.html:5
 msgid "No backup, no monoeci."
-msgstr "Нет резервной копии - нет биткойнов."
+msgstr "Нет резервной копии - нет Monoeciов."
 
 #: www/views/addressbook.html:19
 msgid "No contacts yet"
@@ -1953,7 +1953,7 @@ msgstr ""
 
 #: www/views/modals/wallets.html:25
 msgid "Notice: only 1-1 (single signature) wallets can be used for sell monoeci"
-msgstr "Внимание: только 1-1 кошельки (требующие одной подписи) могут быть использованы для продажи биткойн"
+msgstr "Внимание: только 1-1 кошельки (требующие одной подписи) могут быть использованы для продажи Monoeci"
 
 #: www/views/preferencesNotifications.html:3
 #: www/views/tab-settings.html:54
@@ -2508,7 +2508,7 @@ msgstr "Поиск транзакций"
 
 #: www/views/tab-send.html:18
 msgid "Search or enter monoeci address"
-msgstr "Найти или ввести биткойн-адрес"
+msgstr "Найти или ввести Monoeci-адрес"
 
 #: www/views/modals/search.html:16
 msgid "Search transactions"
@@ -2540,7 +2540,7 @@ msgstr "Самозаверенные сертификат"
 
 #: src/js/services/onGoingProcess.js:41
 msgid "Selling Monoeci..."
-msgstr "Продажа биткойн..."
+msgstr "Продажа Monoeci..."
 
 #: www/views/feedback/send.html:13
 #: www/views/feedback/send.html:43
@@ -2693,7 +2693,7 @@ msgstr "Показать дополнительные параметры"
 
 #: www/views/tab-send.html:42
 msgid "Show monoeci address"
-msgstr "Показать биткойн-адрес"
+msgstr "Показать Monoeci-адрес"
 
 #: www/views/tab-send.html:64
 msgid "Show more"
@@ -2804,7 +2804,7 @@ msgstr "ЭТО ДЕЙСТВИЕ НЕ МОЖЕТ БЫТЬ ОТМЕНЕНО"
 
 #: www/views/onboarding/welcome.html:5
 msgid "Take control of your money,<br>get started with monoeci."
-msgstr "Возьмите ваши финансы под контроль,<br>начните пользоваться Биткойн."
+msgstr "Возьмите ваши финансы под контроль,<br>начните использовать Monoeci."
 
 #: www/views/walletDetails.html:132
 #: www/views/walletDetails.html:52
@@ -2860,15 +2860,15 @@ msgstr "Приложение Ledger для Chrome не установлено"
 
 #: www/views/modals/wallet-balance.html:55
 msgid "The amount of monoeci immediately spendable from this wallet."
-msgstr "Сумма биткойнов доступных для совершения платежей."
+msgstr "Сумма Monoeci доступных для совершения платежей."
 
 #: www/views/modals/wallet-balance.html:93
 msgid "The amount of monoeci stored in this wallet that is allocated as inputs to your pending transaction proposals. The amount is determined using unspent transaction outputs associated with this wallet and may be more than the actual amounts associated with your pending transaction proposals."
-msgstr "Сумма биткойнов, выделенных в качестве входов для ожидающих рассмотрения платежей. Сумма определяется непотраченными выходами, ассоциированными с этим кошельком, и может превышать сумму, ассоциированную с предложенными платежами."
+msgstr "Чтобы начать работу, вам нужно создать кошелёк и получить Monoeci."
 
 #: www/views/modals/wallet-balance.html:74
 msgid "The amount of monoeci stored in this wallet with less than 1 blockchain confirmation."
-msgstr "Сумма биткойнов с менее, чем одним подтверждением."
+msgstr "Сумма Monoeci с менее, чем одним подтверждением."
 
 #: www/views/tab-import-phrase.html:5
 msgid "The derivation path"
@@ -2923,7 +2923,7 @@ msgstr "Предложенный платёж больше не на рассм�
 
 #: www/views/modals/wallet-balance.html:36
 msgid "The total amount of monoeci stored in this wallet."
-msgstr "Сумма биткойнов в этом кошельке."
+msgstr "Сумма Monoeci в этом кошельке."
 
 #: www/views/preferencesHistory.html:27
 msgid "The transaction history and every new incoming transaction are cached in the app. This feature clean this up and synchronizes again from the server"
@@ -2999,11 +2999,11 @@ msgstr "Кому"
 
 #: www/views/tab-send.html:37
 msgid "To get started, buy monoeci or share your address. You can receive monoeci from any wallet or service."
-msgstr "Чтобы начать работу, купите биткойн или поделитесь вашим адресом. Вы можете получать биткойны из любого кошелька или сервиса."
+msgstr "Чтобы начать работу, купите Monoeci или поделитесь вашим адресом. Вы можете получать Monoeci из любого кошелька или сервиса."
 
 #: www/views/tab-send.html:38
 msgid "To get started, you'll need to create a monoeci wallet and get some monoeci."
-msgstr "Чтобы начать работу, вам нужно создать кошелёк и получить биткойн."
+msgstr "Чтобы начать работу, вам нужно создать кошелёк и получить Monoeci."
 
 #: src/js/services/bitpayAccountService.js:73
 msgid "To {{reason}} you must first add your Monoeci account - {{email}}"
@@ -3458,7 +3458,7 @@ msgstr ""
 
 #: www/views/tab-scan.html:16
 msgid "You can scan monoeci addresses, payment requests, paper wallets, and more."
-msgstr "Вы можете сканировать биткойн-адреса, запросы платежей, бумажные кошельки, и многое другое."
+msgstr "Вы можете сканировать Monoeci-адреса, запросы платежей, бумажные кошельки, и многое другое."
 
 #: src/js/controllers/preferencesAbout.js:14
 msgid "You can see the latest developments and contribute to this open source app by visiting our project on GitHub."
