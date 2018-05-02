@@ -54,7 +54,7 @@ msgstr "注意：合計{{amountAboveMaxSizeStr}} を除外しました。取引�
 
 #: src/js/controllers/confirm.js:395
 msgid "A total of {{amountBelowFeeStr}} were excluded. These funds come from UTXOs smaller than the network fee provided."
-msgstr "注意：合計 {{amountBelowFeeStr}} を除外しました。これらのビットコインは手数料よりも低い額となるため除外しました。"
+msgstr "注意：合計 {{amountBelowFeeStr}} を除外しました。これらのmonoeciは手数料よりも低い額となるため除外しました。"
 
 #: src/js/controllers/preferencesAbout.js:6
 #: www/views/tab-settings.html:149
@@ -179,11 +179,11 @@ msgstr "全アドレス"
 
 #: www/views/modals/wallet-balance.html:18
 msgid "All of your monoeci wallet balance may not be available for immediate spending."
-msgstr "ビットコインのウォレットの残高の内、即座に送れないビットコインが含まれている可能性があります。"
+msgstr "monoeciのウォレットの残高の内、即座に送れないmonoeciが含まれている可能性があります。"
 
 #: www/views/tab-receive.html:25
 msgid "All signing devices must be added to this multisig wallet before monoeci addresses can be created."
-msgstr "この共有ウォレットの必要参加者の人数が集まるまではビットコインアドレスを発行することができません。"
+msgstr "この共有ウォレットの必要参加者の人数が集まるまではmonoeciアドレスを発行することができません。"
 
 #: www/views/tab-scan.html:21
 msgid "Allow Camera Access"
@@ -230,11 +230,11 @@ msgstr "このアプリのアップデートがあります。セキュリティ
 
 #: www/views/backupWarning.html:14
 msgid "Anyone with your backup phrase can access or spend your monoeci."
-msgstr "復元フレーズを知る者はあなたのビットコインが勝手に送れてしまいます。"
+msgstr "復元フレーズを知る者はあなたのmonoeciが勝手に送れてしまいます。"
 
 #: www/views/addresses.html:94
 msgid "Approximate Monoeci network fee to transfer wallet's balance (with normal priority)"
-msgstr "ウォレットの残高を送るために推測される必要なビットコインネットワーク手数料(優先度：普通)"
+msgstr "ウォレットの残高を送るために推測される必要なmonoeciネットワーク手数料(優先度：普通)"
 
 #: www/views/backupWarning.html:10
 msgid "Are you being watched?"
@@ -242,7 +242,7 @@ msgstr "見られていませんか？"
 
 #: src/js/controllers/preferencesExternal.js:15
 msgid "Are you being watched? Anyone with your recovery phrase can access or spend your monoeci."
-msgstr "見られていますか？ 復元フレーズを知る者はあなたのビットコインが勝手に送れてしまいます。"
+msgstr "見られていますか？ 復元フレーズを知る者はあなたのmonoeciが勝手に送れてしまいます。"
 
 #: src/js/controllers/copayers.js:56
 msgid "Are you sure you want to cancel and delete this wallet?"
@@ -305,7 +305,7 @@ msgstr "階級アドレス派生のパス"
 
 #: www/views/preferencesCash.html:25
 msgid "BTC wallets"
-msgstr "ビットコインウォレット"
+msgstr "monoeciウォレット"
 
 #: www/views/preferences.html:34
 msgid "Backup"
@@ -357,45 +357,45 @@ msgstr "MonoeciのVISA&reg; カード"
 #: www/views/addressbook.add.html:38
 #: www/views/includes/incomingDataMenu.html:29
 msgid "Monoeci Address"
-msgstr "ビットコインアドレス"
+msgstr "monoeciアドレス"
 
 #: www/views/includes/walletSelector.html:42
 #: www/views/tab-home.html:112
 #: www/views/tab-settings.html:108
 msgid "Monoeci Wallets"
-msgstr "ビットコインキャッシュウォレット"
+msgstr "monoeciキャッシュウォレット"
 
 #: www/views/modals/chooseFeeLevel.html:4
 #: www/views/preferencesFee.html:4
 #: www/views/tab-settings.html:83
 msgid "Monoeci Network Fee Policy"
-msgstr "ビットコインネットワークの手数料設定"
+msgstr "monoeciネットワークの手数料設定"
 
 #: www/views/includes/walletSelector.html:11
 #: www/views/tab-home.html:97
 #: www/views/tab-settings.html:100
 msgid "Monoeci Wallets"
-msgstr "ビットコインウォレット"
+msgstr "monoeciウォレット"
 
 #: src/js/services/incomingData.js:151
 msgid "Monoeci Payment"
-msgstr "ビットコインキャッシュペイメント"
+msgstr "monoeciキャッシュペイメント"
 
 #: www/views/onboarding/tour.html:31
 msgid "Monoeci is a currency."
-msgstr "ビットコインは通貨の一つ"
+msgstr "monoeciは通貨の一つ"
 
 #: www/views/onboarding/disclaimer.html:15
 msgid "Monoeci is different &ndash; it cannot be safely held with a bank or web service."
-msgstr "ビットコインは違う &ndash; 銀行やウェブのサービスに安全に預けることはできません。"
+msgstr "monoeciは違う &ndash; 銀行やウェブのサービスに安全に預けることはできません。"
 
 #: www/views/onboarding/tour.html:18
 msgid "Monoeci is secure,<br>digital money."
-msgstr "ビットコインは世界で<br>最も安全な仮想通貨。"
+msgstr "monoeciは世界で<br>最も安全な仮想通貨。"
 
 #: www/views/preferencesFee.html:11
 msgid "Monoeci transactions include a fee collected by miners on the network."
-msgstr "ビットコインの取引はネットワークの安全を守る「採掘者」と呼ばれる者達に送る手数料が含まれます。"
+msgstr "monoeciの取引はネットワークの安全を守る「採掘者」と呼ばれる者達に送る手数料が含まれます。"
 
 #: www/views/buyAmazon.html:108
 msgid "Bought {{amountUnitStr}}"
@@ -425,11 +425,11 @@ msgstr "購入"
 
 #: www/views/includes/buyAndSellCard.html:3
 msgid "Buy &amp; Sell Monoeci"
-msgstr "ビットコインの購入&amp;売却"
+msgstr "monoeciの購入&amp;売却"
 
 #: www/views/tab-send.html:40
 msgid "Buy Monoeci"
-msgstr "ビットコインを購入"
+msgstr "monoeciを購入"
 
 #: www/views/mercadoLibre.html:22
 #: www/views/mercadoLibre.html:50
@@ -442,7 +442,7 @@ msgstr "今すぐ購入"
 
 #: src/js/services/onGoingProcess.js:40
 msgid "Buying Monoeci..."
-msgstr "ビットコインを購入中..."
+msgstr "monoeciを購入中..."
 
 #: src/js/services/onGoingProcess.js:12
 msgid "Calculating fee"
@@ -624,7 +624,7 @@ msgstr "翻訳に協力"
 
 #: src/js/controllers/confirm.js:130
 msgid "Copay only supports Monoeci using new version numbers addresses"
-msgstr "Copay のビットコインキャッシュはビットコインと完全に異なる別通貨なので、アドレスの頭文字が異なります。"
+msgstr "Copay のmonoeciキャッシュはmonoeciと完全に異なる別通貨なので、アドレスの頭文字が異なります。"
 
 #: src/js/services/bwcError.js:62
 msgid "Copayer already in this wallet"
@@ -816,7 +816,7 @@ msgstr "共有ウォレットを作成"
 #: www/views/tab-home.html:89
 #: www/views/tab-send.html:41
 msgid "Create monoeci wallet"
-msgstr "ビットコインウォレット作成"
+msgstr "monoeciウォレット作成"
 
 #: www/views/tab-create-personal.html:131
 msgid "Create new wallet"
@@ -934,7 +934,7 @@ msgstr "ダウンロード"
 
 #: www/views/preferencesCash.html:37
 msgid "Duplicate for BCH"
-msgstr "ビットコインキャッシュウォレットを複製"
+msgstr "monoeciキャッシュウォレットを複製"
 
 #: src/js/services/onGoingProcess.js:49
 msgid "Duplicating wallet..."
@@ -942,7 +942,7 @@ msgstr "ウォレットを複製しています..."
 
 #: www/views/addresses.html:19
 msgid "Each monoeci wallet can generate billions of addresses from your 12-word backup. A new address is automatically generated and shown each time you receive a payment."
-msgstr "12個の単語から無限大のアドレスを生成することができ、それをビットコインウォレットと呼びます。送金を受け取る度に新しいアドレスを生成して受取画面でお見せします。"
+msgstr "12個の単語から無限大のアドレスを生成することができ、それをmonoeciウォレットと呼びます。送金を受け取る度に新しいアドレスを生成して受取画面でお見せします。"
 
 #: src/js/services/feeService.js:13
 msgid "Economy"
@@ -1397,7 +1397,7 @@ msgstr "ハードウェアウォレット"
 #: src/js/controllers/create.js:178
 #: src/js/controllers/join.js:144
 msgid "Hardware wallets are not yet supported with Monoeci"
-msgstr "ビットコインキャッシュはまだハードウェアウォレットに対応しておりません。"
+msgstr "monoeciキャッシュはまだハードウェアウォレットに対応しておりません。"
 
 #: www/views/modals/mercadolibre-card-details.html:69
 #: www/views/tab-settings.html:20
@@ -1479,11 +1479,11 @@ msgstr "承知しました"
 
 #: www/views/onboarding/disclaimer.html:21
 msgid "I understand that if this app is moved to another device or deleted, my monoeci can only be recovered with the backup phrase."
-msgstr "このアプリが別の端末に移動されたり、削除されたりした場合に、含まれたビットコインが復元フレーズからのみ復元ができることを理解しています。"
+msgstr "このアプリが別の端末に移動されたり、削除されたりした場合に、含まれたmonoeciが復元フレーズからのみ復元ができることを理解しています。"
 
 #: www/views/onboarding/disclaimer.html:18
 msgid "I understand that my funds are held securely on this device, not by a company."
-msgstr "自分のビットコインがこの端末に入っていて、外部のサーバー等に保管は一切されていないことを理解しています。"
+msgstr "自分のmonoeciがこの端末に入っていて、外部のサーバー等に保管は一切されていないことを理解しています。"
 
 #: www/views/backup.html:36
 msgid "I've written it down"
@@ -1499,11 +1499,11 @@ msgstr "有効にした場合、「最近の取引」カードがホームのメ
 
 #: www/views/advancedSettings.html:14
 msgid "If enabled, wallets will also try to spend unconfirmed funds. This option may cause transaction delays."
-msgstr "有効にした場合、ウォレットは未承認ビットコインも送金時の候補に含めます。これを有効にした場合、承認に時間がかかることがあります。"
+msgstr "有効にした場合、ウォレットは未承認monoeciも送金時の候補に含めます。これを有効にした場合、承認に時間がかかることがあります。"
 
 #: src/js/controllers/onboarding/backupRequest.js:18
 msgid "If this device is replaced or this app is deleted, neither you nor Monoeci can recover your funds without a backup."
-msgstr "この端末の機種変更をしたり、アプリを削除したりした場合、端末のバックアップを取っていてもビットコインは復元されません。Monoeciは復元フレーズを知らないため、お金を失ったことになります。なので、絶対に復元フレーズを書き留めて安全な場所に保管して下さい。"
+msgstr "この端末の機種変更をしたり、アプリを削除したりした場合、端末のバックアップを取っていてもmonoeciは復元されません。Monoeciは復元フレーズを知らないため、お金を失ったことになります。なので、絶対に復元フレーズを書き留めて安全な場所に保管して下さい。"
 
 #: www/views/feedback/complete.html:23
 msgid "If you have additional feedback, please let us know by tapping the \"Send feedback\" option in the Settings tab."
@@ -1511,7 +1511,7 @@ msgstr "他にご意見などありましたら、設定画面の「フィード
 
 #: www/views/includes/screenshotWarningModal.html:8
 msgid "If you take a screenshot, your backup may be viewed by other apps. You can make a safe backup with physical paper and a pen."
-msgstr "画面写真を撮ってしまうと、その時点で他のアプリに見られるようになりますので、そのアプリの運営者が安易にビットコインを全て盗めます。安全にバックアップを取るには、紙とボールペンで書き留めましょう。"
+msgstr "画面写真を撮ってしまうと、その時点で他のアプリに見られるようになりますので、そのアプリの運営者が安易にmonoeciを全て盗めます。安全にバックアップを取るには、紙とボールペンで書き留めましょう。"
 
 #: www/views/tab-import-hardware.html:42
 #: www/views/tab-import-phrase.html:80
@@ -1637,11 +1637,11 @@ msgstr "このメールアドレスで宜しいですか？"
 
 #: www/views/addresses.html:25
 msgid "It's a good idea to avoid reusing addresses - this both protects your privacy and keeps your monoecis secure against hypothetical attacks by quantum computers."
-msgstr "アドレスの再利用は避けましょう。これはプライバシーを守ることももちろんのこと、将来的にあり得るかもしれない量子コンピューターからの、ある攻撃からビットコインを守ることもできます。"
+msgstr "アドレスの再利用は避けましょう。これはプライバシーを守ることももちろんのこと、将来的にあり得るかもしれない量子コンピューターからの、ある攻撃からmonoeciを守ることもできます。"
 
 #: src/js/controllers/backup.js:76
 msgid "It's important that you write your backup phrase down correctly. If something happens to your wallet, you'll need this backup to recover your money. Please review your backup and try again."
-msgstr "正確に復元フレーズを書き留めることが大変重要です。このアプリやこの端末に問題が発生したりデータが破損したりすると、ビットコインの残高を元に戻すためには復元フレーズが必須になってきます。バックアップを再確認して、もう一度お試し下さい。"
+msgstr "正確に復元フレーズを書き留めることが大変重要です。このアプリやこの端末に問題が発生したりデータが破損したりすると、monoeciの残高を元に戻すためには復元フレーズが必須になってきます。バックアップを再確認して、もう一度お試し下さい。"
 
 #: www/views/join.html:151
 msgid "Join"
@@ -1910,7 +1910,7 @@ msgstr "ペーパーウォレットの出金を受け取るためのウォレッ
 
 #: www/views/preferencesCash.html:15
 msgid "No wallets eligible for Monoeci support"
-msgstr "ビットコインキャッシュ対応できるウォレットがありません。"
+msgstr "monoeciキャッシュ対応できるウォレットがありません。"
 
 #: src/js/controllers/preferencesCash.js:58
 msgid "Non BIP44 wallet"
@@ -1918,7 +1918,7 @@ msgstr "非 BIP44 ウォレット"
 
 #: www/views/preferencesCash.html:46
 msgid "Non eligible BTC wallets"
-msgstr "非対応ビットコインウォレット"
+msgstr "非対応monoeciウォレット"
 
 #: src/js/services/feeService.js:12
 msgid "Normal"
@@ -1951,11 +1951,11 @@ msgstr "メモ"
 
 #: www/views/backup.html:19
 msgid "Note: if this BCH wallet was duplicated from a BTC wallet, they share the same recovery phrase."
-msgstr "注意: このビットコインキャッシュウォレットがビットコインウォレットからの複製の場合、復元フレーズは一緒です。"
+msgstr "注意: このmonoeciキャッシュウォレットがmonoeciウォレットからの複製の場合、復元フレーズは一緒です。"
 
 #: www/views/modals/wallets.html:25
 msgid "Notice: only 1-1 (single signature) wallets can be used for sell monoeci"
-msgstr "注意： ビットコインの売却は 1-of-1 (単一署名) のウォレットからしか行えません。"
+msgstr "注意： monoeciの売却は 1-of-1 (単一署名) のウォレットからしか行えません。"
 
 #: www/views/preferencesNotifications.html:3
 #: www/views/tab-settings.html:54
@@ -2095,7 +2095,7 @@ msgstr "バックアップの文字をここに貼り付けて下さい"
 
 #: www/views/bitpayCardIntro.html:28
 msgid "Pay 0% fees to turn monoeci into dollars."
-msgstr "0% 手数料でビットコインを米ドルに替える"
+msgstr "0% 手数料でmonoeciを米ドルに替える"
 
 #: www/views/modals/paypro.html:18
 msgid "Pay To"
@@ -2156,7 +2156,7 @@ msgstr "取引が承認されました。Glideraより送信されます。問�
 
 #: src/js/services/incomingData.js:152
 msgid "Payment address was translated to new Monoeci address format:"
-msgstr "支払先アドレスはビットコインキャッシュの新フォーマットに変更された:"
+msgstr "支払先アドレスはmonoeciキャッシュの新フォーマットに変更された:"
 
 #: www/views/modals/txp-details.html:107
 msgid "Payment details"
@@ -2510,7 +2510,7 @@ msgstr "取引を検索"
 
 #: www/views/tab-send.html:18
 msgid "Search or enter monoeci address"
-msgstr "連絡先検索かビットコインアドレスを指定"
+msgstr "連絡先検索かmonoeciアドレスを指定"
 
 #: www/views/modals/search.html:16
 msgid "Search transactions"
@@ -2542,7 +2542,7 @@ msgstr "自己署名証明書"
 
 #: src/js/services/onGoingProcess.js:41
 msgid "Selling Monoeci..."
-msgstr "ビットコインを売却中..."
+msgstr "monoeciを売却中..."
 
 #: www/views/feedback/send.html:13
 #: www/views/feedback/send.html:43
@@ -2562,7 +2562,7 @@ msgstr "送金する"
 
 #: www/views/allAddresses.html:19
 msgid "Send addresses by email"
-msgstr "ビットコインアドレスをメールにて共有"
+msgstr "monoeciアドレスをメールにて共有"
 
 #: www/views/includes/logOptions.html:17
 #: www/views/tab-export-file.html:82
@@ -2697,7 +2697,7 @@ msgstr "詳細設定を表示"
 
 #: www/views/tab-send.html:42
 msgid "Show monoeci address"
-msgstr "ビットコインアドレスを表示"
+msgstr "monoeciアドレスを表示"
 
 #: www/views/tab-send.html:64
 msgid "Show more"
@@ -2713,7 +2713,7 @@ msgstr "取引署名中"
 
 #: www/views/onboarding/backupRequest.html:6
 msgid "Since only you control your money, you’ll need to save your backup phrase in case this app is deleted."
-msgstr "ビットコインの管理は全てご自身でしていただくため、端末やアプリの不具合や削除に備えるために復元フレーズを書き留めていただきます。"
+msgstr "monoeciの管理は全てご自身でしていただくため、端末やアプリの不具合や削除に備えるために復元フレーズを書き留めていただきます。"
 
 #: www/views/tab-create-personal.html:122
 #: www/views/tab-create-shared.html:151
@@ -2745,7 +2745,7 @@ msgstr "スライドして送る"
 
 #: www/views/preferencesCash.html:56
 msgid "Some of your wallets are not eligible for Monoeci support. You can try to access BCH funds from these wallets using the"
-msgstr "いくつかのウォレットがビットコインキャッシュに対応できません。ビットコインキャッシュの取り戻しは復元ツールで試すとうまくいくかもしれません。"
+msgstr "いくつかのウォレットがmonoeciキャッシュに対応できません。monoeciキャッシュの取り戻しは復元ツールで試すとうまくいくかもしれません。"
 
 #: src/js/controllers/create.js:86
 #: src/js/controllers/join.js:70
@@ -2766,11 +2766,11 @@ msgstr "パスワードが必要"
 
 #: www/views/walletDetails.html:173
 msgid "Spending this balance will need significant Monoeci network fees"
-msgstr "この入力の組み合わせを送金するために膨大なビットコインネットワーク手数料を必要とします"
+msgstr "この入力の組み合わせを送金するために膨大なmonoeciネットワーク手数料を必要とします"
 
 #: www/views/tab-send.html:33
 msgid "Start sending monoeci"
-msgstr "ビットコインの送金を始めましょう"
+msgstr "monoeciの送金を始めましょう"
 
 #: www/views/lockSetup.html:3
 msgid "Startup Lock"
@@ -2800,7 +2800,7 @@ msgstr "ペーパーウォレットの全残高インポート"
 
 #: src/js/services/onGoingProcess.js:33
 msgid "Sweeping Wallet..."
-msgstr "ビットコイン回収中…"
+msgstr "monoeci回収中…"
 
 #: www/views/preferencesDeleteWallet.html:16
 msgid "THIS ACTION CANNOT BE REVERSED"
@@ -2808,7 +2808,7 @@ msgstr "＊＊＊注意＊＊＊ このアクションを元に戻すことは�
 
 #: www/views/onboarding/welcome.html:5
 msgid "Take control of your money,<br>get started with monoeci."
-msgstr "お金のコントロールを取り戻そう、<br>ビットコインをはじめよう"
+msgstr "お金のコントロールを取り戻そう、<br>monoeciをはじめよう"
 
 #: www/views/walletDetails.html:132
 #: www/views/walletDetails.html:52
@@ -2884,11 +2884,11 @@ msgstr "為替レートは市場と共に変動する"
 
 #: www/views/preferencesFee.html:12
 msgid "The higher the fee, the greater the incentive a miner has to include that transaction in a block. Current fees are determined based on network load and the selected policy."
-msgstr "円滑な送金をしていただくために、ビットコインの送金には少量の手数料を付けることが義務付けられております。この手数料はビットコインのネットワークを運用する人たちに寄付され、より高い手数料であればより優先的にブロックに含まれ、承認されます。選択された手数料基準やネットワークの混雑状況により、その時点で払われるべき手数料が変動することがあります。"
+msgstr "円滑な送金をしていただくために、monoeciの送金には少量の手数料を付けることが義務付けられております。この手数料はmonoeciのネットワークを運用する人たちに寄付され、より高い手数料であればより優先的にブロックに含まれ、承認されます。選択された手数料基準やネットワークの混雑状況により、その時点で払われるべき手数料が変動することがあります。"
 
 #: www/views/addresses.html:51
 msgid "The maximum number of consecutive unused addresses (20) has been reached. When one of your unused addresses receives a payment, a new address will be generated and shown in your Receive tab."
-msgstr "連続未使用アドレスの上限(20)に達しました。どれかにアドレスにビットコインが少量でも入れば再び受取画面にて新しいアドレスを生成することができるようになります。"
+msgstr "連続未使用アドレスの上限(20)に達しました。どれかにアドレスにmonoeciが少量でも入れば再び受取画面にて新しいアドレスを生成することができるようになります。"
 
 #: src/js/controllers/onboarding/terms.js:21
 msgid "The official English Terms of Service are available on the Monoeci website."
@@ -2921,7 +2921,7 @@ msgstr "サーバーが要求を処理できませんでした。"
 
 #: www/views/addresses.html:52
 msgid "The restore process will stop when 20 addresses are generated in a row which contain no funds. To safely generate more addresses, make a payment to one of the unused addresses which has already been generated."
-msgstr "復元のプロセスは残高の無いアドレスを20個連続で生成した場合に中止します。更にアドレスを生成したい場合は既存の20個のアドレスのどれかにビットコインを少量でも入金しますと、新しいアドレスが生成できます。"
+msgstr "復元のプロセスは残高の無いアドレスを20個連続で生成した場合に中止します。更にアドレスを生成したい場合は既存の20個のアドレスのどれかにmonoeciを少量でも入金しますと、新しいアドレスが生成できます。"
 
 #: src/js/services/bwcError.js:98
 msgid "The spend proposal is not pending"
@@ -2929,7 +2929,7 @@ msgstr "送金の提案が協議中ではありません。"
 
 #: www/views/modals/wallet-balance.html:36
 msgid "The total amount of monoeci stored in this wallet."
-msgstr "このウォレットのビットコインの総残高"
+msgstr "このウォレットのmonoeciの総残高"
 
 #: www/views/preferencesHistory.html:27
 msgid "The transaction history and every new incoming transaction are cached in the app. This feature clean this up and synchronizes again from the server"
@@ -2960,17 +2960,17 @@ msgstr "このアプリは素晴らしいです!"
 
 #: www/views/onboarding/tour.html:47
 msgid "This app stores your monoeci with cutting-edge security."
-msgstr "このアプリは、最先端のセキュリティであなたのビットコインをお守りします。"
+msgstr "このアプリは、最先端のセキュリティであなたのmonoeciをお守りします。"
 
 #: src/js/controllers/confirm.js:523
 msgid "This monoeci payment request has expired."
-msgstr "ビットコインペイメントの請求期限が切れています。"
+msgstr "monoeciペイメントの請求期限が切れています。"
 
 #: www/views/join.html:133
 #: www/views/tab-create-personal.html:103
 #: www/views/tab-create-shared.html:132
 msgid "This password cannot be recovered. If the password is lost, there is no way you could recover your funds."
-msgstr "このパスワードは復元できません。リセットすることができません。弊社のサーバーで管理するものではありません。復元フレーズとセットで必ず書き留めておいて下さい。復元フレーズとこのパスワードのどれかを忘れてしまうと、ビットコインを復元することができません。ご注意下さい。"
+msgstr "このパスワードは復元できません。リセットすることができません。弊社のサーバーで管理するものではありません。復元フレーズとセットで必ず書き留めておいて下さい。復元フレーズとこのパスワードのどれかを忘れてしまうと、monoeciを復元することができません。ご注意下さい。"
 
 #: www/views/backup.html:31
 msgid "This recovery phrase was created with a password. To recover this wallet both the recovery phrase and password are needed."
@@ -2978,7 +2978,7 @@ msgstr "この復元フレーズにパスワードがかかっています。こ
 
 #: www/views/tx-details.html:91
 msgid "This transaction amount is too small compared to current Monoeci network fees. Spending these funds will need a Monoeci network fee cost comparable to the funds itself."
-msgstr "この取引の金額はビットコインネットワーク手数料より低いです。送金額より大きい手数料を払ってしまうことになります。"
+msgstr "この取引の金額はmonoeciネットワーク手数料より低いです。送金額より大きい手数料を払ってしまうことになります。"
 
 #: www/views/tx-details.html:87
 msgid "This transaction could take a long time to confirm or could be dropped due to the low fees set by the sender"
@@ -3005,11 +3005,11 @@ msgstr "宛先"
 
 #: www/views/tab-send.html:37
 msgid "To get started, buy monoeci or share your address. You can receive monoeci from any wallet or service."
-msgstr "はじめるには、ビットコインを購入したり、アドレスを他の人に共有したりしましょう。どのビットコインウォレットやサービスから受け取れます。"
+msgstr "はじめるには、monoeciを購入したり、アドレスを他の人に共有したりしましょう。どのmonoeciウォレットやサービスから受け取れます。"
 
 #: www/views/tab-send.html:38
 msgid "To get started, you'll need to create a monoeci wallet and get some monoeci."
-msgstr "はじめに、ビットコインウォレットを作成し、ビットコインを入手する必要があります。"
+msgstr "はじめに、monoeciウォレットを作成し、monoeciを入手する必要があります。"
 
 #: src/js/services/bitpayAccountService.js:73
 msgid "To {{reason}} you must first add your Monoeci account - {{email}}"
@@ -3101,7 +3101,7 @@ msgstr "{{expires}} 経過後にもう一度試してください。"
 
 #: www/views/bitpayCardIntro.html:18
 msgid "Turn monoeci into dollars, swipe anywhere Visa<sup>&reg;</sup> is accepted."
-msgstr "瞬時にビットコインを米ドルに変換！Visa<sup>&reg;</sup>カード利用可能店舗ならどこでも！"
+msgstr "瞬時にmonoeciを米ドルに変換！Visa<sup>&reg;</sup>カード利用可能店舗ならどこでも！"
 
 #: www/views/tab-import-phrase.html:17
 msgid "Type the Recovery Phrase (usually 12 words)"
@@ -3149,7 +3149,7 @@ msgstr "緊急"
 
 #: www/views/advancedSettings.html:12
 msgid "Use Unconfirmed Funds"
-msgstr "未承認ビットコインを使用"
+msgstr "未承認monoeciを使用"
 
 #: src/js/services/onGoingProcess.js:34
 msgid "Validating recovery phrase..."
@@ -3211,7 +3211,7 @@ msgstr "警告: 信頼されていない証明書"
 
 #: www/views/preferencesPrivateKey.html:14
 msgid "WARNING: Your extended private keys are all that is needed to access your monoeci funds. Be sure to protect your private keys and store them only on secure devices. Monoeci does not have access to your private keys, so you alone are responsible for your keys. If you share key access with external services, you take responsibility for the risk of theft or breach. Only advanced users should handle extended private keys directly."
-msgstr "注意： 拡張秘密鍵だけでビットコインをすべて送金できてしまいます。秘密鍵を守り、安全な端末のみにて管理して下さい。Monoeciは秘密鍵へのアクセスができないので、管理する責任は全て自己責任になります。外部のサービスにこの鍵を共有する場合、窃盗などのリスクを全て受け入れた上で宜しくお願いします。拡張秘密鍵を直接扱うのは上級者のユーザーのみです。"
+msgstr "注意： 拡張秘密鍵だけでmonoeciをすべて送金できてしまいます。秘密鍵を守り、安全な端末のみにて管理して下さい。Monoeciは秘密鍵へのアクセスができないので、管理する責任は全て自己責任になります。外部のサービスにこの鍵を共有する場合、窃盗などのリスクを全て受け入れた上で宜しくお願いします。拡張秘密鍵を直接扱うのは上級者のユーザーのみです。"
 
 #: src/js/services/onGoingProcess.js:15
 msgid "Waiting for Ledger..."
@@ -3464,7 +3464,7 @@ msgstr "Crowdinのサイトにて翻訳者登録をして、今すぐに投稿�
 
 #: www/views/tab-scan.html:16
 msgid "You can scan monoeci addresses, payment requests, paper wallets, and more."
-msgstr "ビットコインアドレス、支払い請求、ペーパーウォレットなどをスキャンできます。"
+msgstr "monoeciアドレス、支払い請求、ペーパーウォレットなどをスキャンできます。"
 
 #: src/js/controllers/preferencesAbout.js:14
 msgid "You can see the latest developments and contribute to this open source app by visiting our project on GitHub."
@@ -3472,7 +3472,7 @@ msgstr "GitHubのページにて最近の開発動向を見たり、改善案の
 
 #: www/views/onboarding/tour.html:19
 msgid "You can spend monoeci at millions of websites and stores worldwide."
-msgstr "世界中のECサイトや店舗でビットコインを使って支払いができます。"
+msgstr "世界中のECサイトや店舗でmonoeciを使って支払いができます。"
 
 #: www/views/backup.html:15
 msgid "You can still export it from Advanced &gt; Export."
@@ -3484,7 +3484,7 @@ msgstr "米ドル、ユーロ、ポンドなど他の通貨との取引ができ
 
 #: www/views/onboarding/tour.html:46
 msgid "You control your monoeci."
-msgstr "ビットコインの自己管理"
+msgstr "monoeciの自己管理"
 
 #: www/views/modals/chooseFeeLevel.html:64
 msgid "You should not set a fee higher than {{maxFeeRecommended}} satoshis/byte."
@@ -3509,11 +3509,11 @@ msgstr "ギフトカード"
 
 #: www/views/includes/confirmBackupPopup.html:6
 msgid "Your monoeci wallet is backed up!"
-msgstr "ビットコインウォレットがバックアップされました!"
+msgstr "monoeciウォレットがバックアップされました!"
 
 #: www/views/tab-home.html:50
 msgid "Your monoeci wallet is ready!"
-msgstr "ビットコインウォレットが完成しました!"
+msgstr "monoeciウォレットが完成しました!"
 
 #: www/views/modals/chooseFeeLevel.html:61
 msgid "Your fee is lower than recommended."
@@ -3605,7 +3605,7 @@ msgstr "{{appName}}はブロックチェーンの情報を取得したり参加�
 
 #: src/js/controllers/confirm.js:408
 msgid "{{fee}} will be deducted for monoeci networking fees."
-msgstr "{{fee}} のビットコインネットワーク手数料が差し引かれます。"
+msgstr "{{fee}} のmonoeciネットワーク手数料が差し引かれます。"
 
 #: www/views/confirm.html:85
 msgid "{{tx.txp[wallet.id].feeRatePerStr}}  of the sending amount"
