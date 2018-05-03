@@ -91,7 +91,7 @@ msgstr "Добавить учётную запись"
 
 #: src/js/services/bitpayAccountService.js:69
 msgid "Add Monoeci Account?"
-msgstr "L; pkoi[jpiouhouihuiykjb jvgbgyfcthgfvjyuhnij; okml',./; lkmjnhbg v?"
+msgstr "Добавить учетную запись Monoeci?"
 
 #: www/views/addressbook.add.html:4
 #: www/views/addressbook.html:22
@@ -1851,7 +1851,7 @@ msgstr ""
 
 #: www/views/onboarding/backupRequest.html:5
 msgid "No backup, no monoeci."
-msgstr "Нет резервной копии - нет Monoeciов."
+msgstr "Нет резервной копии - нет Monoeci."
 
 #: www/views/addressbook.html:19
 msgid "No contacts yet"
@@ -3478,7 +3478,7 @@ msgstr ""
 
 #: www/views/onboarding/tour.html:46
 msgid "You control your monoeci."
-msgstr "Вы контролируете Ваши monoeci-ы."
+msgstr "Вы контролируете Ваши monoeci."
 
 #: www/views/modals/chooseFeeLevel.html:64
 msgid "You should not set a fee higher than {{maxFeeRecommended}} satoshis/byte."
