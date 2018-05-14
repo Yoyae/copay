@@ -51,7 +51,6 @@ angular.module('copayApp.controllers').controller('customAmountController', func
 
           amountUnit = parseFloat(amountUnit / xmcc_to_btc);
 
-          // var btcParsedAmount = txFormatService.parseAmount($scope.wallet.coin, amountUnit, $scope.wallet.coin);
           var btcParsedAmount = txFormatService.parseAmount($scope.coin, amountUnit, 'XMCC');
 
           $scope.amountBtc = btcParsedAmount.amount;
@@ -61,15 +60,8 @@ angular.module('copayApp.controllers').controller('customAmountController', func
           conosle.log(err);
         });
       } else {
-        $http.get('https://api.coinmarketcap.com/v1/ticker/monacocoin/').then(function (response) {
-          var value_object = response.data[0];
-          var xmcc_to_btc = parseFloat(value_object.price_btc);
-
-          $scope.amountBtc = parseFloat(amount / xmcc_to_btc);;
-          // $scope.altAmountStr = txFormatService.formatAlternativeStr($scope.wallet.coin, parsedAmount.amountSat);
-
-          $scope.altAmountStr = txFormatService.formatAlternativeStr($scope.coin, parsedAmount.amountSat);
-        });
+        $scope.amountBtc = amount;
+        $scope.altAmountStr = txFormatService.formatAlternativeStr($scope.coin, parsedAmount.amountSat);
       }
     });
   });
