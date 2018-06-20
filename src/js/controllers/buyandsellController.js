@@ -26,7 +26,7 @@ angular.module('copayApp.controllers').controller('buyandsellController', functi
   });
 
   $scope.openMarket = function (url) {
-    $window.open(url, '_self');
+    $window.open(url, '_system');
   };
 
 });
